@@ -1,0 +1,103 @@
+.page {
+    padding-top: calc(var(--nav-height) + var(--space-12));
+    padding-bottom: var(--space-20);
+    min-height: 100vh;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+}
+
+.courseCard {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--dur-base) var(--ease-out);
+}
+
+.courseCard:hover {
+    border-color: var(--primary-100);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px);
+}
+
+.courseImage {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-50), var(--bg-subtle));
+    border-bottom: 1px solid var(--border-light);
+}
+
+.courseEmoji {
+    font-size: 3rem;
+}
+
+.courseBody {
+    padding: var(--space-6);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.courseCategory {
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--primary-600);
+    margin-bottom: var(--space-2);
+}
+
+.courseTitle {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+}
+
+.courseDesc {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: var(--space-5);
+}
+
+.courseMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.courseLessons {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+.coursePrice {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-700);
+    font-size: 0.9375rem;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

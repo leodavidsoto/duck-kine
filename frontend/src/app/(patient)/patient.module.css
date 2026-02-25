@@ -1,0 +1,329 @@
+/* ═══════════════════════════════════════════════════════
+   Patient Module Shared Styles
+   Used by: agenda, historial, progreso, ejercicios,
+            dolor, pagos, programas
+   ═══════════════════════════════════════════════════════ */
+
+.pageHeader {
+    margin-bottom: var(--space-8);
+}
+
+.pageTitle {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: var(--space-1);
+}
+
+.pageDesc {
+    color: var(--text-tertiary);
+    font-size: 0.9375rem;
+}
+
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-4);
+}
+
+/* ─── Cards ──────────────────────────────────────────── */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-5);
+    transition: all var(--dur-base) var(--ease-out);
+}
+
+.card:hover {
+    border-color: var(--primary-100);
+    box-shadow: var(--shadow-sm);
+}
+
+.cardTitle {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+}
+
+.cardRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.cardRow:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* ─── Grid ───────────────────────────────────────────── */
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+}
+
+.grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+}
+
+/* ─── Stat Mini ──────────────────────────────────────── */
+.miniStat {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    text-align: center;
+    transition: all var(--dur-base) var(--ease-out);
+}
+
+.miniStat:hover {
+    border-color: var(--primary-100);
+    box-shadow: var(--shadow-sm);
+}
+
+.miniStatIcon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-2);
+}
+
+.miniStatValue {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.miniStatLabel {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: var(--space-1);
+}
+
+/* ─── Table ──────────────────────────────────────────── */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table th {
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.table td {
+    font-size: 0.875rem;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover td {
+    background: var(--bg-primary-soft);
+}
+
+/* ─── Empty State ────────────────────────────────────── */
+.emptyState {
+    text-align: center;
+    padding: var(--space-10) var(--space-6);
+}
+
+.emptyIcon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-4);
+}
+
+.emptyTitle {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+}
+
+.emptyDesc {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-6);
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ─── Form  ──────────────────────────────────────────── */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.formLabel {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.formInput {
+    padding: 0.625rem var(--space-4);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    transition: border-color var(--dur-fast) var(--ease-out);
+    background: var(--bg-card);
+}
+
+.formInput:focus {
+    outline: none;
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 3px var(--bg-primary-soft);
+}
+
+/* ─── EVA Slider ─────────────────────────────────────── */
+.evaSlider {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #10b981, #f59e0b, #ef4444);
+    outline: none;
+    margin: var(--space-4) 0;
+}
+
+.evaSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary-500);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.evaValue {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1;
+}
+
+.evaLabel {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: var(--space-2);
+}
+
+/* ─── Progress Bar ───────────────────────────────────── */
+.progressBar {
+    height: 8px;
+    background: var(--bg-subtle);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
+    transition: width 0.6s var(--ease-out);
+}
+
+/* ─── Timeline ───────────────────────────────────────── */
+.timeline {
+    position: relative;
+    padding-left: var(--space-8);
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-light);
+}
+
+.timelineItem {
+    position: relative;
+    padding-bottom: var(--space-6);
+}
+
+.timelineDot {
+    position: absolute;
+    left: calc(-1 * var(--space-8) + 4px);
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary-500);
+    border: 3px solid var(--bg-card);
+    box-shadow: 0 0 0 2px var(--primary-200);
+}
+
+.timelineDate {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-1);
+}
+
+.timelineTitle {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.timelineDesc {
+    font-size: 0.8125rem;
+    color: var(--text-tertiary);
+    margin-top: var(--space-1);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    .grid2,
+    .grid3,
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .headerRow {
+        flex-direction: column;
+    }
+}

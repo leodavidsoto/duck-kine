@@ -1,0 +1,1154 @@
+// ═══════════════════════════════════════════════════════════
+// Duck Kinesiología – Database Schema v3
+// Multi-tenant: Organization, Clinic, Franchise
+// ═══════════════════════════════════════════════════════════
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ENUMS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+enum Role {
+  PATIENT
+  PROFESSIONAL
+  CLINIC_DIRECTOR
+  FRANCHISE_ADMIN
+  ORG_ADMIN
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  PATIENT_ABSENT
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum PaymentMethod {
+  WEBPAY
+  TRANSFER
+  CASH
+  SUBSCRIPTION
+  CORPORATE
+}
+
+enum PaymentConcept {
+  SESSION
+  SUBSCRIPTION
+  PROGRAM
+  COURSE
+  PACKAGE
+  OTHER
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum ProgramLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  ELITE
+}
+
+enum ProgramType {
+  REHABILITATION
+  SPORTS_PERFORMANCE
+  PREVENTION
+  POST_SURGICAL
+  CHRONIC_PAIN
+  RETURN_TO_SPORT
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+  CANCELLED
+  EXPIRED
+}
+
+enum SubscriptionPlan {
+  BASIC
+  STANDARD
+  PREMIUM
+  CUSTOM
+}
+
+enum SubscriptionStatus {
+  TRIAL
+  ACTIVE
+  PAUSED
+  PAST_DUE
+  CANCELLED
+  EXPIRED
+}
+
+enum BillingCycle {
+  MONTHLY
+  QUARTERLY
+  SEMI_ANNUAL
+  ANNUAL
+}
+
+enum CorporatePlanStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum NotificationType {
+  APPOINTMENT
+  SESSION
+  PAYMENT
+  PROGRAM
+  ACADEMY
+  SUBSCRIPTION
+  PROGRESS
+  SYSTEM
+}
+
+enum CourseCategory {
+  REHABILITATION
+  SPORTS
+  WELLNESS
+  PROFESSIONAL
+}
+
+enum AssessmentType {
+  INITIAL
+  FOLLOW_UP
+  DISCHARGE
+  SPORTS_SCREENING
+}
+
+enum PainLevel {
+  NONE
+  MILD
+  MODERATE
+  SEVERE
+  EXTREME
+}
+
+enum Laterality {
+  LEFT
+  RIGHT
+  BILATERAL
+  NOT_APPLICABLE
+}
+
+// ── Multi-tenant enums ──────────────────────────────────
+enum ClinicType {
+  PROPIA
+  FRANQUICIA
+}
+
+enum ClinicStatus {
+  ACTIVE
+  SUSPENDED
+  CLOSED
+  COMING_SOON
+}
+
+enum ClinicRole {
+  DIRECTOR
+  COORDINATOR
+  STAFF
+}
+
+enum RoomType {
+  TREATMENT
+  GYM
+  EVALUATION
+  HYDROTHERAPY
+}
+
+enum LicenseStatus {
+  LICENSE_PENDING
+  LICENSE_ACTIVE
+  LICENSE_SUSPENDED
+  LICENSE_TERMINATED
+  LICENSE_EXPIRED
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  1. USERS & AUTH
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model User {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  passwordHash    String
+  firstName       String
+  lastName        String
+  rut             String   @unique
+  phone           String?
+  role            Role     @default(PATIENT)
+  isActive        Boolean  @default(true)
+  avatarUrl       String?
+  defaultClinicId String?  // Sede preferida del usuario
+  lastLoginAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  patient       Patient?
+  professional  Professional?
+  notifications Notification[]
+
+  @@index([email])
+  @@index([rut])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  2. PATIENTS (expanded)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Patient {
+  id                String    @id @default(uuid())
+  userId            String    @unique
+  birthDate         DateTime?
+  gender            Gender?
+  nationality       String?   @default("Chilena")
+  address           String?
+  commune           String?   // Comuna de Santiago
+  region            String?   @default("Metropolitana")
+  occupation        String?
+  prevision         String?   // FONASA, ISAPRE, Particular
+  previsionDetail   String?   // Tramo FONASA / Nombre ISAPRE
+  previsionNumber   String?   // N° de afiliación
+  emergencyContact  String?
+  emergencyPhone    String?
+  emergencyRelation String?   // Parentesco
+  medicalHistory    String?   @db.Text
+  surgicalHistory   String?   @db.Text
+  familyHistory     String?   @db.Text
+  allergies         String?   @db.Text
+  medications       String?   @db.Text  // Medicamentos actuales
+  smokingStatus     String?   // No fuma, Exfumador, Fumador activo
+  activityLevel     String?   // Sedentario, Leve, Moderado, Intenso
+  sport             String?   // Deporte principal si aplica
+  referralSource    String?   // Cómo llegó a la clínica
+  notes             String?   @db.Text
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user               User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clinicalRecords    ClinicalRecord[]
+  appointments       Appointment[]
+  sessions           Session[]
+  payments           Payment[]
+  subscriptions      Subscription[]
+  sportEnrollments   SportsProgramEnrollment[]
+  courseEnrollments   CourseEnrollment[]
+  physicalAssessments PhysicalAssessment[]
+  bodyMetrics        BodyMetrics[]
+  functionalTests    FunctionalTest[]
+  painRecords        PainRecord[]
+  treatmentGoals     TreatmentGoal[]
+
+  @@index([userId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  3. PROFESSIONALS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Professional {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  specialty      String   // Traumatología, Deportiva, Neurología, etc.
+  licenseNumber  String?  // N° registro SIS
+  university     String?
+  yearsExperience Int?
+  bio            String?  @db.Text
+  avatarUrl      String?
+  colorTag       String?  // Color en calendario
+  isAvailable    Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clinicalRecords ClinicalRecord[]
+  appointments    Appointment[]
+  sessions        Session[]
+  schedules       Schedule[]
+  physicalAssessments PhysicalAssessment[]
+  clinics         ClinicProfessional[]      // Multi-sede
+
+  @@index([userId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  4. CLINICAL RECORDS / FICHAS CLÍNICAS (expanded)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model ClinicalRecord {
+  id              String   @id @default(uuid())
+  patientId       String
+  professionalId  String
+  appointmentId   String?  @unique
+
+  // Anamnesis
+  reasonForVisit  String?  @db.Text  // Motivo de consulta
+  currentIllness  String?  @db.Text  // Enfermedad actual
+  onsetDate       DateTime?          // Fecha de inicio síntomas
+  mechanism       String?  @db.Text  // Mecanismo de lesión
+
+  // Evaluación
+  inspection      String?  @db.Text  // Inspección visual
+  palpation       String?  @db.Text
+  rangeOfMotion   Json?              // { "flexion": 120, "extension": 0, ... }
+  muscleStrength  Json?              // { "quadriceps": "4/5", ... }
+  specialTests    Json?              // { "testName": "positive/negative", ... }
+  neurologicalExam String? @db.Text
+  functionalAssessment String? @db.Text
+
+  // Diagnóstico & Plan
+  diagnosis       String?  @db.Text  // Diagnóstico kinésico
+  icdCode         String?            // Código CIE-10
+  treatment       String?  @db.Text  // Plan de tratamiento
+  objectives      String?  @db.Text  // Objetivos terapéuticos
+  exercises       String?  @db.Text  // Ejercicios indicados
+  precautions     String?  @db.Text  // Precauciones importantes
+  prognosis       String?  @db.Text
+
+  // Media
+  bodyMap         Json?              // Mapa corporal interactivo
+  attachments     String[]           // URLs archivos adjuntos
+  
+  observations    String?  @db.Text
+  nextSessionPlan String?  @db.Text  // Plan para próxima sesión
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  patient      Patient      @relation(fields: [patientId], references: [id])
+  professional Professional @relation(fields: [professionalId], references: [id])
+  appointment  Appointment? @relation(fields: [appointmentId], references: [id])
+  sessions     Session[]
+
+  @@index([patientId])
+  @@index([professionalId])
+  @@index([createdAt])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  5. APPOINTMENTS (citas)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Appointment {
+  id              String            @id @default(uuid())
+  patientId       String
+  professionalId  String
+  serviceId       String
+  clinicId        String?           // Multi-sede
+  startTime       DateTime
+  endTime         DateTime
+  status          AppointmentStatus @default(PENDING)
+  isFirstVisit    Boolean           @default(false)
+  confirmationSent Boolean          @default(false)
+  reminderSent    Boolean           @default(false)
+  cancellationReason String?
+  notes           String?           @db.Text
+  source          String            @default("web") // web, phone, walk-in
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  patient        Patient         @relation(fields: [patientId], references: [id])
+  professional   Professional    @relation(fields: [professionalId], references: [id])
+  service        Service         @relation(fields: [serviceId], references: [id])
+  clinic         Clinic?         @relation(fields: [clinicId], references: [id])
+  clinicalRecord ClinicalRecord?
+  session        Session?
+  payment        Payment?
+
+  @@index([patientId])
+  @@index([professionalId])
+  @@index([startTime])
+  @@index([status])
+  @@index([clinicId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  6. SESSIONS (sesiones de tratamiento)
+//     Cada Appointment puede generar un Session cuando se atiende.
+//     Registra lo que realmente ocurre en la sesión.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Session {
+  id                String        @id @default(uuid())
+  appointmentId     String        @unique
+  patientId         String
+  professionalId    String
+  clinicalRecordId  String?
+  clinicId          String?       // Multi-sede
+  roomId            String?       // Box / sala de atención
+  sessionNumber     Int           // Número secuencial dentro del plan
+  status            SessionStatus @default(SCHEDULED)
+
+  // Registro de sesión
+  actualStartTime   DateTime?
+  actualEndTime     DateTime?
+  durationMinutes   Int?
+  
+  // Técnicas aplicadas
+  techniques        Json?         // [{ "name": "TENS", "zone": "rodilla", "duration": "15min" }]
+  exercisesPerformed Json?        // [{ "name": "sentadilla", "sets": 3, "reps": 12, "weight": "5kg" }]
+  modalities        String[]      // ["Ultrasonido", "Crioterapia", "Electroterapia"]
+  
+  // Evaluación intra-sesión
+  painBefore        Int?          // EVA 0-10
+  painAfter         Int?          // EVA 0-10
+  patientFeedback   String?       @db.Text
+  
+  // Notas del profesional
+  observations      String?       @db.Text
+  homeExercises     String?       @db.Text  // Ejercicios para casa
+  recommendations   String?       @db.Text
+  nextSessionGoal   String?       @db.Text
+  
+  // Progreso
+  progressRating    Int?          // 1-5 rating subjetivo del kinesiólogo
+  progressNotes     String?       @db.Text
+  
+  attachments       String[]      // Fotos, videos de ejercicios
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  appointment    Appointment    @relation(fields: [appointmentId], references: [id])
+  patient        Patient        @relation(fields: [patientId], references: [id])
+  professional   Professional   @relation(fields: [professionalId], references: [id])
+  clinicalRecord ClinicalRecord? @relation(fields: [clinicalRecordId], references: [id])
+
+  @@index([patientId])
+  @@index([professionalId])
+  @@index([clinicalRecordId])
+  @@index([clinicId])
+  @@index([createdAt])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  7. SCHEDULE (horarios profesionales)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Schedule {
+  id              String    @id @default(uuid())
+  professionalId  String
+  clinicId        String?   // Multi-sede: horario por clínica
+  dayOfWeek       DayOfWeek
+  startTime       String    // "09:00"
+  endTime         String    // "18:00"
+  breakStart      String?   // "13:00" pausa almuerzo
+  breakEnd        String?   // "14:00"
+  slotDuration    Int       @default(30) // minutos por slot
+  isActive        Boolean   @default(true)
+
+  professional Professional @relation(fields: [professionalId], references: [id])
+
+  @@unique([professionalId, dayOfWeek, clinicId])
+  @@index([professionalId])
+  @@index([clinicId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  8. SERVICES (catálogo servicios)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Service {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?  @db.Text
+  durationMinutes Int
+  price           Decimal  @db.Decimal(10, 2)
+  category        String   // Kinesiología, Deportiva, Neurológica, etc.
+  isActive        Boolean  @default(true)
+  requiresReferral Boolean @default(false) // Necesita derivación médica
+  maxSessionsPackage Int?  // Si tiene bono/paquete
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  appointments    Appointment[]
+  subscriptionPlans SubscriptionPlanService[]
+  clinicServices  ClinicService[]            // Precios por sede
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  9. PAYMENTS (pagos – expanded)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Payment {
+  id              String         @id @default(uuid())
+  patientId       String
+  appointmentId   String?        @unique
+  subscriptionId  String?
+  clinicId        String?        // Multi-sede: revenue por clínica
+  concept         PaymentConcept @default(SESSION)
+  description     String?
+  amount          Decimal        @db.Decimal(10, 2)
+  discount        Decimal        @default(0) @db.Decimal(10, 2)
+  tax             Decimal        @default(0) @db.Decimal(10, 2) // IVA si aplica
+  totalAmount     Decimal        @db.Decimal(10, 2)
+  method          PaymentMethod  @default(WEBPAY)
+  status          PaymentStatus  @default(PENDING)
+  transactionId   String?        // ID Transbank
+  webpayToken     String?
+  authorizationCode String?      // Código autorización Webpay
+  cardLastFour    String?        // Últimos 4 dígitos tarjeta
+  receiptNumber   String?        @unique // N° boleta/factura
+  receiptUrl      String?        // Link a boleta electrónica
+  refundAmount    Decimal?       @db.Decimal(10, 2)
+  refundReason    String?
+  metadata        Json?
+  paidAt          DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  patient      Patient       @relation(fields: [patientId], references: [id])
+  appointment  Appointment?  @relation(fields: [appointmentId], references: [id])
+  subscription Subscription? @relation(fields: [subscriptionId], references: [id])
+  clinic       Clinic?       @relation(fields: [clinicId], references: [id])
+
+  @@index([patientId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([concept])
+  @@index([clinicId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  10. SUBSCRIPTIONS (suscripciones de pacientes)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/// Plantilla de planes de suscripción disponibles
+model SubscriptionPlanTemplate {
+  id                String           @id @default(uuid())
+  name              String           @unique // "Plan Básico", "Plan Premium"
+  plan              SubscriptionPlan @default(BASIC)
+  description       String?          @db.Text
+  sessionsPerMonth  Int              // Sesiones incluidas/mes
+  priceMonthly      Decimal          @db.Decimal(10, 2)
+  priceQuarterly    Decimal?         @db.Decimal(10, 2)
+  priceSemiAnnual   Decimal?         @db.Decimal(10, 2)
+  priceAnnual       Decimal?         @db.Decimal(10, 2)
+  includesAssessment Boolean         @default(false) // Evaluación física incluida
+  includesProgram   Boolean          @default(false) // Programa deportivo incluido
+  discountPercent   Decimal          @default(0) @db.Decimal(5, 2)
+  features          String[]         // Lista de beneficios
+  isActive          Boolean          @default(true)
+  sortOrder         Int              @default(0)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  services      SubscriptionPlanService[]
+  subscriptions Subscription[]
+}
+
+/// Servicios incluidos en cada plan
+model SubscriptionPlanService {
+  id         String @id @default(uuid())
+  planId     String
+  serviceId  String
+
+  plan    SubscriptionPlanTemplate @relation(fields: [planId], references: [id], onDelete: Cascade)
+  service Service                  @relation(fields: [serviceId], references: [id])
+
+  @@unique([planId, serviceId])
+}
+
+/// Suscripción activa de un paciente
+model Subscription {
+  id                String             @id @default(uuid())
+  patientId         String
+  planTemplateId    String
+  status            SubscriptionStatus @default(ACTIVE)
+  billingCycle      BillingCycle       @default(MONTHLY)
+  currentPrice      Decimal            @db.Decimal(10, 2)
+  sessionsRemaining Int                // Sesiones restantes este período
+  sessionsUsed      Int                @default(0)
+  periodStart       DateTime           // Inicio del período actual
+  periodEnd         DateTime           // Fin del período actual
+  trialEndsAt       DateTime?
+  startDate         DateTime           @default(now())
+  cancelledAt       DateTime?
+  cancellationReason String?
+  autoRenew         Boolean            @default(true)
+  nextBillingDate   DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  patient      Patient                  @relation(fields: [patientId], references: [id])
+  planTemplate SubscriptionPlanTemplate @relation(fields: [planTemplateId], references: [id])
+  payments     Payment[]
+
+  @@index([patientId])
+  @@index([status])
+  @@index([periodEnd])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  11. SPORTS PROGRAMS (programas deportivos – expanded)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model SportsProgram {
+  id            String       @id @default(uuid())
+  name          String
+  description   String?      @db.Text
+  sport         String
+  type          ProgramType  @default(SPORTS_PERFORMANCE)
+  level         ProgramLevel @default(BEGINNER)
+  durationWeeks Int
+  sessionsPerWeek Int        @default(3)
+  price         Decimal      @db.Decimal(10, 2)
+  imageUrl      String?
+  objectives    String[]     // Objetivos del programa
+  prerequisites String?      @db.Text
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  phases      ProgramPhase[]
+  enrollments SportsProgramEnrollment[]
+}
+
+/// Fases del programa (ej: Fase 1 – Adaptación, Fase 2 – Fuerza...)
+model ProgramPhase {
+  id          String @id @default(uuid())
+  programId   String
+  name        String
+  description String? @db.Text
+  weekStart   Int     // Semana de inicio (1-based)
+  weekEnd     Int     // Semana final
+  orderIndex  Int
+  objectives  String[]
+  exercises   Json?   // [{ name, sets, reps, rest, notes }]
+
+  program SportsProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@index([programId])
+  @@unique([programId, orderIndex])
+}
+
+model SportsProgramEnrollment {
+  id           String           @id @default(uuid())
+  patientId    String
+  programId    String
+  status       EnrollmentStatus @default(ACTIVE)
+  startDate    DateTime
+  endDate      DateTime?
+  currentWeek  Int              @default(1)
+  currentPhase String?
+  completionPercentage Decimal  @default(0) @db.Decimal(5, 2)
+  progressData Json?            // Datos detallados de progreso
+  notes        String?          @db.Text
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  patient Patient       @relation(fields: [patientId], references: [id])
+  program SportsProgram @relation(fields: [programId], references: [id])
+
+  @@index([patientId])
+  @@index([programId])
+  @@index([status])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  12. PHYSICAL PROGRESS (progreso físico)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/// Evaluaciones físicas completas (ingreso, seguimiento, alta)
+model PhysicalAssessment {
+  id               String         @id @default(uuid())
+  patientId        String
+  professionalId   String
+  type             AssessmentType @default(INITIAL)
+  assessmentDate   DateTime       @default(now())
+
+  // Postura
+  postureAnalysis  Json?          // { "anterior": "...", "lateral": "...", "posterior": "..." }
+  postureImages    String[]
+  
+  // Rango de movimiento
+  rangeOfMotion    Json?          // { "shoulder_flexion": { "active": 160, "passive": 170, "normal": 180 } }
+  
+  // Fuerza muscular
+  muscleStrength   Json?          // { "muscle_group": "grade_0_to_5" }
+  
+  // Flexibilidad
+  flexibility      Json?          // { "test_name": { "value": 30, "unit": "cm", "normal": 40 } }
+  
+  // Equilibrio & Propiocepción
+  balance          Json?          // { "single_leg_left": "25s", "single_leg_right": "22s" }
+  
+  // Cardiorrespiratorio
+  cardioAssessment Json?          // { "resting_hr": 72, "vo2max_estimated": 42 }
+  
+  // Resumen y comparación
+  overallScore     Decimal?       @db.Decimal(5, 2) // Score general 0-100
+  summary          String?        @db.Text
+  recommendations  String?        @db.Text
+  comparedTo       String?        // ID de evaluación anterior para comparar
+  
+  attachments      String[]
+
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  patient      Patient      @relation(fields: [patientId], references: [id])
+  professional Professional @relation(fields: [professionalId], references: [id])
+
+  @@index([patientId])
+  @@index([assessmentDate])
+  @@index([type])
+}
+
+/// Métricas corporales (tracked over time – evolución gráfica)
+model BodyMetrics {
+  id              String   @id @default(uuid())
+  patientId       String
+  measuredAt      DateTime @default(now())
+
+  // Antropometría
+  weightKg        Decimal?  @db.Decimal(5, 2)
+  heightCm        Decimal?  @db.Decimal(5, 1)
+  bmi             Decimal?  @db.Decimal(4, 2)
+  bodyFatPercent  Decimal?  @db.Decimal(4, 2)
+  muscleMassKg    Decimal?  @db.Decimal(5, 2)
+  
+  // Perímetros (cm)
+  waistCircumference    Decimal? @db.Decimal(5, 1)
+  hipCircumference      Decimal? @db.Decimal(5, 1)
+  chestCircumference    Decimal? @db.Decimal(5, 1)
+  armCircumferenceL     Decimal? @db.Decimal(5, 1)
+  armCircumferenceR     Decimal? @db.Decimal(5, 1)
+  thighCircumferenceL   Decimal? @db.Decimal(5, 1)
+  thighCircumferenceR   Decimal? @db.Decimal(5, 1)
+  calfCircumferenceL    Decimal? @db.Decimal(5, 1)
+  calfCircumferenceR    Decimal? @db.Decimal(5, 1)
+
+  // Signos vitales
+  restingHeartRate      Int?
+  bloodPressureSystolic  Int?
+  bloodPressureDiastolic Int?
+
+  notes           String?  @db.Text
+  measuredBy      String?  // Nombre del evaluador
+
+  createdAt       DateTime @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@index([patientId])
+  @@index([measuredAt])
+}
+
+/// Tests funcionales (tracked over time – evolución gráfica)
+model FunctionalTest {
+  id          String     @id @default(uuid())
+  patientId   String
+  testDate    DateTime   @default(now())
+  testName    String     // "Sit and Reach", "1RM Sentadilla", etc.
+  category    String     // "Flexibilidad", "Fuerza", "Resistencia", etc.
+  value       Decimal    @db.Decimal(10, 2) // Resultado numérico
+  unit        String     // "cm", "kg", "seg", "reps"
+  laterality  Laterality @default(NOT_APPLICABLE)
+  normalMin   Decimal?   @db.Decimal(10, 2)  // Rango normal inferior
+  normalMax   Decimal?   @db.Decimal(10, 2)  // Rango normal superior
+  percentile  Int?       // Percentil según edad/sexo
+  notes       String?
+  measuredBy  String?
+
+  createdAt   DateTime   @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@index([patientId])
+  @@index([testName])
+  @@index([testDate])
+}
+
+/// Registro de dolor (EVA timeline – evolución gráfica)
+model PainRecord {
+  id          String    @id @default(uuid())
+  patientId   String
+  recordedAt  DateTime  @default(now())
+  location    String    // "Rodilla derecha", "Lumbar", etc.
+  painLevel   PainLevel
+  evaScore    Int       // Escala Visual Análoga 0-10
+  laterality  Laterality @default(NOT_APPLICABLE)
+  context     String?   // "En reposo", "Al caminar", "Post ejercicio"
+  triggers    String?   // Factores que aumentan dolor
+  relievers   String?   // Factores que disminuyen dolor
+  notes       String?   @db.Text
+  bodyMapData Json?     // Coordenadas en mapa corporal
+
+  createdAt   DateTime  @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@index([patientId])
+  @@index([recordedAt])
+  @@index([location])
+}
+
+/// Objetivos terapéuticos y su seguimiento
+model TreatmentGoal {
+  id            String   @id @default(uuid())
+  patientId     String
+  title         String
+  description   String?  @db.Text
+  targetValue   String?  // "Flexión rodilla 120°", "Correr 5K"
+  currentValue  String?
+  category      String   // "ROM", "Fuerza", "Funcional", "Dolor", "Deporte"
+  priority      Int      @default(1) // 1=alta, 2=media, 3=baja
+  targetDate    DateTime?
+  achievedDate  DateTime?
+  isAchieved    Boolean  @default(false)
+  progressPercent Decimal @default(0) @db.Decimal(5, 2)
+  milestones    Json?    // [{ "date": "2026-01-15", "value": "90°", "note": "Mejora" }]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@index([patientId])
+  @@index([isAchieved])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  13. ACADEMY (academia digital)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Course {
+  id           String         @id @default(uuid())
+  title        String
+  description  String?        @db.Text
+  instructor   String
+  price        Decimal        @db.Decimal(10, 2)
+  thumbnailUrl String?
+  category     CourseCategory @default(REHABILITATION)
+  totalLessons Int            @default(0)
+  isPublished  Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  lessons     Lesson[]
+  enrollments CourseEnrollment[]
+}
+
+model Lesson {
+  id              String @id @default(uuid())
+  courseId         String
+  title           String
+  content         String? @db.Text
+  videoUrl        String?
+  durationMinutes Int     @default(0)
+  orderIndex      Int
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+  @@unique([courseId, orderIndex])
+}
+
+model CourseEnrollment {
+  id                String   @id @default(uuid())
+  patientId         String
+  courseId           String
+  completedLessons  Int      @default(0)
+  progress          Decimal  @default(0) @db.Decimal(5, 2)
+  certificateIssued Boolean  @default(false)
+  enrolledAt        DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id])
+  course  Course  @relation(fields: [courseId], references: [id])
+
+  @@unique([patientId, courseId])
+  @@index([patientId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  14. CORPORATE (área corporativa)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model CorporateClient {
+  id            String   @id @default(uuid())
+  companyName   String
+  rut           String   @unique
+  contactName   String
+  contactEmail  String
+  contactPhone  String?
+  employeeCount Int      @default(0)
+  industry      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  plans CorporatePlan[]
+}
+
+model CorporatePlan {
+  id               String              @id @default(uuid())
+  clientId         String
+  planName         String
+  sessionsPerMonth Int
+  monthlyPrice     Decimal             @db.Decimal(10, 2)
+  startDate        DateTime
+  endDate          DateTime?
+  status           CorporatePlanStatus @default(ACTIVE)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  client CorporateClient @relation(fields: [clientId], references: [id])
+
+  @@index([clientId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  15. NOTIFICATIONS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  title     String
+  message   String           @db.Text
+  type      NotificationType @default(SYSTEM)
+  isRead    Boolean          @default(false)
+  actionUrl String?
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  16. MULTI-TENANT: ORGANIZATION & CLINICS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/// Holding / empresa que agrupa clínicas
+model Organization {
+  id            String   @id @default(uuid())
+  name          String                          // "Duck Kinesiología SpA"
+  rut           String   @unique               // RUT empresa
+  legalName     String?
+  logo          String?
+  contactEmail  String
+  contactPhone  String?
+  website       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  clinics           Clinic[]
+  franchiseLicenses FranchiseLicense[]
+}
+
+/// Clínica / Sucursal
+model Clinic {
+  id              String       @id @default(uuid())
+  organizationId  String
+  name            String                      // "Duck Kine Providencia"
+  slug            String       @unique        // "providencia"
+  type            ClinicType   @default(PROPIA)
+  status          ClinicStatus @default(ACTIVE)
+
+  // Ubicación
+  address         String
+  commune         String
+  city            String
+  region          String
+  country         String       @default("Chile")
+  latitude        Float?
+  longitude       Float?
+  googleMapsUrl   String?
+
+  // Contacto
+  phone           String
+  email           String
+  whatsapp        String?
+
+  // Configuración operativa
+  timezone        String       @default("America/Santiago")
+  currency        String       @default("CLP")
+  openingTime     String       @default("08:00")
+  closingTime     String       @default("20:00")
+  workDays        Int[]        @default([1,2,3,4,5])
+  maxConcurrentAppointments Int @default(5)
+
+  // Branding (franquicia puede personalizar)
+  primaryColor    String?
+  secondaryColor  String?
+  customLogo      String?
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  organization     Organization        @relation(fields: [organizationId], references: [id])
+  rooms            ClinicRoom[]
+  professionals    ClinicProfessional[]
+  services         ClinicService[]
+  franchiseLicense FranchiseLicense?
+  appointments     Appointment[]
+  payments         Payment[]
+
+  @@index([organizationId])
+  @@index([slug])
+  @@index([commune, city])
+}
+
+/// Box / Sala de atención dentro de una clínica
+model ClinicRoom {
+  id          String   @id @default(uuid())
+  clinicId    String
+  name        String                          // "Box 1", "Sala Deportiva"
+  type        RoomType @default(TREATMENT)
+  capacity    Int      @default(1)
+  equipment   String[]                        // ["Ultrasonido", "Camilla"]
+  isActive    Boolean  @default(true)
+
+  clinic Clinic @relation(fields: [clinicId], references: [id])
+
+  @@index([clinicId])
+}
+
+/// Profesional ↔ Clínica (relación M:N con rol)
+model ClinicProfessional {
+  id              String     @id @default(uuid())
+  clinicId        String
+  professionalId  String
+  role            ClinicRole @default(STAFF)
+  isActive        Boolean    @default(true)
+  startDate       DateTime   @default(now())
+  endDate         DateTime?
+
+  clinic       Clinic       @relation(fields: [clinicId], references: [id])
+  professional Professional @relation(fields: [professionalId], references: [id])
+
+  @@unique([clinicId, professionalId])
+  @@index([clinicId])
+  @@index([professionalId])
+}
+
+/// Servicio ↔ Clínica (precios locales por sede)
+model ClinicService {
+  id          String  @id @default(uuid())
+  clinicId    String
+  serviceId   String
+  localPrice  Int?                            // Null = usar precio base del Service
+  isAvailable Boolean @default(true)
+
+  clinic  Clinic  @relation(fields: [clinicId], references: [id])
+  service Service @relation(fields: [serviceId], references: [id])
+
+  @@unique([clinicId, serviceId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  17. FRANCHISE MANAGEMENT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/// Licencia de franquicia otorgada a un operador externo
+model FranchiseLicense {
+  id              String        @id @default(uuid())
+  organizationId  String
+  clinicId        String        @unique
+
+  // Franquiciado
+  franchiseeName  String                      // Nombre operador
+  franchiseeRut   String
+  franchiseeEmail String
+  franchiseePhone String
+
+  // Contrato
+  contractStart   DateTime
+  contractEnd     DateTime
+  renewalDate     DateTime?
+  status          LicenseStatus @default(LICENSE_ACTIVE)
+
+  // Financiero
+  monthlyFee      Int                         // Fee fijo mensual CLP
+  revenueSharePct Float         @default(0.08) // 8% revenue share
+  initialInvestment Int?
+
+  // Territorio exclusivo
+  exclusiveTerritory String?
+  territoryRadius    Float?                   // km
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  organization Organization      @relation(fields: [organizationId], references: [id])
+  clinic       Clinic            @relation(fields: [clinicId], references: [id])
+  payments     FranchisePayment[]
+
+  @@index([organizationId])
+}
+
+/// Pagos mensuales de franquicia (fee + revenue share)
+model FranchisePayment {
+  id          String        @id @default(uuid())
+  licenseId   String
+  period      String                          // "2026-02"
+  fixedFee    Int                             // Fee fijo
+  revenueBase Int                             // Revenue bruto del mes
+  revenueShare Int                            // Monto cobrado de revenue share
+  totalDue    Int                             // fixedFee + revenueShare
+  status      PaymentStatus @default(PENDING)
+  paidAt      DateTime?
+  createdAt   DateTime      @default(now())
+
+  license FranchiseLicense @relation(fields: [licenseId], references: [id])
+
+  @@unique([licenseId, period])
+  @@index([licenseId])
+}
+
+/// Snapshot mensual de métricas por clínica (para dashboards y revenue share)
+model ClinicMetricsSnapshot {
+  id          String   @id @default(uuid())
+  clinicId    String
+  period      String                          // "2026-02"
+
+  totalPatients       Int
+  newPatients         Int
+  totalAppointments   Int
+  completedSessions   Int
+  noShowRate          Float
+  averageSatisfaction Float?
+  totalRevenue        Int
+  topServices         Json?                   // [{ serviceId, count, revenue }]
+
+  createdAt   DateTime @default(now())
+
+  @@unique([clinicId, period])
+  @@index([clinicId])
+}
