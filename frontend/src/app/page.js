@@ -22,8 +22,8 @@ export default function HomePage() {
               src="/assets/images/logo.png"
               alt="Duck Kinesiología"
               style={{
-                width: '200px',
-                height: '200px',
+                width: '280px',
+                height: '280px',
                 objectFit: 'contain',
                 borderRadius: '50%',
                 animation: 'preloaderPulse 1.5s ease-in-out infinite'

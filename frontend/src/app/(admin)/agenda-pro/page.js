@@ -63,10 +63,10 @@ export default function AgendaProPage() {
                     <h1 className={s.pageTitle}>📅 Agenda Profesional</h1>
                     <p className={s.pageDesc}>Gestiona tus citas del día</p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <button className={s.actionBtn} onClick={prevDay}>←</button>
                     <input type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}
-                        className={s.formInput} style={{ fontWeight: 600, fontFamily: 'var(--font-display)' }} />
+                        className={s.formInput} style={{ fontWeight: 600, fontFamily: "'Sora', sans-serif" }} />
                     <button className={s.actionBtn} onClick={nextDay}>→</button>
                     {selectedDate !== today && (
                         <button className={`${s.actionBtn} ${s.actionBtnPrimary}`} onClick={() => setSelectedDate(today)}>Hoy</button>
@@ -75,17 +75,17 @@ export default function AgendaProPage() {
             </div>
 
             {/* Stats for day */}
-            <div className={s.grid3} style={{ marginBottom: 'var(--space-5)' }}>
+            <div className={s.grid3} style={{ marginBottom: '20px' }}>
                 <div className={s.miniStat}>
                     <span className={s.miniStatValue}>{appointments.length}</span>
                     <span className={s.miniStatLabel}>Total citas</span>
                 </div>
                 <div className={s.miniStat}>
-                    <span className={s.miniStatValue} style={{ color: 'var(--warning-500)' }}>{pending + confirmed}</span>
+                    <span className={s.miniStatValue} style={{ color: '#fbbf24' }}>{pending + confirmed}</span>
                     <span className={s.miniStatLabel}>Por atender</span>
                 </div>
                 <div className={s.miniStat}>
-                    <span className={s.miniStatValue} style={{ color: 'var(--success-500)' }}>{completed}</span>
+                    <span className={s.miniStatValue} style={{ color: '#2ECC9A' }}>{completed}</span>
                     <span className={s.miniStatLabel}>Completadas</span>
                 </div>
             </div>
@@ -93,7 +93,7 @@ export default function AgendaProPage() {
             {/* Appointments */}
             <div className={s.card}>
                 {loading ? (
-                    <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>Cargando...</p>
+                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.875rem' }}>Cargando...</p>
                 ) : appointments.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>📅</div>
@@ -120,14 +120,14 @@ export default function AgendaProPage() {
                                 const pName = apt.patient?.user ? `${apt.patient.user.firstName} ${apt.patient.user.lastName}` : '—';
                                 return (
                                     <tr key={apt.id}>
-                                        <td style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem' }}>
+                                        <td style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, fontSize: '1rem' }}>
                                             {fmtTime(apt.startTime)}
                                         </td>
                                         <td style={{ fontWeight: 600 }}>{pName}</td>
-                                        <td style={{ color: 'var(--text-tertiary)', fontSize: '0.8125rem' }}>{apt.patient?.user?.rut || '—'}</td>
-                                        <td style={{ color: 'var(--text-tertiary)', fontSize: '0.8125rem' }}>{apt.patient?.user?.phone || '—'}</td>
+                                        <td style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem' }}>{apt.patient?.user?.rut || '—'}</td>
+                                        <td style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem' }}>{apt.patient?.user?.phone || '—'}</td>
                                         <td>{apt.service?.name || '—'}</td>
-                                        <td style={{ color: 'var(--text-tertiary)' }}>{apt.service?.durationMinutes || 30} min</td>
+                                        <td style={{ color: 'rgba(255,255,255,0.4)' }}>{apt.service?.durationMinutes || 30} min</td>
                                         <td><span className={`badge badge-${st.color}`}>{st.label}</span></td>
                                         <td>
                                             <div className={s.actionGroup}>

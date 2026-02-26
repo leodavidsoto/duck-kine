@@ -80,7 +80,7 @@ export default function PacientesPage() {
         return (
             <>
                 <button className={s.actionBtn} onClick={() => setSelectedPatient(null)}
-                    style={{ marginBottom: 'var(--space-4)' }}>← Volver a lista</button>
+                    style={{ marginBottom: '16px' }}>← Volver a lista</button>
 
                 <div className={s.detailHeader}>
                     <div className={s.detailAvatar}>{initials}</div>
@@ -126,7 +126,7 @@ export default function PacientesPage() {
                 {activeTab === 'citas' && (
                     <div className={s.card}>
                         {(p.appointments?.length || 0) === 0 ? (
-                            <p style={{ color: 'var(--text-tertiary)' }}>Sin citas registradas</p>
+                            <p style={{ color: 'rgba(255,255,255,0.4)' }}>Sin citas registradas</p>
                         ) : (
                             <table className={s.table}>
                                 <thead><tr><th>Fecha</th><th>Servicio</th><th>Profesional</th><th>Estado</th></tr></thead>
@@ -135,7 +135,7 @@ export default function PacientesPage() {
                                         <tr key={apt.id}>
                                             <td style={{ fontWeight: 600 }}>{fmtDate(apt.startTime)}</td>
                                             <td>{apt.service?.name || '—'}</td>
-                                            <td style={{ color: 'var(--text-tertiary)' }}>
+                                            <td style={{ color: 'rgba(255,255,255,0.4)' }}>
                                                 {apt.professional?.user ? `${apt.professional.user.firstName} ${apt.professional.user.lastName}` : '—'}
                                             </td>
                                             <td><span className={`badge badge-${apt.status === 'COMPLETED' ? 'success' : apt.status === 'CANCELLED' ? 'error' : 'warning'}`}>
@@ -152,7 +152,7 @@ export default function PacientesPage() {
                 {activeTab === 'dolor' && (
                     <div className={s.card}>
                         {(p.painRecords?.length || 0) === 0 ? (
-                            <p style={{ color: 'var(--text-tertiary)' }}>Sin registros de dolor</p>
+                            <p style={{ color: 'rgba(255,255,255,0.4)' }}>Sin registros de dolor</p>
                         ) : (
                             <table className={s.table}>
                                 <thead><tr><th>Fecha</th><th>EVA</th><th>Ubicación</th><th>Contexto</th></tr></thead>
@@ -160,11 +160,11 @@ export default function PacientesPage() {
                                     {p.painRecords.map((r, i) => (
                                         <tr key={i}>
                                             <td>{fmtDate(r.recordedAt)}</td>
-                                            <td style={{ fontFamily: 'var(--font-display)', fontWeight: 800, color: r.evaScore <= 3 ? 'var(--success-500)' : r.evaScore <= 6 ? 'var(--warning-500)' : 'var(--error-500)' }}>
+                                            <td style={{ fontFamily: "'Sora', sans-serif", fontWeight: 800, color: r.evaScore <= 3 ? '#2ECC9A' : r.evaScore <= 6 ? '#fbbf24' : '#f87171' }}>
                                                 {r.evaScore}/10
                                             </td>
                                             <td>{r.location}</td>
-                                            <td style={{ color: 'var(--text-tertiary)' }}>{r.context || '—'}</td>
+                                            <td style={{ color: 'rgba(255,255,255,0.4)' }}>{r.context || '—'}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -177,7 +177,7 @@ export default function PacientesPage() {
                 {activeTab === 'fichas' && (
                     <div className={s.card}>
                         {(p.clinicalRecords?.length || 0) === 0 ? (
-                            <p style={{ color: 'var(--text-tertiary)' }}>Sin fichas clínicas</p>
+                            <p style={{ color: 'rgba(255,255,255,0.4)' }}>Sin fichas clínicas</p>
                         ) : (
                             <div className={s.timeline}>
                                 {p.clinicalRecords.map((rec, i) => (
@@ -197,7 +197,7 @@ export default function PacientesPage() {
                 {activeTab === 'pagos' && (
                     <div className={s.card}>
                         {(p.payments?.length || 0) === 0 ? (
-                            <p style={{ color: 'var(--text-tertiary)' }}>Sin pagos registrados</p>
+                            <p style={{ color: 'rgba(255,255,255,0.4)' }}>Sin pagos registrados</p>
                         ) : (
                             <table className={s.table}>
                                 <thead><tr><th>Fecha</th><th>Concepto</th><th>Monto</th><th>Estado</th></tr></thead>
@@ -206,7 +206,7 @@ export default function PacientesPage() {
                                         <tr key={i}>
                                             <td>{fmtDate(pay.paidAt || pay.createdAt)}</td>
                                             <td>{pay.appointment?.service?.name || pay.description || 'Pago'}</td>
-                                            <td style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{fmtMoney(pay.totalAmount)}</td>
+                                            <td style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700 }}>{fmtMoney(pay.totalAmount)}</td>
                                             <td><span className={`badge badge-${pay.status === 'APPROVED' ? 'success' : 'warning'}`}>{pay.status}</span></td>
                                         </tr>
                                     ))}
@@ -233,16 +233,16 @@ export default function PacientesPage() {
             </div>
 
             {createdInfo && (
-                <div style={{ padding: '1rem', background: 'var(--success-50)', border: '1px solid var(--success-200)', borderRadius: '8px', marginBottom: '1.5rem' }}>
-                    <h4 style={{ color: 'var(--success-700)', marginBottom: '0.5rem' }}>✅ Paciente creado exitosamente</h4>
-                    <p style={{ fontSize: '0.9rem', color: 'var(--success-800)' }}>
+                <div style={{ padding: '1rem', background: 'rgba(46,204,154,0.1)', border: '1px solid rgba(46,204,154,0.3)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                    <h4 style={{ color: '#2ECC9A', marginBottom: '0.5rem' }}>✅ Paciente creado exitosamente</h4>
+                    <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>
                         Se ha registrado la cuenta. El paciente puede ingresar con:
                     </p>
-                    <ul style={{ fontSize: '0.9rem', color: 'var(--success-800)', marginTop: '0.5rem', listStyle: 'none', padding: 0 }}>
+                    <ul style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem', listStyle: 'none', padding: 0 }}>
                         <li><strong>Email:</strong> {createdInfo.email}</li>
                         <li><strong>Contraseña temporal:</strong> <code>{createdInfo.password}</code></li>
                     </ul>
-                    <button style={{ marginTop: '0.5rem', background: 'transparent', border: 'none', color: 'var(--success-700)', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem', padding: 0 }} onClick={() => setCreatedInfo(null)}>Cerrar mensaje</button>
+                    <button style={{ marginTop: '0.5rem', background: 'transparent', border: 'none', color: '#2ECC9A', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem', padding: 0 }} onClick={() => setCreatedInfo(null)}>Cerrar mensaje</button>
                 </div>
             )}
 
@@ -334,7 +334,7 @@ export default function PacientesPage() {
 
             <div className={s.card}>
                 {loading ? (
-                    <p style={{ color: 'var(--text-tertiary)' }}>Cargando pacientes...</p>
+                    <p style={{ color: 'rgba(255,255,255,0.4)' }}>Cargando pacientes...</p>
                 ) : patients.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>👥</div>
@@ -357,10 +357,10 @@ export default function PacientesPage() {
                             {patients.map((p) => (
                                 <tr key={p.id}>
                                     <td style={{ fontWeight: 600 }}>{p.user?.firstName} {p.user?.lastName}</td>
-                                    <td style={{ color: 'var(--text-tertiary)' }}>{p.user?.rut || '—'}</td>
-                                    <td style={{ color: 'var(--text-tertiary)', fontSize: '0.8125rem' }}>{p.user?.email}</td>
-                                    <td style={{ color: 'var(--text-tertiary)' }}>{p.user?.phone || '—'}</td>
-                                    <td style={{ color: 'var(--text-tertiary)', fontSize: '0.8125rem' }}>{fmtDate(p.createdAt)}</td>
+                                    <td style={{ color: 'rgba(255,255,255,0.4)' }}>{p.user?.rut || '—'}</td>
+                                    <td style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem' }}>{p.user?.email}</td>
+                                    <td style={{ color: 'rgba(255,255,255,0.4)' }}>{p.user?.phone || '—'}</td>
+                                    <td style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem' }}>{fmtDate(p.createdAt)}</td>
                                     <td>
                                         <button className={`${s.actionBtn} ${s.actionBtnPrimary}`}
                                             onClick={() => openDetail(p.id)}>Ver ficha →</button>
@@ -379,9 +379,9 @@ function InfoRow({ label, value }) {
     return (
         <div style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
-            padding: '0.5rem 0', borderBottom: '1px solid var(--border-light)', fontSize: '0.875rem',
+            padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)', fontSize: '0.875rem',
         }}>
-            <span style={{ color: 'var(--text-tertiary)', fontWeight: 500 }}>{label}</span>
+            <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>{label}</span>
             <span style={{ fontWeight: 600, textAlign: 'right', maxWidth: '60%' }}>{value}</span>
         </div>
     );

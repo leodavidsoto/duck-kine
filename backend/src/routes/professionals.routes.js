@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
                 lastName: p.user.lastName,
                 avatarUrl: p.user.avatarUrl,
                 specialty: p.specialty,
-                title: p.title,
+                bio: p.bio,
             })),
         });
     } catch (error) { next(error); }

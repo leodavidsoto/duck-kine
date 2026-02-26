@@ -48,9 +48,9 @@ export default function FinanzasPage() {
             </div>
 
             {loading ? (
-                <p style={{ color: 'var(--text-tertiary)' }}>Cargando datos financieros...</p>
+                <p style={{ color: 'rgba(255,255,255,0.4)' }}>Cargando datos financieros...</p>
             ) : !data ? (
-                <p style={{ color: 'var(--text-tertiary)' }}>Error al cargar datos</p>
+                <p style={{ color: 'rgba(255,255,255,0.4)' }}>Error al cargar datos</p>
             ) : (
                 <>
                     {/* KPIs */}
@@ -67,7 +67,7 @@ export default function FinanzasPage() {
                         </div>
                         <div className={s.kpiCard}>
                             <span className={s.kpiIcon}>📊</span>
-                            <span className={s.kpiValue} style={{ color: growth !== null && growth >= 0 ? 'var(--success-500)' : 'var(--error-500)' }}>
+                            <span className={s.kpiValue} style={{ color: growth !== null && growth >= 0 ? '#2ECC9A' : '#f87171' }}>
                                 {growth !== null ? `${growth >= 0 ? '+' : ''}${growth}%` : '—'}
                             </span>
                             <span className={s.kpiLabel}>vs mes anterior</span>
@@ -83,7 +83,7 @@ export default function FinanzasPage() {
                     {data.byMethod.length > 0 && (
                         <div className={s.card}>
                             <h3 className={s.cardTitle}>Ingresos por método de pago</h3>
-                            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(data.byMethod.length, 4)}, 1fr)`, gap: 'var(--space-3)' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(data.byMethod.length, 4)}, 1fr)`, gap: '12px' }}>
                                 {data.byMethod.map((m, i) => (
                                     <div key={i} className={s.miniStat}>
                                         <span className={s.miniStatValue}>{fmtMoney(m._sum.totalAmount)}</span>
@@ -123,9 +123,9 @@ export default function FinanzasPage() {
                                             <tr key={p.id}>
                                                 <td>{fmtDate(p.paidAt || p.createdAt)}</td>
                                                 <td style={{ fontWeight: 600 }}>{pName}</td>
-                                                <td style={{ color: 'var(--text-tertiary)' }}>{p.appointment?.service?.name || p.description || 'Pago'}</td>
-                                                <td style={{ color: 'var(--text-tertiary)' }}>{methodMap[p.method] || p.method}</td>
-                                                <td style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{fmtMoney(p.totalAmount)}</td>
+                                                <td style={{ color: 'rgba(255,255,255,0.4)' }}>{p.appointment?.service?.name || p.description || 'Pago'}</td>
+                                                <td style={{ color: 'rgba(255,255,255,0.4)' }}>{methodMap[p.method] || p.method}</td>
+                                                <td style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700 }}>{fmtMoney(p.totalAmount)}</td>
                                                 <td><span className={`badge badge-${st.color}`}>{st.label}</span></td>
                                             </tr>
                                         );

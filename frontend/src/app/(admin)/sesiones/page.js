@@ -36,7 +36,7 @@ export default function SesionesPage() {
             </div>
 
             {/* Stats */}
-            <div className={s.grid3} style={{ marginBottom: 'var(--space-5)' }}>
+            <div className={s.grid3} style={{ marginBottom: '20px' }}>
                 <div className={s.miniStat}>
                     <div className={s.miniStatIcon}>📝</div>
                     <span className={s.miniStatValue}>{sessions.length}</span>
@@ -60,7 +60,7 @@ export default function SesionesPage() {
 
             <div className={s.card}>
                 {loading ? (
-                    <p style={{ color: 'var(--text-tertiary)' }}>Cargando sesiones...</p>
+                    <p style={{ color: 'rgba(255,255,255,0.4)' }}>Cargando sesiones...</p>
                 ) : sessions.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>📝</div>
@@ -87,29 +87,29 @@ export default function SesionesPage() {
                                 const pName = sess.patient?.user ? `${sess.patient.user.firstName} ${sess.patient.user.lastName}` : '—';
                                 return (
                                     <tr key={sess.id}>
-                                        <td style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--text-tertiary)' }}>
+                                        <td style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700, color: 'rgba(255,255,255,0.4)' }}>
                                             {sess.sessionNumber}
                                         </td>
                                         <td style={{ fontWeight: 600 }}>{fmtDate(sess.createdAt)}</td>
                                         <td>{pName}</td>
-                                        <td style={{ color: 'var(--text-tertiary)' }}>{sess.appointment?.service?.name || '—'}</td>
+                                        <td style={{ color: 'rgba(255,255,255,0.4)' }}>{sess.appointment?.service?.name || '—'}</td>
                                         <td>
                                             {sess.painBefore !== null ? (
-                                                <span style={{ fontWeight: 700, color: sess.painBefore <= 3 ? 'var(--success-500)' : sess.painBefore <= 6 ? 'var(--warning-500)' : 'var(--error-500)' }}>
+                                                <span style={{ fontWeight: 700, color: sess.painBefore <= 3 ? '#2ECC9A' : sess.painBefore <= 6 ? '#fbbf24' : '#f87171' }}>
                                                     {sess.painBefore}
                                                 </span>
                                             ) : '—'}
                                         </td>
                                         <td>
                                             {sess.painAfter !== null ? (
-                                                <span style={{ fontWeight: 700, color: sess.painAfter <= 3 ? 'var(--success-500)' : sess.painAfter <= 6 ? 'var(--warning-500)' : 'var(--error-500)' }}>
+                                                <span style={{ fontWeight: 700, color: sess.painAfter <= 3 ? '#2ECC9A' : sess.painAfter <= 6 ? '#fbbf24' : '#f87171' }}>
                                                     {sess.painAfter}
                                                 </span>
                                             ) : '—'}
                                         </td>
                                         <td>
                                             {sess.progressRating ? (
-                                                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+                                                <span style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700 }}>
                                                     {'⭐'.repeat(sess.progressRating)}
                                                 </span>
                                             ) : '—'}

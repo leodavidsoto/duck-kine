@@ -72,9 +72,9 @@ export default function AdminDashboard() {
             </div>
 
             {/* KPIs */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 'var(--space-3)', marginBottom: 'var(--space-6)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '12px', marginBottom: '24px' }}>
                 {loading ? (
-                    <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', gridColumn: '1 / -1' }}>Cargando...</p>
+                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.875rem', gridColumn: '1 / -1' }}>Cargando...</p>
                 ) : kpis.map((k, i) => (
                     <div key={i} className={s.kpiCard}>
                         <span className={s.kpiIcon}>{k.icon}</span>
@@ -86,9 +86,9 @@ export default function AdminDashboard() {
 
             {/* Today's appointments */}
             <div className={s.card}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                     <h3 className={s.cardTitle} style={{ marginBottom: 0 }}>Agenda de hoy</h3>
-                    <Link href="/agenda-pro" style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--primary-600)' }}>Ver completa →</Link>
+                    <Link href="/agenda-pro" style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#2ECC9A' }}>Ver completa →</Link>
                 </div>
 
                 {appointments.length === 0 ? (
@@ -114,10 +114,10 @@ export default function AdminDashboard() {
                                 const pName = apt.patient?.user ? `${apt.patient.user.firstName} ${apt.patient.user.lastName}` : '—';
                                 return (
                                     <tr key={apt.id}>
-                                        <td style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}>{fmtTime(apt.startTime)}</td>
+                                        <td style={{ fontFamily: "'Sora', sans-serif", fontWeight: 700 }}>{fmtTime(apt.startTime)}</td>
                                         <td>
                                             <div style={{ fontWeight: 600 }}>{pName}</div>
-                                            {apt.patient?.user?.rut && <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>{apt.patient.user.rut}</div>}
+                                            {apt.patient?.user?.rut && <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>{apt.patient.user.rut}</div>}
                                         </td>
                                         <td>{apt.service?.name || '—'}</td>
                                         <td><span className={`badge badge-${st.color}`}>{st.label}</span></td>
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
                                                     </>
                                                 )}
                                                 {apt.status === 'COMPLETED' && (
-                                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Atendido</span>
+                                                    <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>Atendido</span>
                                                 )}
                                             </div>
                                         </td>

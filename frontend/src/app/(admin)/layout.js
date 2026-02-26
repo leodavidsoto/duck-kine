@@ -46,7 +46,7 @@ export default function AdminLayout({ children }) {
         <div className={styles.adminDashboard}>
             <aside className={styles.sidebar}>
                 <div className={styles.sidebarLogo}>
-                    <div className={styles.sidebarLogoMark}>🦆</div>
+                    <div className={styles.sidebarLogoMark}><img src="/assets/images/logo.png" alt="Duck" /></div>
                     <span className={styles.sidebarLogoText}>Duck <span>Kine</span></span>
                 </div>
                 <div className={styles.sidebarRole}>Panel Profesional</div>
@@ -66,7 +66,7 @@ export default function AdminLayout({ children }) {
                 </nav>
 
                 <div className={styles.sidebarFooter}>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', padding: '0 0.25rem', marginBottom: '0.5rem' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', padding: '0 0.25rem', marginBottom: '0.5rem' }}>
                         Kine. {user.firstName} {user.lastName}
                     </div>
                     <button className={styles.logoutBtn}
