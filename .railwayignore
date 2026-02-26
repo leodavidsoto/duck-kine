@@ -1,0 +1,9 @@
+xfolio-personal-portfolio-cv-resume-html-2026-01-15-19-27-38-utc/
+node_modules/
+.git/
+.next/
+*.webp
+*.png
+*.jpg
+*.jpeg
+!frontend/public/assets/**
