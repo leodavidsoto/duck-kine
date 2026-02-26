@@ -26,7 +26,9 @@ class PatientsService {
     }
 
     async getAll({ page = 1, limit = 20, search }) {
-        const skip = (page - 1) * limit;
+        const pageNum = Number(page) || 1;
+        const limitNum = Number(limit) || 20;
+        const skip = (pageNum - 1) * limitNum;
         const where = search ? {
             OR: [
                 { user: { firstName: { contains: search, mode: 'insensitive' } } },
@@ -37,14 +39,14 @@ class PatientsService {
 
         const [patients, total] = await Promise.all([
             prisma.patient.findMany({
-                where, skip, take: limit,
+                where, skip, take: limitNum,
                 include: { user: { select: { id: true, email: true, firstName: true, lastName: true, rut: true, phone: true } } },
                 orderBy: { createdAt: 'desc' },
             }),
             prisma.patient.count({ where }),
         ]);
 
-        return { patients, total, page, totalPages: Math.ceil(total / limit) };
+        return { patients, total, page: pageNum, totalPages: Math.ceil(total / limitNum) };
     }
 
     async getById(id) {

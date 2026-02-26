@@ -17,6 +17,7 @@ router.patch('/appointments/:id/no-show', ctrl.markNoShow);
 
 // ─── Patients ───────────────────────────────────────
 router.get('/patients', ctrl.getPatients);
+router.post('/patients', ctrl.createPatient);
 router.get('/patients/:id/full', ctrl.getPatientFull);
 
 // ─── Sessions ───────────────────────────────────────

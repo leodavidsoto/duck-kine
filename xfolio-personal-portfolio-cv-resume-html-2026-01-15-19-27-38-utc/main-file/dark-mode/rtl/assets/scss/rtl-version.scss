@@ -1,0 +1,151 @@
+/* ==== 
+ --------- rtl version styles start ---------
+ ==== */
+
+.rtl {
+  direction: rtl;
+
+  .mobile-menu,
+  .mobile-menu__backdrop {
+    direction: ltr;
+  }
+
+  .color-palate {
+    .color-palate-inner {
+      direction: ltr;
+    }
+  }
+
+  .btn-primary {
+    flex-direction: row-reverse;
+  }
+
+  .pulse-text,
+  .pulse-text-light {
+    direction: ltr;
+  }
+
+  .banner {
+    .title-animation {
+      text-align: center;
+    }
+  }
+
+  .section__header.text-center {
+    .title-animation {
+      text-align: center;
+    }
+  }
+
+  .text-center {
+    .title-animation {
+      text-align: center;
+    }
+  }
+
+  .footer__copyright {
+    p {
+      direction: ltr;
+    }
+  }
+
+  .title-animation {
+    direction: ltr;
+    text-align: end;
+  }
+
+  .swiper {
+    direction: ltr;
+  }
+
+  .swiper-rtl {
+    direction: rtl;
+  }
+
+  .slider-navigation {
+    direction: ltr;
+  }
+
+  .progress-wrap {
+    direction: ltr;
+  }
+
+  .accordion-button::after {
+    margin-left: unset;
+    margin-inline-start: auto;
+  }
+
+  .hero {
+    .hero__thumb {
+      left: 55%;
+      transform: translateX(-45%);
+
+      span {
+        transform: translateX(50%) rotate(39.28deg) !important;
+        scale: -1 1 !important;
+      }
+    }
+  }
+
+  .hero-four {
+    .hero-four-bg {
+      img {
+        scale: -1 1 !important;
+      }
+    }
+  }
+
+  .about {
+    .about__counter {
+      text-align: start;
+    }
+  }
+
+  .portfolio-four {
+
+    direction: ltr;
+
+    .title-animation {
+      direction: ltr;
+      text-align: start;
+    }
+  }
+
+  .blog-three h5 a {
+    direction: ltr;
+    text-align: center;
+  }
+
+  .appointment .bg-img img,
+  .testimonial-four .bg-img img {
+    scale: -1 1 !important;
+  }
+
+
+  .footer__copyright {
+
+    .footer__copyright-left,
+    .footer__copyright-right {
+      text-align: center;
+    }
+  }
+
+
+  @media only screen and (min-width: 992px) {
+    .footer__copyright {
+      .footer__copyright-left {
+        text-align: end;
+      }
+
+      .footer__copyright-right {
+        text-align: start;
+      }
+    }
+  }
+
+
+}
+
+/* ==== 
+ --------- rtl version styles end ---------
+ ==== */

@@ -31,7 +31,7 @@ export default function LoginPage() {
         <div className={styles.authPage}>
             <div className={styles.authCard}>
                 <div className={styles.authLogo}>
-                    <div className={styles.authLogoMark}>🦆</div>
+                    <div className={styles.authLogoMark}><img src="/assets/images/logo.png" alt="Duck" /></div>
                     <div className={styles.authLogoText}>Duck <span>Kine</span></div>
                 </div>
 
@@ -57,7 +57,7 @@ export default function LoginPage() {
                     </div>
 
                     <button id="login-submit" type="submit"
-                        className={`btn btn-primary btn-lg ${styles.submitBtn}`} disabled={loading}>
+                        className={styles.submitBtn} disabled={loading}>
                         {loading ? 'Ingresando...' : 'Iniciar sesión'}
                     </button>
                 </form>

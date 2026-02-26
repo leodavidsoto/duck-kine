@@ -96,7 +96,27 @@ const getRevenue = async (req, res, next) => {
     } catch (error) { next(error); }
 };
 
+const createPatient = async (req, res, next) => {
+    try {
+        // We use the auth service to register the patient, but generate a default password
+        const authService = require('../services/auth.service');
+        const defaultPassword = 'duckkine_temporal_123';
+
+        const result = await authService.register({
+            ...req.body,
+            password: defaultPassword,
+        });
+
+        res.status(201).json({
+            message: 'Paciente creado exitosamente',
+            patient: result.user,
+            defaultPassword,
+        });
+    } catch (error) { next(error); }
+};
+
 module.exports = {
     getStats, getTodayAppointments, confirmAppointment, completeAppointment,
     markNoShow, getPatients, getPatientFull, getSessions, createSession, getRevenue,
+    createPatient,
 };

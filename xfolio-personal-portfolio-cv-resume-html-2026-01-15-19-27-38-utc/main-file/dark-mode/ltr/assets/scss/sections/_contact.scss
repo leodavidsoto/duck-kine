@@ -1,0 +1,195 @@
+/* ==== 
+ --------- (5.11) contact styles start ---------
+ ==== */
+
+
+.contact {
+    .contact__inner {
+        padding: 80px 20px;
+        border-radius: 12px;
+        position: relative;
+        z-index: 1;
+        background-image: linear-gradient(to right, #F2010190, #00000000);
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            background-color: var(--quaternary-color);
+            z-index: -1;
+            border-radius: 12px;
+        }
+    }
+
+    .contact__info-single {
+        padding: 48px 20px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        position: relative;
+        z-index: 1;
+        background-image: linear-gradient(45deg, #F2010190, #F2010130 50%);
+        border-radius: 12px;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            background-color: var(--quaternary-color);
+            z-index: -1;
+            border-radius: 12px;
+        }
+
+        .thumb {
+            line-height: 0px;
+        }
+
+        i {
+            font-size: 60px;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        a {
+            color: #dfdfdf70;
+            word-break: break-all;
+        }
+
+        &:nth-of-type(2) {
+            background-image: linear-gradient(-45deg, #F2010190, #F2010130 50%);
+        }
+
+
+        h5 {
+            margin-bottom: 10px;
+        }
+
+        &:hover {
+
+            i,
+            a {
+                color: var(--secondary-color);
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+// contact section two styles
+.contact-two {
+    .contact-two__inner {
+        padding: 80px 20px;
+        border-radius: 12px;
+        position: relative;
+        z-index: 1;
+        background-image: linear-gradient(to right, #F2010190, #00000000);
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            background-color: var(--quaternary-color);
+            z-index: -1;
+            border-radius: 12px;
+        }
+    }
+
+    .contact-two__content {
+        max-width: 380px;
+
+        .btn-primary {
+
+
+            .btn-animated-text,
+            .btn-icon {
+                background-color: transparent;
+                border: 1px solid var(--template-color);
+                color: var(--template-color);
+
+                span {
+                    color: var(--template-color);
+                }
+            }
+
+            &:hover {
+
+                .btn-animated-text,
+                .btn-icon {
+                    border-color: var(--octonary-color);
+                    background-color: var(--octonary-color);
+                    color: var(--black);
+                }
+            }
+        }
+    }
+
+
+    label {
+        font-size: 16px;
+        margin-bottom: 0px;
+        color: var(--primary-color);
+
+        sup {
+            color: var(--secondary-color);
+        }
+    }
+
+    .input-single {
+
+        input,
+        textarea,
+        .select {
+            border-radius: 0px;
+            border: 0px;
+            border-bottom: 1px solid var(--senary-color);
+            padding-inline: 0px;
+            padding-top: 6px;
+            font-size: 14px;
+
+            &:focus {
+                border-color: var(--secondary-color);
+            }
+
+            &::placeholder {
+                font-size: 14px;
+            }
+        }
+
+        .current {
+            font-size: 14px;
+        }
+    }
+
+    .select {
+        &::after {
+            opacity: 0.5;
+        }
+    }
+
+    .input-group {
+        margin-bottom: 40px;
+    }
+
+    textarea {
+        min-height: 130px;
+    }
+
+
+
+    .btn--secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==== 
+ --------- (5.11) contact styles start ---------
+ ==== */

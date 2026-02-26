@@ -111,6 +111,7 @@ export const adminAPI = {
     markNoShow: (id) => apiFetch(`/admin/appointments/${id}/no-show`, { method: 'PATCH' }),
     getPatients: (params) => apiFetch(`/admin/patients?${new URLSearchParams(params)}`),
     getPatientFull: (id) => apiFetch(`/admin/patients/${id}/full`),
+    createPatient: (data) => apiFetch('/admin/patients', { method: 'POST', body: JSON.stringify(data) }),
     getSessions: (params) => apiFetch(`/admin/sessions?${new URLSearchParams(params)}`),
     createSession: (data) => apiFetch('/admin/sessions', { method: 'POST', body: JSON.stringify(data) }),
     getRevenue: () => apiFetch('/admin/revenue'),

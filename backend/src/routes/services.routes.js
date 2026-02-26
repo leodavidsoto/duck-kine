@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
                 name: true,
                 description: true,
                 durationMinutes: true,
-                basePrice: true,
+                price: true,
                 category: true,
             },
         });

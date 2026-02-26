@@ -4,26 +4,26 @@
     left: 0;
     right: 0;
     z-index: 100;
-    height: var(--nav-height);
+    height: 70px;
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(6, 6, 6, 0.9);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid transparent;
-    transition: all var(--dur-base) var(--ease-out);
+    transition: all 0.4s ease;
 }
 
 .navScrolled {
-    border-bottom-color: var(--border-light);
-    box-shadow: var(--shadow-xs);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .navInner {
     width: 100%;
-    max-width: var(--max-width);
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 var(--space-6);
+    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -32,82 +32,122 @@
 .logo {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: 10px;
     text-decoration: none;
 }
 
-.logoMark {
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-md);
-    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.125rem;
-    color: white;
-    box-shadow: 0 2px 8px rgba(20, 184, 166, 0.25);
+.logoImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .logoText {
-    font-family: var(--font-display);
-    font-size: 1.125rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #ffffff;
     letter-spacing: -0.01em;
 }
 
 .logoText span {
-    color: var(--primary-600);
+    color: #2ECC9A;
 }
 
 .navLinks {
     display: flex;
     align-items: center;
-    gap: var(--space-1);
+    gap: 4px;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .navLink {
-    padding: 0.5rem 0.875rem;
-    color: var(--text-secondary);
-    font-family: var(--font-display);
+    padding: 8px 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Sora', sans-serif;
     font-size: 0.875rem;
     font-weight: 500;
-    border-radius: var(--radius-md);
-    transition: all var(--dur-fast) var(--ease-out);
+    border-radius: 8px;
+    transition: all 0.3s ease;
     text-decoration: none;
 }
 
 .navLink:hover {
-    color: var(--primary-700);
-    background: var(--bg-primary-soft);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .navActions {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: 12px;
+}
+
+.loginLink {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.loginLink:hover {
+    color: #ffffff;
+}
+
+.ctaBtn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: #2ECC9A;
+    color: #000000;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.ctaBtn:hover {
+    background: #27b088;
+    transform: translateY(-1px);
 }
 
 .mobileToggle {
     display: none;
     background: none;
-    border: 1px solid var(--border-default);
-    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
     font-size: 1.125rem;
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: var(--radius-md);
+    padding: 8px;
+    border-radius: 8px;
     line-height: 1;
 }
 
 @media (max-width: 768px) {
     .navLinks {
         display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(6, 6, 6, 0.98);
+        padding: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .navActions .desktopOnly {
+    .navLinksOpen {
+        display: flex;
+    }
+
+    .navActions .loginLink {
         display: none;
     }
 

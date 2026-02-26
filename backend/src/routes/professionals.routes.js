@@ -5,7 +5,7 @@ const prisma = require('../config/database');
 router.get('/', async (req, res, next) => {
     try {
         const professionals = await prisma.professional.findMany({
-            where: { isActive: true },
+            where: { isAvailable: true },
             include: {
                 user: {
                     select: { firstName: true, lastName: true, avatarUrl: true },

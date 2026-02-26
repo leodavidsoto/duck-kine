@@ -1,34 +1,76 @@
 .page {
-    padding-top: calc(var(--nav-height) + var(--space-12));
-    padding-bottom: var(--space-20);
     min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 60px;
+    background: #060606;
+    color: #ffffff;
+}
+
+.page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.page .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.page .section-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2ECC9A;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.page .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.page .text-gradient {
+    color: #2ECC9A;
+}
+
+.page .section-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .plansGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-    align-items: start;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .planCard {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-xl);
-    padding: var(--space-8);
-    text-align: center;
+    background: #101010;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 32px;
     position: relative;
-    transition: all var(--dur-base) var(--ease-out);
+    transition: all 0.3s ease;
 }
 
 .planCard:hover {
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .featured {
-    border-color: var(--primary-200);
-    box-shadow: var(--shadow-primary);
+    border-color: #2ECC9A;
+    background: linear-gradient(180deg, rgba(46, 204, 154, 0.05) 0%, #101010 100%);
 }
 
 .planBadge {
@@ -36,77 +78,94 @@
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 0.3rem 1rem;
-    background: var(--primary-600);
-    border-radius: var(--radius-full);
-    font-family: var(--font-display);
-    font-size: 0.6875rem;
+    background: #2ECC9A;
+    color: #000;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.75rem;
     font-weight: 700;
-    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
     white-space: nowrap;
 }
 
 .planName {
-    font-family: var(--font-display);
-    font-size: 1.125rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.375rem;
     font-weight: 700;
-    margin-bottom: var(--space-4);
+    color: #ffffff;
+    margin-bottom: 8px;
 }
 
 .planPrice {
-    margin-bottom: var(--space-4);
+    margin-bottom: 12px;
 }
 
 .priceAmount {
-    font-family: var(--font-display);
-    font-size: 2rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.75rem;
     font-weight: 800;
-    color: var(--primary-700);
+    color: #2ECC9A;
 }
 
 .pricePeriod {
+    color: rgba(255, 255, 255, 0.4);
     font-size: 0.875rem;
-    color: var(--text-tertiary);
+    margin-left: 4px;
 }
 
 .planDesc {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.875rem;
-    line-height: 1.6;
-    margin-bottom: var(--space-6);
+    line-height: 1.5;
+    margin-bottom: 24px;
 }
 
 .planFeatures {
     list-style: none;
-    text-align: left;
-    margin-bottom: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    padding: 0;
+    margin: 0 0 24px;
 }
 
 .planFeature {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: 10px;
+    padding: 8px 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
 }
 
 .checkIcon {
-    color: var(--primary-500);
+    color: #2ECC9A;
     font-weight: 700;
-    flex-shrink: 0;
 }
 
 .planBtn {
+    display: block;
     width: 100%;
+    text-align: center;
+    padding: 14px 24px;
+    border-radius: 30px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-@media (max-width: 1024px) {
-    .plansGrid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto;
-    }
+.featured .planBtn {
+    background: #2ECC9A;
+    color: #000;
+    border-color: #2ECC9A;
+}
+
+.planBtn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.featured .planBtn:hover {
+    background: #27b088;
 }

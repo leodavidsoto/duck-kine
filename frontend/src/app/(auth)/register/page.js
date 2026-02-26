@@ -40,7 +40,7 @@ export default function RegisterPage() {
         <div className={styles.authPage}>
             <div className={styles.authCard}>
                 <div className={styles.authLogo}>
-                    <div className={styles.authLogoMark}>🦆</div>
+                    <div className={styles.authLogoMark}><img src="/assets/images/logo.png" alt="Duck" /></div>
                     <div className={styles.authLogoText}>Duck <span>Kine</span></div>
                 </div>
 
@@ -76,7 +76,7 @@ export default function RegisterPage() {
                     </div>
 
                     <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Teléfono <span style={{ color: 'var(--text-tertiary)', fontWeight: 400 }}>(opcional)</span></label>
+                        <label className={styles.formLabel}>Teléfono <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}>(opcional)</span></label>
                         <input id="reg-phone" type="tel" className={styles.formInput}
                             placeholder="+56 9 1234 5678" value={form.phone} onChange={update('phone')} />
                     </div>
@@ -95,7 +95,7 @@ export default function RegisterPage() {
                     </div>
 
                     <button id="reg-submit" type="submit"
-                        className={`btn btn-primary btn-lg ${styles.submitBtn}`} disabled={loading}>
+                        className={styles.submitBtn} disabled={loading}>
                         {loading ? 'Creando cuenta...' : 'Crear cuenta'}
                     </button>
                 </form>

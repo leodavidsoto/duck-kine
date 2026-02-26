@@ -6,6 +6,7 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -17,29 +18,39 @@ export default function Navbar() {
         <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : ''}`}>
             <div className={styles.navInner}>
                 <Link href="/" className={styles.logo}>
-                    <div className={styles.logoMark}>🦆</div>
+                    <img
+                        src="/assets/images/logo.png"
+                        alt="Duck Kinesiología"
+                        className={styles.logoImg}
+                    />
                     <span className={styles.logoText}>
                         Duck <span>Kine</span>
                     </span>
                 </Link>
 
-                <ul className={styles.navLinks}>
-                    <li><a href="#servicios" className={styles.navLink}>Servicios</a></li>
-                    <li><a href="#como-funciona" className={styles.navLink}>Cómo funciona</a></li>
+                <ul className={`${styles.navLinks} ${menuOpen ? styles.navLinksOpen : ''}`}>
+                    <li><Link href="/" className={styles.navLink}>Inicio</Link></li>
                     <li><Link href="/academia" className={styles.navLink}>Academia</Link></li>
                     <li><Link href="/corporativo" className={styles.navLink}>Empresas</Link></li>
+                    <li><Link href="/reservar" className={styles.navLink}>Reservar</Link></li>
                 </ul>
 
                 <div className={styles.navActions}>
-                    <Link href="/login" className={`btn btn-ghost ${styles.desktopOnly}`}>
+                    <Link href="/login" className={styles.loginLink}>
                         Iniciar sesión
                     </Link>
-                    <Link href="/register" className="btn btn-primary btn-sm">
+                    <Link href="/reservar" className={styles.ctaBtn}>
                         Agendar hora
                     </Link>
                 </div>
 
-                <button className={styles.mobileToggle} aria-label="Menú">☰</button>
+                <button
+                    className={styles.mobileToggle}
+                    aria-label="Menú"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                >
+                    {menuOpen ? '✕' : '☰'}
+                </button>
             </div>
         </nav>
     );

@@ -1,0 +1,498 @@
+/* ==== 
+ --------- (3.01) buttons styles start ---------
+ ==== */
+
+.btn-primary {
+  gap: 0px;
+  overflow: hidden;
+  transition: 0.5s;
+
+  .btn-animated-text {
+    padding: 20px 32px 18px;
+    background-color: var(--secondary-color);
+    border-radius: 30px;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    line-height: 1;
+    position: relative;
+    direction: ltr;
+    width: 100%;
+
+    span {
+      color: var(--white);
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+      font-weight: 500;
+
+      &:nth-child(odd) {
+        transform: translateY(-50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(50px);
+          left: 0;
+        }
+      }
+
+      &:nth-child(even) {
+        transform: translateY(50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(-50px);
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .btn-icon {
+
+    width: 54px;
+    min-width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-color);
+    font-size: 24px;
+    transition: 0.5s;
+    position: relative;
+    overflow: hidden;
+
+    i {
+      position: absolute;
+      transition: all 0.3s ease;
+
+      &:nth-of-type(1) {
+        left: -40px;
+      }
+
+      &:nth-of-type(2) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  &:hover {
+
+    .btn-animated-text {
+      background-color: var(--octonary-color);
+
+      span {
+        color: var(--black);
+
+        &:nth-child(odd) {
+          transform: translateY(0);
+        }
+
+        &:nth-child(even) {
+          transform: translateY(0);
+        }
+      }
+
+    }
+
+    .btn-icon {
+      background-color: var(--octonary-color);
+      color: var(--black);
+    }
+
+    i {
+      transform: rotate(45deg);
+      color: var(--black);
+
+      &:nth-of-type(1) {
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+      }
+
+      &:nth-of-type(2) {
+        left: 60px;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+.btn--secondary {
+
+  .btn-animated-text {
+    padding: 16px 24px;
+    background-color: var(--octonary-color);
+    color: var(--white);
+    position: relative;
+    font-weight: 400;
+    z-index: 1;
+    gap: 8px;
+    overflow: hidden;
+    letter-spacing: 0.8px;
+    border-radius: 60px;
+    text-transform: uppercase;
+    direction: ltr;
+    width: 100%;
+    text-align: center;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: var(--secondary-color);
+      width: 50%;
+      height: 100%;
+      transition: var(--transition);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    &::before {
+      inset-inline-end: 0px;
+      inset-block: 0px;
+    }
+
+    &::after {
+      inset-inline-start: 0px;
+      inset-block: 0px;
+    }
+
+    span {
+      color: var(--white);
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+      font-weight: 500;
+
+      &:nth-child(odd) {
+        transform: translateY(-50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(50px);
+          left: 0;
+        }
+      }
+
+      &:nth-child(even) {
+        transform: translateY(50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(-50px);
+          left: 0;
+        }
+      }
+    }
+  }
+
+
+
+  &:hover {
+    color: var(--black);
+
+
+
+    .btn-animated-text {
+
+      &::before,
+      &::after {
+        width: 0%;
+      }
+
+      span {
+        color: var(--black);
+
+        &:nth-child(odd) {
+          transform: translateY(0);
+        }
+
+        &:nth-child(even) {
+          transform: translateY(0);
+        }
+      }
+
+    }
+
+
+  }
+}
+
+.btn--tertiary {
+
+
+  .btn-animated-text {
+    padding: 16px 24px;
+    background-color: var(--secondary-color);
+    color: var(--template-color);
+    position: relative;
+    font-weight: 400;
+    z-index: 1;
+    gap: 8px;
+    overflow: hidden;
+    letter-spacing: 0.8px;
+    border-radius: 60px;
+    text-transform: uppercase;
+    direction: ltr;
+    border: 1px solid var(--tertiary-color);
+    width: 100%;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: var(--template-bg);
+      width: 50%;
+      height: 100%;
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    &::before {
+      inset-inline-end: 0px;
+      inset-block: 0px;
+    }
+
+    &::after {
+      inset-inline-start: 0px;
+      inset-block: 0px;
+    }
+
+    span {
+      color: var(--template-color);
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+      font-weight: 500;
+
+      &:nth-child(odd) {
+        transform: translateY(-50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(50px);
+          left: 0;
+        }
+      }
+
+      &:nth-child(even) {
+        transform: translateY(50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(-50px);
+          left: 0;
+        }
+      }
+    }
+  }
+
+
+
+
+  &:hover {
+
+
+    .btn-animated-text {
+      color: var(--white);
+      border: 1px solid var(--secondary-color);
+
+      &::before,
+      &::after {
+        width: 0%;
+      }
+
+      span {
+        color: var(--white);
+
+        &:nth-child(odd) {
+          transform: translateY(0);
+        }
+
+        &:nth-child(even) {
+          transform: translateY(0);
+        }
+      }
+
+    }
+
+
+  }
+}
+
+
+.btn-anim {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid var(--secondary-color);
+  color: var(--white);
+  font-weight: 300;
+  position: relative;
+  overflow: hidden !important;
+  gap: 12px;
+  z-index: 1;
+  padding: 8px;
+  font-size: 16px;
+  letter-spacing: 0.8px;
+
+  i {
+    font-size: 30px;
+  }
+
+  span {
+    position: absolute;
+    z-index: -1;
+    width: 0;
+    height: 0;
+    border-radius: 100%;
+    background: var(--secondary-color);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: width 0.7s, padding-top 0.7s;
+  }
+
+  &:hover {
+    color: var(--white);
+    border: 1px solid var(--secondary-color);
+
+    span {
+      width: calc(100% * 2.25);
+      padding-top: calc(100% * 2.25);
+    }
+  }
+}
+
+.btn-quaternary {
+  gap: 0px;
+  overflow: hidden;
+  transition: 0.5s;
+
+  .btn-animated-text {
+    padding: 20px 32px 18px;
+    background-color: var(--template-color);
+    border-radius: 30px;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    line-height: 1;
+    position: relative;
+    direction: ltr;
+    width: 100%;
+
+    span {
+      color: var(--template-bg);
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+      font-weight: 500;
+
+      &:nth-child(odd) {
+        transform: translateY(-50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(50px);
+          left: 0;
+        }
+      }
+
+      &:nth-child(even) {
+        transform: translateY(50px);
+
+        &::before {
+          content: attr(data-text);
+          position: absolute;
+          transform: translateY(-50px);
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .btn-icon {
+    width: 54px;
+    min-width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--template-color);
+    font-size: 24px;
+    transition: 0.5s;
+    position: relative;
+    overflow: hidden;
+
+    i {
+      position: absolute;
+      transition: all 0.3s ease;
+      color: var(--template-bg);
+
+      &:nth-of-type(1) {
+        left: -40px;
+      }
+
+      &:nth-of-type(2) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  &:hover {
+
+    .btn-animated-text {
+      background-color: var(--secondary-color);
+
+      span {
+        color: var(--white);
+
+        &:nth-child(odd) {
+          transform: translateY(0);
+        }
+
+        &:nth-child(even) {
+          transform: translateY(0);
+        }
+      }
+
+    }
+
+    .btn-icon {
+      background-color: var(--secondary-color);
+      color: var(--white);
+    }
+
+    i {
+      transform: rotate(45deg);
+      color: var(--white);
+
+      &:nth-of-type(1) {
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+      }
+
+      &:nth-of-type(2) {
+        left: 60px;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+/* ==== 
+ --------- (3.01) buttons styles end ---------
+ ==== */

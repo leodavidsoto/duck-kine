@@ -1,6 +1,6 @@
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
-const prisma = require('./src/config/database');
+const prisma = require('../src/config/database');
 
 async function seed() {
     console.log('🌱 Seeding Duck Kinesiología...\n');
@@ -10,9 +10,16 @@ async function seed() {
     const existing = await prisma.user.findUnique({ where: { email: profEmail } });
 
     let profUser;
+
+    // Check by RUT as well to avoid unique constraint if email was changed
+    const existingByRut = await prisma.user.findUnique({ where: { rut: '12.345.678-9' } });
+
     if (existing) {
         console.log(`✅ Professional user already exists: ${profEmail}`);
         profUser = existing;
+    } else if (existingByRut) {
+        console.log(`✅ Professional user already exists by RUT: 12.345.678-9`);
+        profUser = existingByRut;
     } else {
         const hash = await bcrypt.hash('duckkine2026', 12);
         profUser = await prisma.user.create({

@@ -1,0 +1,501 @@
+?   clinics?: ClinicProfessionalListRelationFilter
+[0mGET /api/professionals [31m500[0m 3.425 ms - 1498[0m
+  },
+  include: {
+[0mGET /api/services [36m304[0m 2.521 ms - -[0m
+    user: {
+      select: {
+        firstName: true,
+        lastName: true,
+        avatarUrl: true
+      }
+    }
+  },
+  orderBy: {
+    user: {
+      firstName: "asc"
+    }
+  }
+}
+
+❌ Error: 
+Invalid `prisma.professional.findMany()` invocation:
+
+{
+  where: {
+    isActive: true,
+    ~~~~~~~~
+?   AND?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   OR?: ProfessionalWhereInput[],
+?   NOT?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   id?: StringFilter | String,
+?   userId?: StringFilter | String,
+?   specialty?: StringFilter | String,
+?   licenseNumber?: StringNullableFilter | String | Null,
+?   university?: StringNullableFilter | String | Null,
+?   yearsExperience?: IntNullableFilter | Int | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   avatarUrl?: StringNullableFilter | String | Null,
+?   colorTag?: StringNullableFilter | String | Null,
+?   isAvailable?: BoolFilter | Boolean,
+?   createdAt?: DateTimeFilter | DateTime,
+?   updatedAt?: DateTimeFilter | DateTime,
+?   user?: UserScalarRelationFilter | UserWhereInput,
+?   clinicalRecords?: ClinicalRecordListRelationFilter,
+?   appointments?: AppointmentListRelationFilter,
+?   sessions?: SessionListRelationFilter,
+?   schedules?: ScheduleListRelationFilter,
+?   physicalAssessments?: PhysicalAssessmentListRelationFilter,
+?   clinics?: ClinicProfessionalListRelationFilter
+  },
+  include: {
+    user: {
+      select: {
+        firstName: true,
+        lastName: true,
+        avatarUrl: true
+      }
+    }
+  },
+  orderBy: {
+    user: {
+      firstName: "asc"
+    }
+  }
+}
+
+Unknown argument `isActive`. Available options are marked with ?.
+[0mGET /api/professionals [31m500[0m 2.909 ms - 1498[0m
+[0mGET /api/services [36m304[0m 3.703 ms - -[0m
+        }
+      }
+[0mGET /api/appointments/my?limit=3 [31m500[0m 91.157 ms - 635[0m
+❌ Error: 
+Invalid `prisma.appointment.findMany()` invocation:
+
+{
+  where: {
+    patientId: "f4fa831f-9699-4d7e-a5cb-7992c709b7b0"
+  },
+  take: 3,
+  orderBy: {
+    startTime: "desc"
+  },
+  include: {
+    service: true,
+    patient: {
+      include: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true
+          }
+        }
+      }
+    },
+    professional: {
+      include: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true
+          }
+    }
+  },
++ skip: Int
+}
+
+Argument `skip` is missing.
+[0mGET /api/patients/me/stats [36m304[0m 108.155 ms - -[0m
+❌ Error: 
+Invalid `prisma.appointment.findMany()` invocation:
+
+{
+  },
+    patient: {
+  where: {
+  include: {
+      include: {
+            firstName: true,
+    service: true,
+        user: {
+            lastName: true
+    patientId: "f4fa831f-9699-4d7e-a5cb-7992c709b7b0"
+          select: {
+            firstName: true,
+          }
+  },
+            lastName: true
+        }
+    professional: {
+          }
+  skip: NaN,
+      }
++ take: Int
+      include: {
+Invalid `prisma.professional.findMany()` invocation:
+        }
+  orderBy: {
+?   OR?: ProfessionalWhereInput[],
+    },
+      }
+        user: {
+
+}
+Argument `take` is missing.
+    startTime: "desc"
+    }
+          select: {
+
+{
+    isActive: true,
+[0mGET /api/appointments/my? [31m500[0m 77.359 ms - 637[0m
+  },
+  where: {
+    ~~~~~~~~
+❌ Error: 
+?   AND?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   NOT?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   id?: StringFilter | String,
+?   userId?: StringFilter | String,
+?   specialty?: StringFilter | String,
+?   licenseNumber?: StringNullableFilter | String | Null,
+?   university?: StringNullableFilter | String | Null,
+?   yearsExperience?: IntNullableFilter | Int | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   avatarUrl?: StringNullableFilter | String | Null,
+?   colorTag?: StringNullableFilter | String | Null,
+?   isAvailable?: BoolFilter | Boolean,
+?   createdAt?: DateTimeFilter | DateTime,
+?   updatedAt?: DateTimeFilter | DateTime,
+?   user?: UserScalarRelationFilter | UserWhereInput,
+?   clinicalRecords?: ClinicalRecordListRelationFilter,
+?   appointments?: AppointmentListRelationFilter,
+?   sessions?: SessionListRelationFilter,
+?   schedules?: ScheduleListRelationFilter,
+?   physicalAssessments?: PhysicalAssessmentListRelationFilter,
+?   clinics?: ClinicProfessionalListRelationFilter
+  },
+  include: {
+    user: {
+      select: {
+        firstName: true,
+        lastName: true,
+        avatarUrl: true
+      }
+    }
+  },
+  orderBy: {
+    user: {
+      firstName: "asc"
+    }
+  }
+}
+
+Unknown argument `isActive`. Available options are marked with ?.
+[0mGET /api/professionals [31m500[0m 2.456 ms - 1498[0m
+[0mGET /api/services [36m304[0m 3.234 ms - -[0m
+❌ Error: 
+Invalid `prisma.professional.findMany()` invocation:
+
+{
+  where: {
+    isActive: true,
+    ~~~~~~~~
+?   AND?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   OR?: ProfessionalWhereInput[],
+?   NOT?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   id?: StringFilter | String,
+?   userId?: StringFilter | String,
+?   specialty?: StringFilter | String,
+?   licenseNumber?: StringNullableFilter | String | Null,
+?   university?: StringNullableFilter | String | Null,
+?   yearsExperience?: IntNullableFilter | Int | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   avatarUrl?: StringNullableFilter | String | Null,
+?   colorTag?: StringNullableFilter | String | Null,
+?   isAvailable?: BoolFilter | Boolean,
+?   createdAt?: DateTimeFilter | DateTime,
+?   updatedAt?: DateTimeFilter | DateTime,
+?   user?: UserScalarRelationFilter | UserWhereInput,
+?   clinicalRecords?: ClinicalRecordListRelationFilter,
+?   appointments?: AppointmentListRelationFilter,
+    user: {
+      firstName: "asc"
+    }
+  }
+}
+
+Unknown argument `isActive`. Available options are marked with ?.
+[0mGET /api/professionals [31m500[0m 2.233 ms - 1498[0m
+?   sessions?: SessionListRelationFilter,
+?   schedules?: ScheduleListRelationFilter,
+?   physicalAssessments?: PhysicalAssessmentListRelationFilter,
+?   clinics?: ClinicProfessionalListRelationFilter
+  },
+  include: {
+    user: {
+      select: {
+        firstName: true,
+        lastName: true,
+        avatarUrl: true
+      }
+    }
+  },
+  orderBy: {
+[0mGET /api/services [36m304[0m 2.425 ms - -[0m
+?   isAvailable?: BoolFilter | Boolean,
+?   createdAt?: DateTimeFilter | DateTime,
+?   updatedAt?: DateTimeFilter | DateTime,
+?   user?: UserScalarRelationFilter | UserWhereInput,
+?   clinicalRecords?: ClinicalRecordListRelationFilter,
+❌ Error: 
+?   appointments?: AppointmentListRelationFilter,
+Invalid `prisma.professional.findMany()` invocation:
+
+{
+  where: {
+    isActive: true,
+    ~~~~~~~~
+?   AND?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   OR?: ProfessionalWhereInput[],
+?   NOT?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   id?: StringFilter | String,
+?   userId?: StringFilter | String,
+?   specialty?: StringFilter | String,
+?   licenseNumber?: StringNullableFilter | String | Null,
+?   university?: StringNullableFilter | String | Null,
+?   yearsExperience?: IntNullableFilter | Int | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   avatarUrl?: StringNullableFilter | String | Null,
+?   colorTag?: StringNullableFilter | String | Null,
+  },
+[0mGET /api/services [36m304[0m 3.925 ms - -[0m
+?   sessions?: SessionListRelationFilter,
+  orderBy: {
+?   schedules?: ScheduleListRelationFilter,
+    user: {
+}
+      firstName: "asc"
+
+?   physicalAssessments?: PhysicalAssessmentListRelationFilter,
+Unknown argument `isActive`. Available options are marked with ?.
+    }
+?   clinics?: ClinicProfessionalListRelationFilter
+[0mGET /api/professionals [31m500[0m 3.841 ms - 1498[0m
+  }
+  },
+  include: {
+    user: {
+      select: {
+        firstName: true,
+        lastName: true,
+        avatarUrl: true
+      }
+    }
+?   id?: StringFilter | String,
+?   userId?: StringFilter | String,
+?   specialty?: StringFilter | String,
+?   licenseNumber?: StringNullableFilter | String | Null,
+?   university?: StringNullableFilter | String | Null,
+?   yearsExperience?: IntNullableFilter | Int | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   avatarUrl?: StringNullableFilter | String | Null,
+?   colorTag?: StringNullableFilter | String | Null,
+?   isAvailable?: BoolFilter | Boolean,
+?   createdAt?: DateTimeFilter | DateTime,
+?   updatedAt?: DateTimeFilter | DateTime,
+?   user?: UserScalarRelationFilter | UserWhereInput,
+?   clinicalRecords?: ClinicalRecordListRelationFilter,
+?   appointments?: AppointmentListRelationFilter,
+❌ Error: 
+Invalid `prisma.professional.findMany()` invocation:
+
+{
+  where: {
+    isActive: true,
+    ~~~~~~~~
+?   AND?: ProfessionalWhereInput | ProfessionalWhereInput[],
+?   OR?: ProfessionalWhereInput[],
+?   NOT?: ProfessionalWhereInput | ProfessionalWhereInput[],
+
+Unknown argument `isActive`. Available options are marked with ?.
+[0mGET /api/professionals [31m500[0m 4.251 ms - 1498[0m
+?   sessions?: SessionListRelationFilter,
+?   schedules?: ScheduleListRelationFilter,
+[0mGET /api/services [36m304[0m 3.848 ms - -[0m
+?   physicalAssessments?: PhysicalAssessmentListRelationFilter,
+?   clinics?: ClinicProfessionalListRelationFilter
+  },
+  include: {
+    user: {
+      select: {
+        firstName: true,
+        lastName: true,
+        avatarUrl: true
+      }
+    }
+  },
+  orderBy: {
+    user: {
+      firstName: "asc"
+    }
+  }
+}
+❌ Error: 
+          select: {
+Invalid `prisma.clinicalRecord.findMany()` invocation:
+            firstName: true,
+
+            lastName: true
+          }
+{
+        }
+  where: {
+      }
+    patientId: "me"
+  },
+  skip: NaN,
+  orderBy: {
+    createdAt: "desc"
+  },
+  include: {
+    professional: {
+      include: {
+        user: {
+    }
+  },
++ take: Int
+}
+
+Argument `take` is missing.
+[0mGET /api/clinical-records/patient/me? [31m500[0m 73.878 ms - 415[0m
+[0mGET /api/patients/me [32m200[0m 78.090 ms - 827[0m
+❌ Error: 
+Invalid `prisma.appointment.findMany()` invocation:
+        user: {
+          select: {
+            firstName: true,
+        user: {
+            lastName: true
+          select: {
+          }
+            firstName: true,
+        }
+
+            lastName: true
+{
+          }
+    startTime: "desc"
+  where: {
+        }
+  },
+  include: {
+      }
+    patientId: "f4fa831f-9699-4d7e-a5cb-7992c709b7b0"
+      }
+    service: true,
+  },
+    patient: {
+    }
+    },
+  take: 3,
+      include: {
+  },
+    professional: {
+  orderBy: {
++ skip: Int
+      include: {
+}
+
+Argument `skip` is missing.
+[0mGET /api/appointments/my?limit=3 [31m500[0m 78.370 ms - 635[0m
+[0mGET /api/patients/me/stats [36m304[0m 85.124 ms - -[0m
+[0mPOST /api/auth/login [32m200[0m 543.909 ms - 544[0m
+[0mGET /api/admin/stats [32m200[0m 35.350 ms - 139[0m
+[0mGET /api/admin/appointments/today [36m304[0m 42.969 ms - -[0m
+    }
+  },
+  orderBy: {
+    createdAt: "desc"
+  }
+}
+
+Argument `take`: Invalid value provided. Expected Int, provided String.
+[0mGET /api/admin/patients?search=&limit=50 [31m500[0m 5.798 ms - 444[0m
+❌ Error: 
+Invalid `prisma.patient.findMany()` invocation:
+
+{
+  where: {},
+  skip: 0,
+  take: "50",
+        ~~~~
+  include: {
+    user: {
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        rut: true,
+        phone: true
+      }
+        email: true,
+        firstName: true,
+        lastName: true,
+        rut: true,
+        phone: true
+      }
+
+    }
+  where: {},
+Argument `take`: Invalid value provided. Expected Int, provided String.
+  orderBy: {
+  skip: 0,
+  },
+    createdAt: "desc"
+  take: "50",
+[0mGET /api/admin/patients?search=&limit=50 [31m500[0m 9.552 ms - 444[0m
+  }
+        ~~~~
+  include: {
+}
+    user: {
+      select: {
+❌ Error: 
+Invalid `prisma.patient.findMany()` invocation:
+
+{
+        id: true,
+[0mGET /api/admin/sessions? [32m200[0m 105.023 ms - 49[0m
+[0mGET /api/admin/revenue [32m200[0m 100.604 ms - 103[0m
+[0mGET /api/admin/stats [36m304[0m 173.232 ms - -[0m
+[0mGET /api/admin/appointments/today [36m304[0m 172.459 ms - -[0m
+❌ Error: 
+Invalid `prisma.patient.findMany()` invocation:
+
+{
+  where: {},
+  skip: 0,
+  take: "50",
+        ~~~~
+  include: {
+    user: {
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        rut: true,
+        phone: true
+      }
+    }
+  }
+  },
+}
+  orderBy: {
+
+    createdAt: "desc"
+Argument `take`: Invalid value provided. Expected Int, provided String.
+[0mGET /api/admin/patients?search=&limit=50 [31m500[0m 85.131 ms - 444[0m

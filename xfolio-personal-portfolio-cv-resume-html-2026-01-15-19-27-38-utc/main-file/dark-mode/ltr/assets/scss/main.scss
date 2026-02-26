@@ -1,0 +1,83 @@
+/* ==============
+ ========= css table of contents =========
+
+ * template name: Xfolio
+ * version: 1.0
+ * description: Personal Portfolio & CV Resume HTML5 Template
+ * author: wowtheme7
+ * author-url: https://themeforest.net/user/wowtheme7
+
+ 01. abstracts
+     1.01 --> mixins
+     1.02 --> variables
+    
+ 02. base
+     2.01 --> reset
+     2.02 --> typography
+     2.03 --> global
+
+ 03. components
+     3.01 --> buttons
+     3.02 --> forms
+     3.03 --> preloader
+     3.04 --> cursor
+     3.05 --> scroll progress
+     3.06 --> widgets
+
+ 04. layout
+     4.01 --> header
+     4.02 --> banner
+     4.03 --> footer
+
+ 05. sections
+     5.01 --> marquee
+     5.02 --> service
+     5.03 --> experience
+     5.04 --> portfolio
+     5.05 --> skill
+     5.06 --> pricing
+     5.07 --> testimonial
+     5.08 --> blog
+     5.09 --> about
+     5.10 --> faq
+     5.11 --> contact
+     5.12 --> coming soon
+
+    ==================================
+============== */
+
+// abstract styles
+@use "./abstracts/mixins" as mixins;
+@use "./abstracts/variables" as variables;
+
+// base styles
+@use "./base/reset" as reset;
+@use "./base/typography" as typography;
+@use "./base/global" as global;
+
+// component styles
+@use "./components/buttons" as buttons;
+@use "./components/forms" as forms;
+@use "./components/preloader" as preloader;
+@use "./components/cursor" as cursor;
+@use "./components/scroll-progress" as scrollProgress;
+@use "./components/widgets" as widgets;
+
+// layout styles
+@use "./layout/header" as header;
+@use "./layout/banner" as banner;
+@use "./layout/footer" as footer;
+
+// section styles
+@use "./sections/marquee" as marquee;
+@use "./sections/service" as service;
+@use "./sections/experience" as experience;
+@use "./sections/portfolio" as portfolio;
+@use "./sections/skill" as skill;
+@use "./sections/pricing" as pricing;
+@use "./sections/testimonial" as testimonial;
+@use "./sections/blog" as blog;
+@use "./sections/about" as about;
+@use "./sections/faq" as faq;
+@use "./sections/contact" as contact;
+@use "./sections/coming-soon" as comingSoon;

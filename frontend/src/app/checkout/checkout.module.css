@@ -1,0 +1,119 @@
+.checkoutContainer {
+    padding-top: calc(var(--nav-height) + 4rem);
+    padding-bottom: 4rem;
+    max-width: 600px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resultCard {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    padding: 3rem;
+    width: 100%;
+    text-align: center;
+}
+
+/* Spinner */
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--border-light);
+    border-top-color: var(--primary-600);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1.5rem auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Icons */
+.iconSuccess,
+.iconError {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 auto 1.5rem auto;
+}
+
+.iconSuccess {
+    background: var(--success-100);
+    color: var(--success-600);
+    border: 4px solid var(--success-200);
+}
+
+.iconError {
+    background: var(--error-100);
+    color: var(--error-600);
+    border: 4px solid var(--error-200);
+}
+
+/* Typography */
+.titleSuccess {
+    font-family: var(--font-display);
+    color: var(--success-700);
+    margin-bottom: 1rem;
+}
+
+.titleError {
+    font-family: var(--font-display);
+    color: var(--error-700);
+    margin-bottom: 1rem;
+}
+
+.descText {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* Receipt Box */
+.receiptBox {
+    background: var(--bg-subtle);
+    border: 1px dashed var(--border-light);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    text-align: left;
+}
+
+.receiptRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.receiptRow:last-child {
+    border-bottom: none;
+}
+
+.receiptRow span {
+    color: var(--text-tertiary);
+}
+
+/* Actions */
+.actionRow {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 480px) {
+    .actionRow {
+        flex-direction: row;
+        justify-content: center;
+    }
+}

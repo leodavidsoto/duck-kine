@@ -1,0 +1,88 @@
+/* ==== 
+ --------- (5.01) marquee styles start ---------
+ ==== */
+
+
+.marquee {
+    padding: 40px 0px;
+    background-color: var(--secondary-color);
+    overflow-x: clip;
+    direction: ltr;
+
+    .marquee__inner {
+        position: relative;
+        display: flex;
+        overflow: hidden;
+        user-select: none;
+        gap: 0px;
+        direction: ltr;
+
+        &:hover {
+            .marquee__slider {
+                animation-play-state: paused;
+            }
+        }
+    }
+
+    .marquee__slider {
+        flex-shrink: 0;
+        display: flex;
+        gap: 0px;
+        direction: ltr;
+        min-width: max-content;
+        animation: scroll 20s linear infinite;
+    }
+
+    .marquee__single {
+        flex: 0 0 auto;
+        padding-inline: 24px;
+    }
+
+    h4 {
+        line-height: 1;
+        margin-block: -3px;
+    }
+
+    a {
+        color: var(--white);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0px;
+        font-family: var(--urban);
+        gap: 48px;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            color: var(--white);
+        }
+    }
+
+    .stroke-text {
+        a {
+            color: transparent;
+            -webkit-text-stroke: 1px #FFF;
+            position: relative;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #FFF;
+            }
+        }
+    }
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-100% - 0px));
+    }
+}
+
+
+/* ==== 
+ --------- (5.01) marquee styles end ---------
+ ==== */

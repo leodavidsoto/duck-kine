@@ -4,8 +4,8 @@
   "description": "Duck Kinesiología – API Backend",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "build": "prisma generate && prisma migrate deploy",
+    "start": "npx prisma migrate deploy && node src/index.js",
+    "build": "npx prisma generate",
     "dev": "nodemon src/index.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
@@ -32,11 +32,11 @@
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
     "pg": "^8.19.0",
+    "prisma": "^7.4.1",
     "socket.io": "^4.8.3",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14",
-    "prisma": "^7.4.1"
+    "nodemon": "^3.1.14"
   }
 }

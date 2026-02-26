@@ -12,6 +12,12 @@ export default function PacientesPage() {
     const [detailLoading, setDetailLoading] = useState(false);
     const [activeTab, setActiveTab] = useState('info');
 
+    // New patient form
+    const [showNewForm, setShowNewForm] = useState(false);
+    const [newPatient, setNewPatient] = useState({ firstName: '', lastName: '', email: '', rut: '', phone: '' });
+    const [submitLoading, setSubmitLoading] = useState(false);
+    const [createdInfo, setCreatedInfo] = useState(null);
+
     useEffect(() => { loadPatients(); }, []);
 
     const loadPatients = async (q) => {
@@ -40,6 +46,22 @@ export default function PacientesPage() {
 
     const fmtDate = (d) => d ? new Date(d).toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
     const fmtMoney = (v) => `$${Number(v || 0).toLocaleString('es-CL')}`;
+
+    const handleCreatePatient = async (e) => {
+        e.preventDefault();
+        setSubmitLoading(true);
+        try {
+            const res = await adminAPI.createPatient(newPatient);
+            setCreatedInfo({ email: newPatient.email, password: res.defaultPassword });
+            setShowNewForm(false);
+            setNewPatient({ firstName: '', lastName: '', email: '', rut: '', phone: '' });
+            loadPatients(); // Refresh the list
+        } catch (err) {
+            alert(err.message || 'Error al crear paciente');
+        } finally {
+            setSubmitLoading(false);
+        }
+    };
 
     // ─── Detail view ────────────────────────────
     if (selectedPatient) {
@@ -200,12 +222,110 @@ export default function PacientesPage() {
     // ─── List view ──────────────────────────────
     return (
         <>
-            <div className={s.pageHeader}>
-                <h1 className={s.pageTitle}>👥 Pacientes</h1>
-                <p className={s.pageDesc}>Gestiona tus pacientes y sus fichas</p>
+            <div className={s.headerRow}>
+                <div className={s.pageHeader} style={{ marginBottom: 0 }}>
+                    <h1 className={s.pageTitle}>👥 Pacientes</h1>
+                    <p className={s.pageDesc}>Gestiona tus pacientes y sus fichas</p>
+                </div>
+                <button className="btn btn-primary" onClick={() => setShowNewForm(true)}>
+                    + Agregar Paciente
+                </button>
             </div>
 
+            {createdInfo && (
+                <div style={{ padding: '1rem', background: 'var(--success-50)', border: '1px solid var(--success-200)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                    <h4 style={{ color: 'var(--success-700)', marginBottom: '0.5rem' }}>✅ Paciente creado exitosamente</h4>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--success-800)' }}>
+                        Se ha registrado la cuenta. El paciente puede ingresar con:
+                    </p>
+                    <ul style={{ fontSize: '0.9rem', color: 'var(--success-800)', marginTop: '0.5rem', listStyle: 'none', padding: 0 }}>
+                        <li><strong>Email:</strong> {createdInfo.email}</li>
+                        <li><strong>Contraseña temporal:</strong> <code>{createdInfo.password}</code></li>
+                    </ul>
+                    <button style={{ marginTop: '0.5rem', background: 'transparent', border: 'none', color: 'var(--success-700)', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem', padding: 0 }} onClick={() => setCreatedInfo(null)}>Cerrar mensaje</button>
+                </div>
+            )}
+
+            {showNewForm && (
+                <div className={s.modalOverlay}>
+                    <div className={s.modalContent} style={{ maxWidth: '400px' }}>
+                        <div className={s.modalHeader}>
+                            <h3>Añadir Nuevo Paciente</h3>
+                            <button type="button" className={s.closeBtn} onClick={() => setShowNewForm(false)}>×</button>
+                        </div>
+                        <form onSubmit={handleCreatePatient} className={s.modalBody}>
+                            <div className={s.formGrid}>
+                                <div className={s.formGroup}>
+                                    <label>Nombre *</label>
+                                    <input type="text" required value={newPatient.firstName} onChange={(e) => setNewPatient({ ...newPatient, firstName: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup}>
+                                    <label>Apellido *</label>
+                                    <input type="text" required value={newPatient.lastName} onChange={(e) => setNewPatient({ ...newPatient, lastName: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup} style={{ gridColumn: '1 / -1' }}>
+                                    <label>Email *</label>
+                                    <input type="email" required value={newPatient.email} onChange={(e) => setNewPatient({ ...newPatient, email: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup}>
+                                    <label>RUT</label>
+                                    <input type="text" placeholder="12345678-9" value={newPatient.rut} onChange={(e) => setNewPatient({ ...newPatient, rut: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup}>
+                                    <label>Teléfono</label>
+                                    <input type="tel" value={newPatient.phone} onChange={(e) => setNewPatient({ ...newPatient, phone: e.target.value })} />
+                                </div>
+                            </div>
+                            <div className={s.modalActions}>
+                                <button type="button" className="btn btn-secondary" onClick={() => setShowNewForm(false)}>Cancelar</button>
+                                <button type="submit" className="btn btn-primary" disabled={submitLoading}>
+                                    {submitLoading ? 'Creando...' : 'Crear Paciente'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
             <form onSubmit={handleSearch} className={s.searchBar}>
+                <div className={s.modalOverlay}>
+                    <div className={s.modalContent} style={{ maxWidth: '400px' }}>
+                        <div className={s.modalHeader}>
+                            <h3>Añadir Nuevo Paciente</h3>
+                            <button type="button" className={s.closeBtn} onClick={() => setShowNewForm(false)}>×</button>
+                        </div>
+                        <form onSubmit={handleCreatePatient} className={s.modalBody}>
+                            <div className={s.formGrid}>
+                                <div className={s.formGroup}>
+                                    <label>Nombre *</label>
+                                    <input type="text" required value={newPatient.firstName} onChange={(e) => setNewPatient({ ...newPatient, firstName: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup}>
+                                    <label>Apellido *</label>
+                                    <input type="text" required value={newPatient.lastName} onChange={(e) => setNewPatient({ ...newPatient, lastName: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup} style={{ gridColumn: '1 / -1' }}>
+                                    <label>Email *</label>
+                                    <input type="email" required value={newPatient.email} onChange={(e) => setNewPatient({ ...newPatient, email: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup}>
+                                    <label>RUT</label>
+                                    <input type="text" placeholder="12345678-9" value={newPatient.rut} onChange={(e) => setNewPatient({ ...newPatient, rut: e.target.value })} />
+                                </div>
+                                <div className={s.formGroup}>
+                                    <label>Teléfono</label>
+                                    <input type="tel" value={newPatient.phone} onChange={(e) => setNewPatient({ ...newPatient, phone: e.target.value })} />
+                                </div>
+                            </div>
+                            <div className={s.modalActions}>
+                                <button type="button" className="btn btn-secondary" onClick={() => setShowNewForm(false)}>Cancelar</button>
+                                <button type="submit" className="btn btn-primary" disabled={submitLoading}>
+                                    {submitLoading ? 'Creando...' : 'Crear Paciente'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <input type="text" className={s.searchInput}
                     placeholder="Buscar por nombre, apellido o RUT..."
                     value={search} onChange={(e) => setSearch(e.target.value)} />

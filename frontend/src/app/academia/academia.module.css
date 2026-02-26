@@ -1,38 +1,77 @@
 .page {
-    padding-top: calc(var(--nav-height) + var(--space-12));
-    padding-bottom: var(--space-20);
     min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 60px;
+    background: #060606;
+    color: #ffffff;
+}
+
+.page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.page .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.page .section-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2ECC9A;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.page .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.page .text-gradient {
+    color: #2ECC9A;
+}
+
+.page .section-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
 }
 
 .courseCard {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-xl);
+    background: #101010;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: all var(--dur-base) var(--ease-out);
+    transition: all 0.3s ease;
 }
 
 .courseCard:hover {
-    border-color: var(--primary-100);
-    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(46, 204, 154, 0.2);
     transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .courseImage {
-    height: 140px;
+    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--primary-50), var(--bg-subtle));
-    border-bottom: 1px solid var(--border-light);
+    background: linear-gradient(135deg, #1B1B1B, #101010);
 }
 
 .courseEmoji {
@@ -40,64 +79,49 @@
 }
 
 .courseBody {
-    padding: var(--space-6);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    padding: 24px;
 }
 
 .courseCategory {
-    font-family: var(--font-display);
-    font-size: 0.6875rem;
-    font-weight: 700;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--primary-600);
-    margin-bottom: var(--space-2);
+    color: #2ECC9A;
+    letter-spacing: 1.5px;
 }
 
 .courseTitle {
-    font-family: var(--font-display);
-    font-size: 1rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.125rem;
     font-weight: 700;
-    margin-bottom: var(--space-2);
-    color: var(--text-primary);
+    color: #ffffff;
+    margin: 8px 0;
 }
 
 .courseDesc {
-    color: var(--text-secondary);
-    font-size: 0.8125rem;
-    line-height: 1.6;
-    flex: 1;
-    margin-bottom: var(--space-5);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
 }
 
 .courseMeta {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .courseLessons {
-    font-size: 0.75rem;
-    color: var(--text-tertiary);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8125rem;
 }
 
 .coursePrice {
-    font-family: var(--font-display);
+    font-family: 'Sora', sans-serif;
     font-weight: 700;
-    color: var(--primary-700);
-    font-size: 0.9375rem;
-}
-
-@media (max-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
+    color: #2ECC9A;
+    font-size: 1rem;
 }
