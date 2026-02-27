@@ -30,6 +30,8 @@ async function apiFetch(endpoint, options = {}) {
 export const authAPI = {
     login: (credentials) => apiFetch('/auth/login', { method: 'POST', body: JSON.stringify(credentials) }),
     register: (userData) => apiFetch('/auth/register', { method: 'POST', body: JSON.stringify(userData) }),
+    forgotPassword: (data) => apiFetch('/auth/forgot-password', { method: 'POST', body: JSON.stringify(data) }),
+    resetPassword: (data) => apiFetch('/auth/reset-password', { method: 'POST', body: JSON.stringify(data) }),
 };
 
 // ─── Patients ───────────────────────────────────

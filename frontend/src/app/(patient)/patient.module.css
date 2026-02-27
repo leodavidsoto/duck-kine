@@ -1,7 +1,8 @@
 /* ═══════════════════════════════════════════════════════
-   Patient Module Shared Styles
+   Patient Module Shared Styles – Dark Theme
    Used by: agenda, historial, progreso, ejercicios,
             dolor, pagos, programas
+   Inherits tokens from dashboard.module.css (parent layout)
    ═══════════════════════════════════════════════════════ */
 
 .pageHeader {
@@ -13,6 +14,8 @@
     font-size: 1.5rem;
     font-weight: 800;
     margin-bottom: var(--space-1);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
 }
 
 .pageDesc {
@@ -38,8 +41,7 @@
 }
 
 .card:hover {
-    border-color: var(--primary-100);
-    box-shadow: var(--shadow-sm);
+    border-color: var(--border-default);
 }
 
 .cardTitle {
@@ -47,6 +49,7 @@
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: var(--space-4);
+    color: var(--text-primary);
 }
 
 .cardRow {
@@ -83,16 +86,35 @@
     padding: var(--space-5);
     text-align: center;
     transition: all var(--dur-base) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+}
+
+.miniStat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-500), transparent);
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
 }
 
 .miniStat:hover {
-    border-color: var(--primary-100);
-    box-shadow: var(--shadow-sm);
+    border-color: rgba(46, 204, 154, 0.15);
+    box-shadow: 0 0 20px rgba(46, 204, 154, 0.08);
+}
+
+.miniStat:hover::before {
+    opacity: 1;
 }
 
 .miniStatIcon {
     font-size: 1.5rem;
     margin-bottom: var(--space-2);
+    opacity: 0.6;
 }
 
 .miniStatValue {
@@ -102,6 +124,7 @@
     font-weight: 800;
     color: var(--text-primary);
     line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 
 .miniStatLabel {
@@ -135,6 +158,7 @@
     padding: var(--space-3) var(--space-4);
     border-bottom: 1px solid var(--border-light);
     vertical-align: middle;
+    color: var(--text-secondary);
 }
 
 .table tr:last-child td {
@@ -142,7 +166,7 @@
 }
 
 .table tr:hover td {
-    background: var(--bg-primary-soft);
+    background: rgba(46, 204, 154, 0.03);
 }
 
 /* ─── Empty State ────────────────────────────────────── */
@@ -154,6 +178,7 @@
 .emptyIcon {
     font-size: 2.5rem;
     margin-bottom: var(--space-4);
+    opacity: 0.3;
 }
 
 .emptyTitle {
@@ -161,6 +186,7 @@
     font-size: 1.125rem;
     font-weight: 700;
     margin-bottom: var(--space-2);
+    color: var(--text-primary);
 }
 
 .emptyDesc {
@@ -199,19 +225,31 @@
     font-family: var(--font-body);
     font-size: 0.875rem;
     transition: border-color var(--dur-fast) var(--ease-out);
-    background: var(--bg-card);
+    background: var(--bg-muted);
+    color: var(--text-primary);
+    outline: none;
 }
 
 .formInput:focus {
-    outline: none;
-    border-color: var(--primary-400);
-    box-shadow: 0 0 0 3px var(--bg-primary-soft);
+    border-color: #2ECC9A;
+    box-shadow: 0 0 0 3px rgba(46, 204, 154, 0.12);
+}
+
+.formInput::placeholder {
+    color: var(--text-tertiary);
+}
+
+/* Dark select styling */
+.formInput option {
+    background: #1B1B1B;
+    color: var(--text-primary);
 }
 
 /* ─── EVA Slider ─────────────────────────────────────── */
 .evaSlider {
     width: 100%;
     -webkit-appearance: none;
+    appearance: none;
     height: 8px;
     border-radius: 4px;
     background: linear-gradient(to right, #10b981, #f59e0b, #ef4444);
@@ -227,7 +265,7 @@
     background: white;
     border: 3px solid var(--primary-500);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .evaValue {
@@ -236,6 +274,7 @@
     font-weight: 800;
     text-align: center;
     line-height: 1;
+    color: var(--text-primary);
 }
 
 .evaLabel {
@@ -243,12 +282,13 @@
     font-size: 0.875rem;
     font-weight: 600;
     margin-top: var(--space-2);
+    color: var(--text-secondary);
 }
 
 /* ─── Progress Bar ───────────────────────────────────── */
 .progressBar {
     height: 8px;
-    background: var(--bg-subtle);
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -256,8 +296,9 @@
 .progressFill {
     height: 100%;
     border-radius: 4px;
-    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
+    background: linear-gradient(90deg, #2ECC9A, #1A8FD1);
     transition: width 0.6s var(--ease-out);
+    box-shadow: 0 0 8px rgba(46, 204, 154, 0.3);
 }
 
 /* ─── Timeline ───────────────────────────────────────── */
@@ -273,7 +314,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--border-light);
+    background: linear-gradient(to bottom, var(--primary-500), rgba(46, 204, 154, 0.1));
 }
 
 .timelineItem {
@@ -290,7 +331,7 @@
     border-radius: 50%;
     background: var(--primary-500);
     border: 3px solid var(--bg-card);
-    box-shadow: 0 0 0 2px var(--primary-200);
+    box-shadow: 0 0 0 2px rgba(46, 204, 154, 0.3), 0 0 10px rgba(46, 204, 154, 0.2);
 }
 
 .timelineDate {
@@ -306,6 +347,7 @@
     font-family: var(--font-display);
     font-size: 0.9375rem;
     font-weight: 700;
+    color: var(--text-primary);
 }
 
 .timelineDesc {

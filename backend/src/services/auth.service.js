@@ -3,7 +3,39 @@ const jwt = require('jsonwebtoken');
 const prisma = require('../config/database');
 const env = require('../config/env');
 
+// In-memory reset code store: { email: { code, expiresAt } }
+const resetCodes = {};
+
 class AuthService {
+    async forgotPassword({ email }) {
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user) {
+            // Don't reveal whether user exists — return success either way
+            return { message: 'Si el email existe, recibirás un código de recuperación.' };
+        }
+
+        const code = String(Math.floor(100000 + Math.random() * 900000));
+        resetCodes[email] = { code, expiresAt: Date.now() + 15 * 60 * 1000 };
+
+        // Log code to console (no email service)
+        console.log(`\n  🔑 Código de recuperación para ${email}: ${code}\n`);
+
+        return { message: 'Si el email existe, recibirás un código de recuperación.' };
+    }
+
+    async resetPassword({ email, code, newPassword }) {
+        const entry = resetCodes[email];
+        if (!entry || entry.code !== code || Date.now() > entry.expiresAt) {
+            throw Object.assign(new Error('Código inválido o expirado'), { statusCode: 400 });
+        }
+
+        const passwordHash = await bcrypt.hash(newPassword, 12);
+        await prisma.user.update({ where: { email }, data: { passwordHash } });
+        delete resetCodes[email];
+
+        return { message: 'Contraseña actualizada exitosamente' };
+    }
+
     async register({ email, password, firstName, lastName, rut, phone }) {
         const passwordHash = await bcrypt.hash(password, 12);
 
