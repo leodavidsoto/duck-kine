@@ -7,6 +7,7 @@ import { adminAPI } from '@/lib/api';
 export default function SesionesPage() {
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadSessions(); }, []);
 
@@ -14,7 +15,7 @@ export default function SesionesPage() {
         try {
             const data = await adminAPI.getSessions({});
             setSessions(data.sessions || []);
-        } catch { }
+        } catch { setError('Error al cargar sesiones'); }
         finally { setLoading(false); }
     };
 
@@ -61,6 +62,8 @@ export default function SesionesPage() {
             <div className={s.card}>
                 {loading ? (
                     <p style={{ color: 'rgba(255,255,255,0.4)' }}>Cargando sesiones...</p>
+                ) : error ? (
+                    <p style={{ color: '#f87171' }}>{error}</p>
                 ) : sessions.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>📝</div>

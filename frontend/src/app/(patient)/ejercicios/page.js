@@ -7,6 +7,7 @@ import { patientsAPI } from '@/lib/api';
 export default function EjerciciosPage() {
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadExercises(); }, []);
 
@@ -14,7 +15,7 @@ export default function EjerciciosPage() {
         try {
             const data = await patientsAPI.getExercises();
             setExercises(data.exercises || data || []);
-        } catch { }
+        } catch { setError('Error al cargar ejercicios'); }
         finally { setLoading(false); }
     };
 

@@ -7,6 +7,7 @@ import { paymentsAPI } from '@/lib/api';
 export default function PagosPage() {
     const [payments, setPayments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadPayments(); }, []);
 
@@ -14,7 +15,7 @@ export default function PagosPage() {
         try {
             const data = await paymentsAPI.getMy({});
             setPayments(data.payments || data || []);
-        } catch { }
+        } catch { setError('Error al cargar pagos'); }
         finally { setLoading(false); }
     };
 
@@ -70,6 +71,8 @@ export default function PagosPage() {
                 <h3 className={s.cardTitle}>📄 Historial de transacciones</h3>
                 {loading ? (
                     <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>Cargando...</p>
+                ) : error ? (
+                    <p style={{ color: 'var(--error-500, #f87171)', fontSize: '0.875rem' }}>{error}</p>
                 ) : payments.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>💳</div>

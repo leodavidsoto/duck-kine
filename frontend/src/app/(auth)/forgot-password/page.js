@@ -31,8 +31,8 @@ export default function ForgotPasswordPage() {
     const handleResetPassword = async (e) => {
         e.preventDefault();
         setError('');
-        if (newPassword.length < 6) {
-            setError('La contraseña debe tener al menos 6 caracteres');
+        if (newPassword.length < 8) {
+            setError('La contraseña debe tener al menos 8 caracteres');
             return;
         }
         if (newPassword !== confirmPassword) {
@@ -84,7 +84,7 @@ export default function ForgotPasswordPage() {
                     <>
                         <h1 className={styles.authTitle}>Ingresa el código</h1>
                         <p className={styles.authSubtitle}>
-                            Revisa la consola del servidor o tu email para obtener el código de 6 dígitos
+                            Revisa tu email para obtener el código de 6 dígitos
                         </p>
 
                         {error && <div className={styles.errorMsg}>{error}</div>}

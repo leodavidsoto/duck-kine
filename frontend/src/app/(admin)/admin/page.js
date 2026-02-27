@@ -10,6 +10,7 @@ export default function AdminDashboard() {
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const stored = localStorage.getItem('dk_user');
@@ -25,7 +26,8 @@ export default function AdminDashboard() {
             ]);
             if (st.status === 'fulfilled') setStats(st.value);
             if (apts.status === 'fulfilled') setAppointments(apts.value.appointments || []);
-        } catch { }
+            if (st.status === 'rejected' && apts.status === 'rejected') setError('Error al cargar datos del dashboard');
+        } catch { setError('Error al cargar datos del dashboard'); }
         finally { setLoading(false); }
     };
 

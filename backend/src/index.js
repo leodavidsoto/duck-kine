@@ -77,18 +77,26 @@ app.use((req, res) => {
 // ─── Error Handler ──────────────────────────────────────
 app.use(errorHandler);
 
+// ─── Socket.io Auth Middleware ───────────────────────────
+const jwt = require('jsonwebtoken');
+
+io.use((socket, next) => {
+    const token = socket.handshake.auth?.token;
+    if (!token) return next(new Error('Autenticación requerida'));
+    try {
+        const decoded = jwt.verify(token, env.JWT_SECRET);
+        socket.userId = decoded.userId;
+        next();
+    } catch {
+        next(new Error('Token inválido'));
+    }
+});
+
 // ─── Socket.io Events ───────────────────────────────────
 io.on('connection', (socket) => {
-    console.log(`🔌 Cliente conectado: ${socket.id}`);
+    socket.join(`user:${socket.userId}`);
 
-    socket.on('join', (userId) => {
-        socket.join(`user:${userId}`);
-        console.log(`👤 Usuario ${userId} se unió a su canal`);
-    });
-
-    socket.on('disconnect', () => {
-        console.log(`🔌 Cliente desconectado: ${socket.id}`);
-    });
+    socket.on('disconnect', () => {});
 });
 
 // Make io accessible to routes

@@ -167,7 +167,7 @@ export default function PatientLayout({ children }) {
                         </div>
                     </div>
                     <button className={styles.logoutBtn}
-                        onClick={() => { localStorage.clear(); window.location.href = '/'; }}>
+                        onClick={() => { localStorage.removeItem('dk_token'); localStorage.removeItem('dk_user'); window.location.href = '/'; }}>
                         {icons.logOut}
                         Cerrar sesión
                     </button>

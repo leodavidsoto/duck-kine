@@ -22,6 +22,7 @@ export default function AgendaPage() {
     const [selectedProfessional, setSelectedProfessional] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedSlot, setSelectedSlot] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadAppointments(); }, []);
 
@@ -29,7 +30,7 @@ export default function AgendaPage() {
         try {
             const data = await appointmentsAPI.getMy({});
             setAppointments(data.appointments || data || []);
-        } catch { }
+        } catch { setError('Error al cargar citas'); }
         finally { setLoading(false); }
     };
 
@@ -49,7 +50,7 @@ export default function AgendaPage() {
             ]);
             setServices(svcData.services || []);
             setProfessionals(profData.professionals || []);
-        } catch { }
+        } catch { setError('Error al cargar servicios y profesionales'); }
     };
 
     const loadSlots = async () => {
@@ -63,7 +64,7 @@ export default function AgendaPage() {
                 duration: selectedService?.durationMinutes || 30,
             });
             setSlots(data.slots || []);
-        } catch { }
+        } catch { setError('Error al cargar horarios disponibles'); }
         finally { setSlotsLoading(false); }
     };
 

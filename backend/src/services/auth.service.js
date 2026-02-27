@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const prisma = require('../config/database');
 const env = require('../config/env');
 
-// In-memory reset code store: { email: { code, expiresAt } }
+// TODO: Migrate to database-backed reset codes for production scalability
+// In-memory store — codes are lost on server restart
 const resetCodes = {};
 
 class AuthService {
@@ -17,8 +18,12 @@ class AuthService {
         const code = String(Math.floor(100000 + Math.random() * 900000));
         resetCodes[email] = { code, expiresAt: Date.now() + 15 * 60 * 1000 };
 
-        // Log code to console (no email service)
-        console.log(`\n  🔑 Código de recuperación para ${email}: ${code}\n`);
+        // TODO: Integrate email service (SendGrid/Resend) for production
+        if (env.NODE_ENV === 'production') {
+            console.log(`[AUTH] Reset code generated for ${email}`);
+        } else {
+            console.log(`\n  🔑 Código de recuperación para ${email}: ${code}\n`);
+        }
 
         return { message: 'Si el email existe, recibirás un código de recuperación.' };
     }

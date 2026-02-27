@@ -8,15 +8,17 @@ export default function AgendaProPage() {
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadAppointments(); }, [selectedDate]);
 
     const loadAppointments = async () => {
         setLoading(true);
+        setError(null);
         try {
             const data = await adminAPI.getTodayAppointments(selectedDate);
             setAppointments(data.appointments || []);
-        } catch { }
+        } catch { setError('Error al cargar la agenda'); }
         finally { setLoading(false); }
     };
 
@@ -94,6 +96,8 @@ export default function AgendaProPage() {
             <div className={s.card}>
                 {loading ? (
                     <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.875rem' }}>Cargando...</p>
+                ) : error ? (
+                    <p style={{ color: '#f87171' }}>{error}</p>
                 ) : appointments.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>📅</div>

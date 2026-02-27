@@ -112,11 +112,10 @@ export default function ReservarPage() {
                 returnUrl: `${window.location.origin}/checkout/exito`,
             });
 
-            // For MVP purposes, redirect immediately to explicit success if payment URL is not real
-            if (payment.url && payment.url.startsWith('http')) {
+            if (payment.url) {
                 window.location.href = payment.url;
             } else {
-                router.push(`/checkout/exito?payment_id=${payment.id || 'simulated'}`);
+                router.push(`/checkout/exito?payment_id=${payment.id}`);
             }
 
         } catch (err) {

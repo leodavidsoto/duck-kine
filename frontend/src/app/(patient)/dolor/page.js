@@ -7,6 +7,7 @@ import { patientsAPI } from '@/lib/api';
 export default function DolorPage() {
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [form, setForm] = useState({ evaScore: 3, location: '', context: '', notes: '' });
     const [saving, setSaving] = useState(false);
@@ -17,7 +18,7 @@ export default function DolorPage() {
         try {
             const data = await patientsAPI.getPainRecords();
             setRecords(data.records || []);
-        } catch { }
+        } catch { setError('Error al cargar registros de dolor'); }
         finally { setLoading(false); }
     };
 
@@ -136,6 +137,8 @@ export default function DolorPage() {
                 <h3 className={s.cardTitle}>📊 Historial de dolor</h3>
                 {loading ? (
                     <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>Cargando...</p>
+                ) : error ? (
+                    <p style={{ color: 'var(--error-500, #f87171)', fontSize: '0.875rem' }}>{error}</p>
                 ) : records.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>🎯</div>

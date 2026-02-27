@@ -8,6 +8,7 @@ export default function HistorialPage() {
     const [profile, setProfile] = useState(null);
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadData(); }, []);
 
@@ -19,7 +20,7 @@ export default function HistorialPage() {
             ]);
             if (prof.status === 'fulfilled') setProfile(prof.value.patient || prof.value);
             if (recs.status === 'fulfilled') setRecords(recs.value.records || recs.value || []);
-        } catch { }
+        } catch { setError('Error al cargar ficha clínica'); }
         finally { setLoading(false); }
     };
 
@@ -71,6 +72,8 @@ export default function HistorialPage() {
                 <h3 className={s.cardTitle}>Registros clínicos</h3>
                 {loading ? (
                     <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>Cargando...</p>
+                ) : error ? (
+                    <p style={{ color: 'var(--error-500, #f87171)', fontSize: '0.875rem' }}>{error}</p>
                 ) : records.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>📋</div>

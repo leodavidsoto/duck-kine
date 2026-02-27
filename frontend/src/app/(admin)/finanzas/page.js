@@ -7,6 +7,7 @@ import { adminAPI } from '@/lib/api';
 export default function FinanzasPage() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadRevenue(); }, []);
 
@@ -14,7 +15,7 @@ export default function FinanzasPage() {
         try {
             const d = await adminAPI.getRevenue();
             setData(d);
-        } catch { }
+        } catch { setError('Error al cargar datos financieros'); }
         finally { setLoading(false); }
     };
 
@@ -49,8 +50,8 @@ export default function FinanzasPage() {
 
             {loading ? (
                 <p style={{ color: 'rgba(255,255,255,0.4)' }}>Cargando datos financieros...</p>
-            ) : !data ? (
-                <p style={{ color: 'rgba(255,255,255,0.4)' }}>Error al cargar datos</p>
+            ) : error || !data ? (
+                <p style={{ color: '#f87171' }}>{error || 'Error al cargar datos'}</p>
             ) : (
                 <>
                     {/* KPIs */}

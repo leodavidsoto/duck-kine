@@ -17,15 +17,17 @@ export default function PacientesPage() {
     const [newPatient, setNewPatient] = useState({ firstName: '', lastName: '', email: '', rut: '', phone: '' });
     const [submitLoading, setSubmitLoading] = useState(false);
     const [createdInfo, setCreatedInfo] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadPatients(); }, []);
 
     const loadPatients = async (q) => {
         setLoading(true);
+        setError(null);
         try {
             const data = await adminAPI.getPatients({ search: q || search, limit: 50 });
             setPatients(data.patients || []);
-        } catch { }
+        } catch { setError('Error al cargar pacientes'); }
         finally { setLoading(false); }
     };
 
@@ -288,44 +290,6 @@ export default function PacientesPage() {
             )}
 
             <form onSubmit={handleSearch} className={s.searchBar}>
-                <div className={s.modalOverlay}>
-                    <div className={s.modalContent} style={{ maxWidth: '400px' }}>
-                        <div className={s.modalHeader}>
-                            <h3>Añadir Nuevo Paciente</h3>
-                            <button type="button" className={s.closeBtn} onClick={() => setShowNewForm(false)}>×</button>
-                        </div>
-                        <form onSubmit={handleCreatePatient} className={s.modalBody}>
-                            <div className={s.formGrid}>
-                                <div className={s.formGroup}>
-                                    <label>Nombre *</label>
-                                    <input type="text" required value={newPatient.firstName} onChange={(e) => setNewPatient({ ...newPatient, firstName: e.target.value })} />
-                                </div>
-                                <div className={s.formGroup}>
-                                    <label>Apellido *</label>
-                                    <input type="text" required value={newPatient.lastName} onChange={(e) => setNewPatient({ ...newPatient, lastName: e.target.value })} />
-                                </div>
-                                <div className={s.formGroup} style={{ gridColumn: '1 / -1' }}>
-                                    <label>Email *</label>
-                                    <input type="email" required value={newPatient.email} onChange={(e) => setNewPatient({ ...newPatient, email: e.target.value })} />
-                                </div>
-                                <div className={s.formGroup}>
-                                    <label>RUT</label>
-                                    <input type="text" placeholder="12345678-9" value={newPatient.rut} onChange={(e) => setNewPatient({ ...newPatient, rut: e.target.value })} />
-                                </div>
-                                <div className={s.formGroup}>
-                                    <label>Teléfono</label>
-                                    <input type="tel" value={newPatient.phone} onChange={(e) => setNewPatient({ ...newPatient, phone: e.target.value })} />
-                                </div>
-                            </div>
-                            <div className={s.modalActions}>
-                                <button type="button" className="btn btn-secondary" onClick={() => setShowNewForm(false)}>Cancelar</button>
-                                <button type="submit" className="btn btn-primary" disabled={submitLoading}>
-                                    {submitLoading ? 'Creando...' : 'Crear Paciente'}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
                 <input type="text" className={s.searchInput}
                     placeholder="Buscar por nombre, apellido o RUT..."
                     value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -335,6 +299,8 @@ export default function PacientesPage() {
             <div className={s.card}>
                 {loading ? (
                     <p style={{ color: 'rgba(255,255,255,0.4)' }}>Cargando pacientes...</p>
+                ) : error ? (
+                    <p style={{ color: '#f87171' }}>{error}</p>
                 ) : patients.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>👥</div>

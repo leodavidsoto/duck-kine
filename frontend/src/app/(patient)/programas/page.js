@@ -9,6 +9,7 @@ export default function ProgramasPage() {
     const [programs, setPrograms] = useState([]);
     const [enrollments, setEnrollments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadData(); }, []);
 
@@ -20,7 +21,7 @@ export default function ProgramasPage() {
             ]);
             if (progs.status === 'fulfilled') setPrograms(progs.value.programs || progs.value || []);
             if (enrs.status === 'fulfilled') setEnrollments(enrs.value.enrollments || enrs.value || []);
-        } catch { }
+        } catch { setError('Error al cargar programas'); }
         finally { setLoading(false); }
     };
 

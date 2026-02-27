@@ -8,6 +8,7 @@ export default function ProgresoPage() {
     const [goals, setGoals] = useState([]);
     const [assessments, setAssessments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { loadData(); }, []);
 
@@ -19,7 +20,7 @@ export default function ProgresoPage() {
             ]);
             if (g.status === 'fulfilled') setGoals(g.value.goals || []);
             if (a.status === 'fulfilled') setAssessments(a.value.assessments || []);
-        } catch { }
+        } catch { setError('Error al cargar progreso'); }
         finally { setLoading(false); }
     };
 
@@ -56,6 +57,8 @@ export default function ProgresoPage() {
                 <h3 className={s.cardTitle}>🎯 Objetivos terapéuticos</h3>
                 {loading ? (
                     <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>Cargando...</p>
+                ) : error ? (
+                    <p style={{ color: 'var(--error-500, #f87171)', fontSize: '0.875rem' }}>{error}</p>
                 ) : goals.length === 0 ? (
                     <div className={s.emptyState}>
                         <div className={s.emptyIcon}>🎯</div>

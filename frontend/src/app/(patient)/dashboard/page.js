@@ -83,8 +83,8 @@ export default function PatientDashboard() {
             ]);
             if (aptData.status === 'fulfilled') setAppointments(aptData.value.appointments || aptData.value || []);
             if (statsData.status === 'fulfilled') setStats(statsData.value);
-        } catch (err) {
-            console.log('Error loading dashboard data');
+        } catch {
+            // Error loading dashboard data — handled gracefully via empty state
         } finally {
             setLoading(false);
         }

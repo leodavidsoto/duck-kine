@@ -70,7 +70,7 @@ export default function AdminLayout({ children }) {
                         Kine. {user.firstName} {user.lastName}
                     </div>
                     <button className={styles.logoutBtn}
-                        onClick={() => { localStorage.clear(); window.location.href = '/'; }}>
+                        onClick={() => { localStorage.removeItem('dk_token'); localStorage.removeItem('dk_user'); window.location.href = '/'; }}>
                         🚪 Cerrar sesión
                     </button>
                 </div>
