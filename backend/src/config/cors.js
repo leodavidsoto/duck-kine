@@ -4,6 +4,10 @@ const corsOptions = {
     origin: [
         env.FRONTEND_URL,
         'http://localhost:3000',
+        'http://localhost:4000',
+        'https://localhost',
+        'http://localhost',
+        'capacitor://localhost',
         'https://duckkine.cl',
         'https://www.duckkine.cl',
         'https://backend-production-1a1b7.up.railway.app',
