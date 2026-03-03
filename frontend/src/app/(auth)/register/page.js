@@ -5,7 +5,10 @@ import Link from 'next/link';
 import styles from '../auth.module.css';
 import { authAPI } from '@/lib/api';
 
+import { useRouter } from 'next/navigation';
+
 export default function RegisterPage() {
+    const router = useRouter();
     const [form, setForm] = useState({
         firstName: '', lastName: '', email: '',
         rut: '', phone: '', password: '', confirmPassword: '',
@@ -26,7 +29,8 @@ export default function RegisterPage() {
             const { user, token } = await authAPI.register(userData);
             localStorage.setItem('dk_token', token);
             localStorage.setItem('dk_user', JSON.stringify(user));
-            window.location.href = '/dashboard';
+            // SPA navigation instead of window.location.href
+            router.push('/dashboard');
         } catch (err) {
             setError(err.message);
         } finally {

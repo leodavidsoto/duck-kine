@@ -1,13 +1,10 @@
-// Detect Capacitor native → always use production API
-const _isCapacitor = typeof window !== 'undefined'
-    && (window.Capacitor?.isNativePlatform?.() || window.location.protocol === 'capacitor:');
-
-// Only use localhost API in actual browser dev (not Capacitor)
-const _isLocal = typeof window !== 'undefined'
-    && !_isCapacitor
+// In production builds (Vercel + Capacitor APK), NODE_ENV is 'production' (baked at build time)
+// Only use localhost API during local dev (npm run dev → NODE_ENV='development')
+const _isDev = process.env.NODE_ENV !== 'production'
+    && typeof window !== 'undefined'
     && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-const API_URL = _isLocal
+const API_URL = _isDev
     ? (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api')
     : 'https://backend-production-1a1b7.up.railway.app/api';
 

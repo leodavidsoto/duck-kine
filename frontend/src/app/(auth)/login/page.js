@@ -5,7 +5,10 @@ import Link from 'next/link';
 import styles from '../auth.module.css';
 import { authAPI } from '@/lib/api';
 
+import { useRouter } from 'next/navigation';
+
 export default function LoginPage() {
+    const router = useRouter();
     const [form, setForm] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -19,9 +22,12 @@ export default function LoginPage() {
             localStorage.setItem('dk_token', token);
             localStorage.setItem('dk_user', JSON.stringify(user));
             const adminRoles = ['PROFESSIONAL', 'ADMIN', 'SUPER_ADMIN', 'ORG_ADMIN', 'CLINIC_DIRECTOR'];
-            window.location.href = adminRoles.includes(user.role) ? '/admin' : '/dashboard';
+            const dest = adminRoles.includes(user.role) ? '/admin' : '/dashboard';
+            // Use Next.js router for SPA navigation instead of window.location.href to prevent WebView reload
+            router.push(dest);
         } catch (err) {
-            setError(err.message);
+            console.error('Login error:', err);
+            setError(err.message || 'Error al iniciar sesión');
         } finally {
             setLoading(false);
         }
