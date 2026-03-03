@@ -1,5 +1,5 @@
 export const APP_NAME = 'Duck Kinesiología';
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.duckkine.cl/api';
 
 export const ROLES = {
     PATIENT: 'PATIENT',
