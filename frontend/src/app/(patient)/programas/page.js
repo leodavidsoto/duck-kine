@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import s from '../patient.module.css';
 import { sportsAPI } from '@/lib/api';
 
@@ -9,7 +8,8 @@ export default function ProgramasPage() {
     const [programs, setPrograms] = useState([]);
     const [enrollments, setEnrollments] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [enrolling, setEnrolling] = useState(null);
+    const [message, setMessage] = useState(null);
 
     useEffect(() => { loadData(); }, []);
 
@@ -21,20 +21,26 @@ export default function ProgramasPage() {
             ]);
             if (progs.status === 'fulfilled') setPrograms(progs.value.programs || progs.value || []);
             if (enrs.status === 'fulfilled') setEnrollments(enrs.value.enrollments || enrs.value || []);
-        } catch { setError('Error al cargar programas'); }
+        } catch { }
         finally { setLoading(false); }
     };
 
-    const samplePrograms = [
-        { name: 'Retorno al Running', sport: 'Running', level: 'INTERMEDIATE', durationWeeks: 8, sessionsPerWeek: 3, icon: '🏃', type: 'RETURN_TO_SPORT', price: 149990 },
-        { name: 'Fuerza Funcional', sport: 'CrossFit', level: 'BEGINNER', durationWeeks: 12, sessionsPerWeek: 4, icon: '🏋️', type: 'SPORTS_PERFORMANCE', price: 179990 },
-        { name: 'Rehabilitación Rodilla (LCA)', sport: 'General', level: 'BEGINNER', durationWeeks: 16, sessionsPerWeek: 3, icon: '🦵', type: 'POST_SURGICAL', price: 249990 },
-        { name: 'Prevención de Lesiones', sport: 'Fútbol', level: 'INTERMEDIATE', durationWeeks: 6, sessionsPerWeek: 2, icon: '⚽', type: 'PREVENTION', price: 99990 },
-        { name: 'Core & Postura', sport: 'Wellness', level: 'BEGINNER', durationWeeks: 8, sessionsPerWeek: 3, icon: '🧘', type: 'CHRONIC_PAIN', price: 129990 },
-        { name: 'Alto Rendimiento Trail', sport: 'Trail Running', level: 'ADVANCED', durationWeeks: 12, sessionsPerWeek: 5, icon: '⛰️', type: 'SPORTS_PERFORMANCE', price: 299990 },
-    ];
-
-    const displayed = programs.length > 0 ? programs : samplePrograms;
+    const handleEnroll = async (programId) => {
+        const token = localStorage.getItem('dk_token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+        setEnrolling(programId);
+        setMessage(null);
+        try {
+            await sportsAPI.enroll(programId);
+            setMessage({ type: 'success', text: '¡Inscripción exitosa! Bienvenido al programa.' });
+            loadData();
+        } catch (err) {
+            setMessage({ type: 'error', text: err.message });
+        } finally { setEnrolling(null); }
+    };
 
     const levelLabel = { BEGINNER: 'Principiante', INTERMEDIATE: 'Intermedio', ADVANCED: 'Avanzado', ELITE: 'Élite' };
     const typeLabel = {
@@ -43,6 +49,12 @@ export default function ProgramasPage() {
         CHRONIC_PAIN: 'Dolor crónico', RETURN_TO_SPORT: 'Retorno deportivo',
     };
 
+    const iconMap = {
+        Running: '🏃', CrossFit: '🏋️', General: '🦵', Fútbol: '⚽',
+        Wellness: '🧘', 'Trail Running': '⛰️',
+    };
+
+    if (loading) return <div className={s.pageHeader}><p style={{ color: 'rgba(255,255,255,0.4)' }}>Cargando programas...</p></div>;
 
     return (
         <>
@@ -50,6 +62,17 @@ export default function ProgramasPage() {
                 <h1 className={s.pageTitle}>🏃 Programas Deportivos</h1>
                 <p className={s.pageDesc}>Programas personalizados de rehabilitación y rendimiento deportivo</p>
             </div>
+
+            {message && (
+                <div style={{
+                    padding: '12px 16px', borderRadius: '8px', marginBottom: '16px',
+                    background: message.type === 'success' ? 'rgba(46,204,154,0.15)' : 'rgba(255,107,107,0.15)',
+                    color: message.type === 'success' ? '#2ECC9A' : '#ff6b6b',
+                    fontWeight: 600, fontSize: '0.875rem',
+                }}>
+                    {message.text}
+                </div>
+            )}
 
             {/* Active Enrollments */}
             {enrollments.length > 0 && (
@@ -74,43 +97,66 @@ export default function ProgramasPage() {
             )}
 
             {/* Available Programs */}
-            <div className={s.grid2}>
-                {displayed.map((prog, i) => (
-                    <div key={i} className={s.card} style={{ marginBottom: 0 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
-                            <span style={{ fontSize: '2rem' }}>{prog.icon || '🏃'}</span>
-                            <div style={{ flex: 1 }}>
-                                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem' }}>
-                                    {prog.name}
-                                </div>
-                                <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
-                                    <span className="badge badge-primary" style={{ fontSize: '0.625rem' }}>
-                                        {typeLabel[prog.type] || prog.type}
-                                    </span>
-                                    <span className="badge" style={{ fontSize: '0.625rem', background: 'var(--bg-subtle)' }}>
-                                        {levelLabel[prog.level] || prog.level}
-                                    </span>
+            {programs.length === 0 ? (
+                <div className={s.card}>
+                    <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🏃</div>
+                        <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '8px' }}>
+                            Próximamente
+                        </h3>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                            Estamos preparando programas deportivos para ti. ¡Vuelve pronto!
+                        </p>
+                    </div>
+                </div>
+            ) : (
+                <div className={s.grid2}>
+                    {programs.map((prog) => (
+                        <div key={prog.id} className={s.card} style={{ marginBottom: 0 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
+                                <span style={{ fontSize: '2rem' }}>{iconMap[prog.sport] || '🏃'}</span>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem' }}>
+                                        {prog.name}
+                                    </div>
+                                    <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
+                                        <span className="badge badge-primary" style={{ fontSize: '0.625rem' }}>
+                                            {typeLabel[prog.type] || prog.type}
+                                        </span>
+                                        <span className="badge" style={{ fontSize: '0.625rem', background: 'var(--bg-subtle)' }}>
+                                            {levelLabel[prog.level] || prog.level}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div style={{ display: 'flex', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
-                            <InfoPill icon="📅" value={`${prog.durationWeeks} semanas`} />
-                            <InfoPill icon="💪" value={`${prog.sessionsPerWeek}x/sem`} />
-                            <InfoPill icon="🏅" value={prog.sport} />
-                        </div>
+                            {prog.description && (
+                                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', marginBottom: 'var(--space-3)', lineHeight: 1.5 }}>
+                                    {prog.description}
+                                </p>
+                            )}
 
-                        <div style={{
-                            borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-4)',
-                            textAlign: 'right',
-                        }}>
-                            <button className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}>
-                                Inscribirme
-                            </button>
+                            <div style={{ display: 'flex', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
+                                <InfoPill icon="📅" value={`${prog.durationWeeks} semanas`} />
+                                <InfoPill icon="💪" value={`${prog.sessionsPerWeek}x/sem`} />
+                                <InfoPill icon="🏅" value={prog.sport} />
+                            </div>
+
+                            <div style={{
+                                borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-4)',
+                                textAlign: 'right',
+                            }}>
+                                <button className="btn btn-primary"
+                                    style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}
+                                    onClick={() => handleEnroll(prog.id)}
+                                    disabled={enrolling === prog.id}>
+                                    {enrolling === prog.id ? 'Inscribiendo...' : 'Inscribirme'}
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </>
     );
 }

@@ -19,6 +19,11 @@ const navItems = [
             { icon: '💰', label: 'Finanzas', href: '/finanzas' },
         ]
     },
+    {
+        section: 'Contenido', items: [
+            { icon: '🏃', label: 'Programas', href: '/admin-programas' },
+        ]
+    },
 ];
 
 export default function AdminLayout({ children }) {

@@ -123,6 +123,12 @@ export const adminAPI = {
     getSessions: (params) => apiFetch(`/admin/sessions?${new URLSearchParams(params)}`),
     createSession: (data) => apiFetch('/admin/sessions', { method: 'POST', body: JSON.stringify(data) }),
     getRevenue: () => apiFetch('/admin/revenue'),
+    // Programs admin
+    getPrograms: () => apiFetch('/sports-programs/admin/all'),
+    createProgram: (data) => apiFetch('/sports-programs/admin/create', { method: 'POST', body: JSON.stringify(data) }),
+    updateProgram: (id, data) => apiFetch(`/sports-programs/admin/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    deleteProgram: (id) => apiFetch(`/sports-programs/admin/${id}`, { method: 'DELETE' }),
+    getProgramEnrollments: (params) => apiFetch(`/sports-programs/admin/enrollments?${new URLSearchParams(params || {})}`),
 };
 
 // ─── Training Classes ────────────────────────────
