@@ -11,6 +11,11 @@ const config: CapacitorConfig = {
     androidScheme: 'https',
     allowNavigation: ['api.duckkine.cl', '*.duckkine.cl', 'backend-production-1a1b7.up.railway.app'],
   },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true,
+    },
+  },
 };
 
 export default config;
