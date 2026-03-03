@@ -105,9 +105,14 @@ export default function PatientLayout({ children }) {
     const pathname = usePathname();
 
     useEffect(() => {
-        const stored = localStorage.getItem('dk_user');
-        if (stored) setUser(JSON.parse(stored));
-        else window.location.href = '/login/';
+        try {
+            const stored = localStorage.getItem('dk_user');
+            if (stored) setUser(JSON.parse(stored));
+            else window.location.href = '/login/';
+        } catch {
+            localStorage.removeItem('dk_user');
+            window.location.href = '/login/';
+        }
     }, []);
 
     // Close sidebar on route change (mobile)

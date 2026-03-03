@@ -29,25 +29,39 @@ class SchedulingService {
         const endOfDay = new Date(date);
         endOfDay.setHours(23, 59, 59, 999);
 
-        for (const profId of targetProfessionalIds) {
-            const professional = await prisma.professional.findUnique({
-                where: { id: profId },
+        // Batch-fetch all professionals, schedules, and appointments in parallel
+        const [professionals, schedules, appointments] = await Promise.all([
+            prisma.professional.findMany({
+                where: { id: { in: targetProfessionalIds } },
                 include: { user: { select: { firstName: true, lastName: true } } }
-            });
-
-            const schedule = await prisma.schedule.findFirst({
-                where: { professionalId: profId, dayOfWeek: weekDay },
-            });
-
-            if (!schedule || !schedule.isActive) continue;
-
-            const existingAppointments = await prisma.appointment.findMany({
+            }),
+            prisma.schedule.findMany({
+                where: { professionalId: { in: targetProfessionalIds }, dayOfWeek: weekDay }
+            }),
+            prisma.appointment.findMany({
                 where: {
-                    professionalId: profId,
+                    professionalId: { in: targetProfessionalIds },
                     startTime: { gte: startOfDay, lte: endOfDay },
                     status: { in: ['PENDING', 'CONFIRMED', 'IN_PROGRESS'] },
                 },
-            });
+            }),
+        ]);
+
+        const profMap = new Map(professionals.map(p => [p.id, p]));
+        const schedMap = new Map(schedules.map(s => [s.professionalId, s]));
+        const apptMap = new Map();
+        for (const apt of appointments) {
+            if (!apptMap.has(apt.professionalId)) apptMap.set(apt.professionalId, []);
+            apptMap.get(apt.professionalId).push(apt);
+        }
+
+        for (const profId of targetProfessionalIds) {
+            const professional = profMap.get(profId);
+            const schedule = schedMap.get(profId);
+
+            if (!schedule || !schedule.isActive) continue;
+
+            const existingAppointments = apptMap.get(profId) || [];
 
             const [startHour, startMin] = schedule.startTime.split(':').map(Number);
             const [endHour, endMin] = schedule.endTime.split(':').map(Number);

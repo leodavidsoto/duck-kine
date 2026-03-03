@@ -21,8 +21,9 @@ export default function ProgramasPage() {
             ]);
             if (progs.status === 'fulfilled') setPrograms(progs.value.programs || progs.value || []);
             if (enrs.status === 'fulfilled') setEnrollments(enrs.value.enrollments || enrs.value || []);
-        } catch { }
-        finally { setLoading(false); }
+        } catch (err) {
+            console.error('[Programas] Load error:', err.message);
+        } finally { setLoading(false); }
     };
 
     const handleEnroll = async (programId) => {

@@ -1,5 +1,6 @@
 const paymentsService = require('../services/payments.service');
 const prisma = require('../config/database');
+const env = require('../config/env');
 
 const initPayment = async (req, res, next) => {
     try {
@@ -13,11 +14,9 @@ const initPayment = async (req, res, next) => {
 const confirmPayment = async (req, res, next) => {
     try {
         const tokenWs = req.body.token_ws || req.query.token_ws;
-        const env = require('../config/env');
         const frontendUrl = env.FRONTEND_URL;
 
         if (!tokenWs) {
-            // User aborted payment (usually TBK_ORDEN_COMPRA is sent on abort)
             const paymentId = req.body.TBK_ORDEN_COMPRA ? req.body.TBK_ORDEN_COMPRA.replace('order-', '') : '';
             return res.redirect(`${frontendUrl}/checkout/exito?payment_id=${paymentId}&status=aborted`);
         }
@@ -25,8 +24,7 @@ const confirmPayment = async (req, res, next) => {
         const payment = await paymentsService.confirmPayment(tokenWs);
         res.redirect(`${frontendUrl}/checkout/exito?payment_id=${payment.id}&status=${payment.status === 'APPROVED' ? 'success' : 'error'}`);
     } catch (error) {
-        console.error('Confirm Payment Error:', error);
-        const env = require('../config/env');
+        console.error('[PAYMENT] Confirm error:', error.message);
         res.redirect(`${env.FRONTEND_URL}/checkout/exito?status=error`);
     }
 };

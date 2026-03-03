@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import styles from '../auth.module.css';
 import { authAPI } from '@/lib/api';
+import { ADMIN_ROLES } from '@/lib/constants';
 
 import { useRouter } from 'next/navigation';
 
@@ -21,12 +22,9 @@ export default function LoginPage() {
             const { user, token } = await authAPI.login(form);
             localStorage.setItem('dk_token', token);
             localStorage.setItem('dk_user', JSON.stringify(user));
-            const adminRoles = ['PROFESSIONAL', 'ADMIN', 'SUPER_ADMIN', 'ORG_ADMIN', 'CLINIC_DIRECTOR'];
-            const dest = adminRoles.includes(user.role) ? '/admin' : '/dashboard';
-            // Use Next.js router for SPA navigation instead of window.location.href to prevent WebView reload
+            const dest = ADMIN_ROLES.includes(user.role) ? '/admin' : '/dashboard';
             router.push(dest);
         } catch (err) {
-            console.error('Login error:', err);
             setError(err.message || 'Error al iniciar sesión');
         } finally {
             setLoading(false);

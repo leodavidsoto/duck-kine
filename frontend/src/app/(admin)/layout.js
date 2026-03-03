@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import styles from './admin.module.css';
+import { ADMIN_ROLES } from '@/lib/constants';
 
 const navItems = [
     {
@@ -32,16 +33,20 @@ export default function AdminLayout({ children }) {
     const router = useRouter();
 
     useEffect(() => {
-        const stored = localStorage.getItem('dk_user');
-        if (stored) {
-            const u = JSON.parse(stored);
-            const adminRoles = ['PROFESSIONAL', 'ADMIN', 'SUPER_ADMIN', 'ORG_ADMIN', 'CLINIC_DIRECTOR'];
-            if (!adminRoles.includes(u.role)) {
-                router.push('/dashboard/');
-                return;
+        try {
+            const stored = localStorage.getItem('dk_user');
+            if (stored) {
+                const u = JSON.parse(stored);
+                if (!ADMIN_ROLES.includes(u.role)) {
+                    router.push('/dashboard/');
+                    return;
+                }
+                setUser(u);
+            } else {
+                router.push('/login/');
             }
-            setUser(u);
-        } else {
+        } catch {
+            localStorage.removeItem('dk_user');
             router.push('/login/');
         }
     }, []);

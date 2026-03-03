@@ -30,7 +30,7 @@ export default function AgendaPage() {
         try {
             const data = await appointmentsAPI.getMy({});
             setAppointments(data.appointments || data || []);
-        } catch { setError('Error al cargar citas'); }
+        } catch (err) { setError(err.message || 'Error al cargar citas'); }
         finally { setLoading(false); }
     };
 
@@ -50,7 +50,7 @@ export default function AgendaPage() {
             ]);
             setServices(svcData.services || []);
             setProfessionals(profData.professionals || []);
-        } catch { setError('Error al cargar servicios y profesionales'); }
+        } catch (err) { setError(err.message || 'Error al cargar servicios y profesionales'); }
     };
 
     const loadSlots = async () => {
@@ -64,7 +64,7 @@ export default function AgendaPage() {
                 duration: selectedService?.durationMinutes || 30,
             });
             setSlots(data.slots || []);
-        } catch { setError('Error al cargar horarios disponibles'); }
+        } catch (err) { setError(err.message || 'Error al cargar horarios disponibles'); }
         finally { setSlotsLoading(false); }
     };
 

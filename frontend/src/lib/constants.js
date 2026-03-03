@@ -7,6 +7,8 @@ export const ROLES = {
     ADMIN: 'ADMIN',
 };
 
+export const ADMIN_ROLES = ['PROFESSIONAL', 'ADMIN', 'SUPER_ADMIN', 'ORG_ADMIN', 'CLINIC_DIRECTOR'];
+
 export const APPOINTMENT_STATUS = {
     PENDING: 'PENDING',
     CONFIRMED: 'CONFIRMED',

@@ -1,8 +1,6 @@
 /**
  * CRON Scheduler — Automated patient journey tasks
- * ═══════════════════════════════════════════════════
- * Runs periodic jobs for reminders, follow-ups, no-show detection,
- * and subscription billing.
+ * Runs periodic jobs for reminders, follow-ups, and no-show detection.
  */
 
 const PatientJourneyService = require('../services/patientJourney.service');
@@ -16,7 +14,7 @@ class Scheduler {
     start() {
         if (this.running) return;
         this.running = true;
-        console.log('⏰ Scheduler started');
+        console.log('[SCHEDULER] Started');
 
         // Every 30 minutes: send 24h reminders
         this.jobs.push(
@@ -24,10 +22,10 @@ class Scheduler {
                 try {
                     const result = await PatientJourneyService.sendReminders();
                     if (result.sent > 0) {
-                        console.log(`🔔 Sent ${result.sent} appointment reminders`);
+                        console.log(`[SCHEDULER] Sent ${result.sent} appointment reminders`);
                     }
                 } catch (err) {
-                    console.error('❌ Reminder job failed:', err.message);
+                    console.error('[SCHEDULER] Reminder job failed:', err.message);
                 }
             }, 30 * 60 * 1000)
         );
@@ -38,10 +36,10 @@ class Scheduler {
                 try {
                     const result = await PatientJourneyService.sendFollowUps();
                     if (result.sent > 0) {
-                        console.log(`💬 Sent ${result.sent} follow-up notifications`);
+                        console.log(`[SCHEDULER] Sent ${result.sent} follow-up notifications`);
                     }
                 } catch (err) {
-                    console.error('❌ Follow-up job failed:', err.message);
+                    console.error('[SCHEDULER] Follow-up job failed:', err.message);
                 }
             }, 60 * 60 * 1000)
         );
@@ -52,10 +50,10 @@ class Scheduler {
                 try {
                     const result = await PatientJourneyService.detectNoShows();
                     if (result.marked > 0) {
-                        console.log(`⚠️  Marked ${result.marked} appointments as NO_SHOW`);
+                        console.log(`[SCHEDULER] Marked ${result.marked} appointments as NO_SHOW`);
                     }
                 } catch (err) {
-                    console.error('❌ No-show detection failed:', err.message);
+                    console.error('[SCHEDULER] No-show detection failed:', err.message);
                 }
             }, 15 * 60 * 1000)
         );
@@ -66,9 +64,9 @@ class Scheduler {
                 await PatientJourneyService.sendReminders();
                 await PatientJourneyService.sendFollowUps();
                 await PatientJourneyService.detectNoShows();
-                console.log('✅ Initial scheduler checks completed');
+                console.log('[SCHEDULER] Initial checks completed');
             } catch (err) {
-                console.error('❌ Initial scheduler check failed:', err.message);
+                console.error('[SCHEDULER] Initial check failed:', err.message);
             }
         }, 10000);
     }
@@ -77,7 +75,7 @@ class Scheduler {
         this.jobs.forEach(clearInterval);
         this.jobs = [];
         this.running = false;
-        console.log('⏰ Scheduler stopped');
+        console.log('[SCHEDULER] Stopped');
     }
 }
 

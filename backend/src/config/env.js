@@ -13,6 +13,7 @@ const env = {
     TRANSBANK_ENV: process.env.TRANSBANK_ENV || 'integration',
     EMAIL_API_KEY: process.env.EMAIL_API_KEY,
     EMAIL_FROM: process.env.EMAIL_FROM || 'no-reply@duckkinesiologia.cl',
+    EXTRA_CORS_ORIGINS: process.env.EXTRA_CORS_ORIGINS || '',
 };
 
 module.exports = env;

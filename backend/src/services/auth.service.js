@@ -7,11 +7,20 @@ const env = require('../config/env');
 // In-memory store — codes are lost on server restart
 const resetCodes = {};
 
+// Clean up expired reset codes every 5 minutes to prevent memory leaks
+setInterval(() => {
+    const now = Date.now();
+    for (const email of Object.keys(resetCodes)) {
+        if (now > resetCodes[email].expiresAt) {
+            delete resetCodes[email];
+        }
+    }
+}, 5 * 60 * 1000);
+
 class AuthService {
     async forgotPassword({ email }) {
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) {
-            // Don't reveal whether user exists — return success either way
             return { message: 'Si el email existe, recibirás un código de recuperación.' };
         }
 
@@ -19,10 +28,8 @@ class AuthService {
         resetCodes[email] = { code, expiresAt: Date.now() + 15 * 60 * 1000 };
 
         // TODO: Integrate email service (SendGrid/Resend) for production
-        if (env.NODE_ENV === 'production') {
-            console.log(`[AUTH] Reset code generated for ${email}`);
-        } else {
-            console.log(`\n  🔑 Código de recuperación para ${email}: ${code}\n`);
+        if (env.NODE_ENV !== 'production') {
+            console.log(`[AUTH-DEV] Reset code for ${email}: ${code}`);
         }
 
         return { message: 'Si el email existe, recibirás un código de recuperación.' };

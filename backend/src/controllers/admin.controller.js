@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const adminService = require('../services/admin.service');
 const patientsService = require('../services/patients.service');
 const prisma = require('../config/database');
@@ -98,9 +99,8 @@ const getRevenue = async (req, res, next) => {
 
 const createPatient = async (req, res, next) => {
     try {
-        // We use the auth service to register the patient, but generate a default password
         const authService = require('../services/auth.service');
-        const defaultPassword = 'duckkine_temporal_123';
+        const defaultPassword = crypto.randomBytes(6).toString('base64url');
 
         const result = await authService.register({
             ...req.body,

@@ -43,8 +43,9 @@ export default function ReservarPage() {
             const data = await servicesAPI.getAll();
             // Backend returns { services: [...] }
             setServices(data.services || data || []);
-        } catch (err) { }
-        finally { setLoading(false); }
+        } catch (err) {
+            console.error('[Reservar] Load services error:', err.message);
+        } finally { setLoading(false); }
     };
 
     const loadAvailability = async () => {
@@ -54,10 +55,10 @@ export default function ReservarPage() {
                 serviceId: selectedService.id,
                 date: selectedDate
             });
-            // Backend returns { slots: [...] }
             setAvailableSlots(data.slots || data || []);
-        } catch (err) { }
-        finally { setLoading(false); }
+        } catch (err) {
+            console.error('[Reservar] Load availability error:', err.message);
+        } finally { setLoading(false); }
     };
 
     // Calculate end date for calendar
