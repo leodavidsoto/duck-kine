@@ -1,7 +1,12 @@
 const env = require('./env');
 
 const corsOptions = {
-    origin: [env.FRONTEND_URL, 'http://localhost:3000'],
+    origin: [
+        env.FRONTEND_URL,
+        'http://localhost:3000',
+        'https://duckkine.cl',
+        'https://www.duckkine.cl',
+    ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
