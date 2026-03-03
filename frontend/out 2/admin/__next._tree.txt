@@ -1,0 +1,13 @@
+:HL["/_next/static/chunks/c0c6abaec2b636e9.css","style"]
+:HL["/_next/static/chunks/e4f0eb24d012e316.css","style"]
+:HL["https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Sora:wght@100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap","style"]
+:HL["/assets/css/bootstrap.min.css","style"]
+:HL["/assets/fonts/css/all.min.css","style"]
+:HL["/assets/fonts/css/tabler-icons.min.css","style"]
+:HL["/assets/css/magnific-popup.css","style"]
+:HL["/assets/css/nice-select.css","style"]
+:HL["/assets/css/odometer.css","style"]
+:HL["/assets/css/swiper-bundle.min.css","style"]
+:HL["/assets/css/main.css","style"]
+:HL["/assets/css/responsive.css","style"]
+0:{"buildId":"voHLryB0OaTCjZxqsdl7t","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"(admin)","paramType":null,"paramKey":"(admin)","hasRuntimePrefetch":false,"slots":{"children":{"name":"admin","paramType":null,"paramKey":"admin","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

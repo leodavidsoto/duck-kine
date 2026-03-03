@@ -1,0 +1,46 @@
+/* ==== 
+ --------- (1.02) variables start ---------
+ ==== */
+
+:root {
+  // font family
+  --sora: "Sora", sans-serif;
+  --kumbh: "Kumbh Sans", sans-serif;
+  --urban: "Urbanist", sans-serif;
+
+  // template default
+  --template-font: var(--sora);
+  --heading-font: var(--sora);
+  --template-bg: #060606;
+  --template-color: #ffffff;
+
+  // colors
+  --white: #ffffff;
+  --black: #000000;
+  --primary-color: #dfdfdfc4;
+  --secondary-color: #F20101;
+  --tertiary-color: #00BC91;
+  --quaternary-color: #101010;
+  --quinary-color: #17161A;
+  --senary-color: #1B1B1B;
+  --septenary-color: #4E92E3;
+  --octonary-color: #f3d000;
+
+  // transitions
+  --transition: all 0.5s ease;
+
+  // box shadow
+  --shadow: 0px 4px 27px 0px rgba(0, 0, 0, 0.05);
+}
+
+.page-three {
+  --secondary-color: #4E92E3;
+}
+
+.page-five {
+  --secondary-color: #B19971;
+}
+
+/* ==== 
+ --------- (1.02) variables end ---------
+ ==== */

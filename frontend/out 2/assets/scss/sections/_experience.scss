@@ -1,0 +1,56 @@
+/* ==== 
+ --------- (5.03) experience styles start ---------
+ ==== */
+
+.experience {
+
+    .experience__single-content {
+        padding: 40px 20px;
+        position: relative;
+        z-index: 1;
+        background-image: linear-gradient(45deg, #F2010190, #F2010130 50%);
+        border-radius: 6px;
+        margin-bottom: 24px;
+
+        &:nth-last-of-type(1) {
+            margin-bottom: 0px;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            background-color: var(--template-bg);
+            z-index: -1;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        &:nth-of-type(2) {
+            background-image: linear-gradient(-45deg, #F2010190, #F2010130 50%);
+
+            &::before {
+                background-color: var(--quaternary-color);
+            }
+        }
+
+        &:hover {
+            &::before {
+                background-color: var(--quaternary-color);
+            }
+        }
+    }
+
+    .experience__content-intro {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+}
+
+/* ==== 
+ --------- (5.03) experience styles end ---------
+ ==== */

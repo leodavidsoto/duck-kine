@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import XfolioScripts from '@/components/XfolioScripts';
 
 export default function HomePage() {
@@ -41,34 +42,34 @@ export default function HomePage() {
                 <div className="main-header__menu-box">
                   <nav className="navbar p-0">
                     <div className="navbar-logo">
-                      <a href="#inicio">
+                      <Link href="#inicio">
                         <img src="/assets/images/logo.png" alt="Duck Kinesiología" className="logo-ch" style={{ width: '90px', height: 'auto' }} />
-                      </a>
+                      </Link>
                     </div>
                     <div className="navbar__menu-wrapper">
                       <div className="navbar__menu d-none d-xl-block">
                         <ul className="navbar__list" style={{ gap: '0' }}>
-                          <li className="navbar__item nav-fade"><a href="#inicio" style={{ padding: '20px 10px', fontSize: '13px' }}>Inicio</a></li>
-                          <li className="navbar__item nav-fade"><a href="#sobre-mi" style={{ padding: '20px 10px', fontSize: '13px' }}>Sobre Mí</a></li>
-                          <li className="navbar__item nav-fade"><a href="#servicios" style={{ padding: '20px 10px', fontSize: '13px' }}>Servicios</a></li>
-                          <li className="navbar__item nav-fade"><a href="#entrenamientos" style={{ padding: '20px 10px', fontSize: '13px' }}>Entrenamientos</a></li>
-                          <li className="navbar__item nav-fade"><a href="#academia" style={{ padding: '20px 10px', fontSize: '13px' }}>Academia</a></li>
-                          <li className="navbar__item nav-fade"><a href="#empresas" style={{ padding: '20px 10px', fontSize: '13px' }}>Empresas</a></li>
-                          <li className="navbar__item nav-fade"><a href="#precios" style={{ padding: '20px 10px', fontSize: '13px' }}>Precios</a></li>
-                          <li className="navbar__item nav-fade"><a href="#contacto" style={{ padding: '20px 10px', fontSize: '13px' }}>Contacto</a></li>
+                          <li className="navbar__item nav-fade"><Link href="#inicio" style={{ padding: '20px 10px', fontSize: '13px' }}>Inicio</Link></li>
+                          <li className="navbar__item nav-fade"><Link href="#sobre-mi" style={{ padding: '20px 10px', fontSize: '13px' }}>Sobre Mí</Link></li>
+                          <li className="navbar__item nav-fade"><Link href="#servicios" style={{ padding: '20px 10px', fontSize: '13px' }}>Servicios</Link></li>
+                          <li className="navbar__item nav-fade"><Link href="#entrenamientos" style={{ padding: '20px 10px', fontSize: '13px' }}>Entrenamientos</Link></li>
+                          <li className="navbar__item nav-fade"><Link href="#academia" style={{ padding: '20px 10px', fontSize: '13px' }}>Academia</Link></li>
+                          <li className="navbar__item nav-fade"><Link href="#empresas" style={{ padding: '20px 10px', fontSize: '13px' }}>Empresas</Link></li>
+                          <li className="navbar__item nav-fade"><Link href="#precios" style={{ padding: '20px 10px', fontSize: '13px' }}>Precios</Link></li>
+                          <li className="navbar__item nav-fade"><Link href="#contacto" style={{ padding: '20px 10px', fontSize: '13px' }}>Contacto</Link></li>
                         </ul>
                       </div>
                     </div>
                     <div className="navbar__options">
                       <div className="navbar__mobile-options d-none d-sm-block" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                        <a href="/login" style={{ color: 'var(--white-color)', fontSize: '14px', fontWeight: '500', opacity: '0.8', transition: 'opacity 0.3s' }}>Iniciar sesión</a>
-                        <a href="/register" className="btn-primary">
+                        <Link href="/login/" style={{ color: 'var(--white-color)', fontSize: '14px', fontWeight: '500', opacity: '0.8', transition: 'opacity 0.3s' }}>Iniciar sesión</Link>
+                        <Link href="/register/" className="btn-primary">
                           <span className="btn-animated-text" data-text="Crear cuenta">Crear cuenta</span>
                           <span className="btn-icon">
                             <i className="ph ph-arrow-up-right"></i>
                             <i className="ph ph-arrow-up-right"></i>
                           </span>
-                        </a>
+                        </Link>
                       </div>
                       <button className="open-offcanvas-nav d-flex d-xl-none" aria-label="toggle mobile menu" title="open offcanvas menu">
                         <span className="icon-bar top-bar"></span>
@@ -89,9 +90,9 @@ export default function HomePage() {
           <nav className="mobile-menu__wrapper">
             <div className="mobile-menu__header nav-fade">
               <div className="logo">
-                <a href="#inicio" aria-label="home page" title="logo">
+                <Link href="#inicio" aria-label="home page" title="logo">
                   <img src="/assets/images/logo.png" alt="Duck Kinesiología" className="logo-ch" />
-                </a>
+                </Link>
               </div>
               <button aria-label="close mobile menu" className="close-mobile-menu">
                 <i className="ph ph-x"></i>
@@ -99,21 +100,21 @@ export default function HomePage() {
             </div>
             <div className="mobile-menu__list"></div>
             <div className="mobile-menu__cta d-block d-md-none nav-fade">
-              <a href="/reservar" className="btn-primary">
+              <Link href="/reservar/" className="btn-primary">
                 <span className="btn-animated-text" data-text="Agendar Cita">Agendar Cita</span>
                 <span className="btn-icon">
                   <i className="ph ph-arrow-up-right"></i>
                   <i className="ph ph-arrow-up-right"></i>
                 </span>
-              </a>
+              </Link>
             </div>
             <div className="mobile-menu__social social nav-fade">
-              <a href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
+              <Link href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
                 <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+              </Link>
+              <Link href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
                 <i className="fa-brands fa-whatsapp"></i>
-              </a>
+              </Link>
             </div>
           </nav>
         </div>
@@ -150,11 +151,11 @@ export default function HomePage() {
                     <div className="col-12 col-md-6 col-lg-4 col-xl-3">
                       <div className="hero-three__cta fade-up">
                         <div className="btn-wrapper">
-                          <a href="/reservar" className="btn-anim">
+                          <Link href="/reservar/" className="btn-anim">
                             <i className="ph ph-arrow-up-right"></i>
                             Agenda tu Cita
                             <span></span>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -192,12 +193,12 @@ export default function HomePage() {
           {/* Social sidebar */}
           <div className="hero-three__social fade-left d-none d-xxl-block">
             <div className="social justify-content-center">
-              <a href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram">
+              <Link href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram">
                 <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp">
+              </Link>
+              <Link href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp">
                 <i className="fa-brands fa-whatsapp"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -208,44 +209,44 @@ export default function HomePage() {
           <div className="marquee__inner">
             <div className="marquee__slider">
               <div className="marquee__single stroke-text">
-                <h4 className="title-lg"><a href="#servicios">REHABILITACIÓN <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">REHABILITACIÓN <span>-</span></Link></h4>
               </div>
               <div className="marquee__single">
-                <h4 className="title-lg"><a href="#servicios">NEUROREHABILITACIÓN <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">NEUROREHABILITACIÓN <span>-</span></Link></h4>
               </div>
               <div className="marquee__single stroke-text">
-                <h4 className="title-lg"><a href="#servicios">DEPORTOLOGÍA <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">DEPORTOLOGÍA <span>-</span></Link></h4>
               </div>
               <div className="marquee__single">
-                <h4 className="title-lg"><a href="#servicios">KINESIOLOGÍA <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">KINESIOLOGÍA <span>-</span></Link></h4>
               </div>
             </div>
             <div className="marquee__slider">
               <div className="marquee__single stroke-text">
-                <h4 className="title-lg"><a href="#servicios">REHABILITACIÓN <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">REHABILITACIÓN <span>-</span></Link></h4>
               </div>
               <div className="marquee__single">
-                <h4 className="title-lg"><a href="#servicios">NEUROREHABILITACIÓN <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">NEUROREHABILITACIÓN <span>-</span></Link></h4>
               </div>
               <div className="marquee__single stroke-text">
-                <h4 className="title-lg"><a href="#servicios">DEPORTOLOGÍA <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">DEPORTOLOGÍA <span>-</span></Link></h4>
               </div>
               <div className="marquee__single">
-                <h4 className="title-lg"><a href="#servicios">KINESIOLOGÍA <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">KINESIOLOGÍA <span>-</span></Link></h4>
               </div>
             </div>
             <div className="marquee__slider">
               <div className="marquee__single stroke-text">
-                <h4 className="title-lg"><a href="#servicios">REHABILITACIÓN <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">REHABILITACIÓN <span>-</span></Link></h4>
               </div>
               <div className="marquee__single">
-                <h4 className="title-lg"><a href="#servicios">NEUROREHABILITACIÓN <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">NEUROREHABILITACIÓN <span>-</span></Link></h4>
               </div>
               <div className="marquee__single stroke-text">
-                <h4 className="title-lg"><a href="#servicios">DEPORTOLOGÍA <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">DEPORTOLOGÍA <span>-</span></Link></h4>
               </div>
               <div className="marquee__single">
-                <h4 className="title-lg"><a href="#servicios">KINESIOLOGÍA <span>-</span></a></h4>
+                <h4 className="title-lg"><Link href="#servicios">KINESIOLOGÍA <span>-</span></Link></h4>
               </div>
             </div>
           </div>
@@ -312,13 +313,13 @@ export default function HomePage() {
                     <h2 className="title-animation fw-6 mt-16">Donde la Experiencia Clínica se Une con el Compromiso</h2>
                     <p className="primary-text text-md mt-16">Kinesiólogo con más de 10 años de experiencia en rehabilitación integral, deportología y neurorehabilitación.</p>
                     <div className="mt-40">
-                      <a href="/reservar" className="btn-primary">
+                      <Link href="/reservar/" className="btn-primary">
                         <span className="btn-animated-text" data-text="Agenda una Cita">Agenda una Cita</span>
                         <span className="btn-icon">
                           <i className="ph ph-arrow-up-right"></i>
                           <i className="ph ph-arrow-up-right"></i>
                         </span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -337,7 +338,7 @@ export default function HomePage() {
                   <div className="about-two__single-inner">
                     <p className="primary-text neutral-top">Comprometido con el bienestar y la recuperación de cada paciente, aplicando técnicas basadas en evidencia científica.</p>
                     <div className="about-two__cta mt-40">
-                      <a href="/reservar">Reservar Cita Ahora</a>
+                      <Link href="/reservar/">Reservar Cita Ahora</Link>
                     </div>
                   </div>
                   <div className="about-two__counter mt-160">
@@ -380,13 +381,13 @@ export default function HomePage() {
                       <div>
                         <p className="primary-text">Atención kinesiológica personalizada, diseñada para tus necesidades de salud.</p>
                         <div className="mt-30">
-                          <a href="/reservar" className="btn-primary">
+                          <Link href="/reservar/" className="btn-primary">
                             <span className="btn-animated-text" data-text="Ver Más">Ver Más</span>
                             <span className="btn-icon">
                               <i className="ph ph-arrow-up-right"></i>
                               <i className="ph ph-arrow-up-right"></i>
                             </span>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -403,14 +404,14 @@ export default function HomePage() {
                       <img src="/assets/images/service/two.png" alt="Rehabilitación Deportiva" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/reservar" className="fw-6 neutral-top title-animation">Rehabilitación Deportiva</a></h5>
+                      <h5><Link href="/reservar/" className="fw-6 neutral-top title-animation">Rehabilitación Deportiva</Link></h5>
                       <p className="primary-text text-md mt-12">Recuperación de lesiones musculares, tendinosas y articulares en deportistas de todas las disciplinas.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/reservar" aria-label="ver detalles" title="ver detalles">
+                      <Link href="/reservar/" aria-label="ver detalles" title="ver detalles">
                         <span className="text-md">Consultar</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -423,14 +424,14 @@ export default function HomePage() {
                       <img src="/assets/images/service/three.png" alt="Neurorehabilitación" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/reservar" className="fw-6 neutral-top title-animation">Neurorehabilitación</a></h5>
+                      <h5><Link href="/reservar/" className="fw-6 neutral-top title-animation">Neurorehabilitación</Link></h5>
                       <p className="primary-text text-md mt-12">Tratamiento de secuelas neurológicas: ACV, Parkinson, esclerosis múltiple y lesiones medulares.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/reservar" aria-label="ver detalles" title="ver detalles">
+                      <Link href="/reservar/" aria-label="ver detalles" title="ver detalles">
                         <span className="text-md">Consultar</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -443,14 +444,14 @@ export default function HomePage() {
                       <img src="/assets/images/service/four.png" alt="Kinesiología Respiratoria" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/reservar" className="fw-6 neutral-top title-animation">Kinesiología Respiratoria</a></h5>
+                      <h5><Link href="/reservar/" className="fw-6 neutral-top title-animation">Kinesiología Respiratoria</Link></h5>
                       <p className="primary-text text-md mt-12">Técnicas especializadas para patologías respiratorias y mejora de la función pulmonar.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/reservar" aria-label="ver detalles" title="ver detalles">
+                      <Link href="/reservar/" aria-label="ver detalles" title="ver detalles">
                         <span className="text-md">Consultar</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -463,14 +464,14 @@ export default function HomePage() {
                       <img src="/assets/images/service/five.png" alt="Terapia Manual" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/reservar" className="fw-6 neutral-top title-animation">Terapia Manual</a></h5>
+                      <h5><Link href="/reservar/" className="fw-6 neutral-top title-animation">Terapia Manual</Link></h5>
                       <p className="primary-text text-md mt-12">Liberación miofascial, movilización articular y técnicas especializadas de tejido blando.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/reservar" aria-label="ver detalles" title="ver detalles">
+                      <Link href="/reservar/" aria-label="ver detalles" title="ver detalles">
                         <span className="text-md">Consultar</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -483,14 +484,14 @@ export default function HomePage() {
                       <img src="/assets/images/service/six.png" alt="Kinesiología Preventiva" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/reservar" className="fw-6 neutral-top title-animation">Kinesiología Preventiva</a></h5>
+                      <h5><Link href="/reservar/" className="fw-6 neutral-top title-animation">Kinesiología Preventiva</Link></h5>
                       <p className="primary-text text-md mt-12">Evaluaciones posturales, ergonomía laboral y programas de ejercicio terapéutico.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/reservar" aria-label="ver detalles" title="ver detalles">
+                      <Link href="/reservar/" aria-label="ver detalles" title="ver detalles">
                         <span className="text-md">Consultar</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -503,14 +504,14 @@ export default function HomePage() {
                       <img src="/assets/images/service/seven.png" alt="Atención Domiciliaria" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/reservar" className="fw-6 neutral-top title-animation">Atención Domiciliaria</a></h5>
+                      <h5><Link href="/reservar/" className="fw-6 neutral-top title-animation">Atención Domiciliaria</Link></h5>
                       <p className="primary-text text-md mt-12">Sesiones de kinesiología en la comodidad de tu hogar para pacientes con movilidad reducida.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/reservar" aria-label="ver detalles" title="ver detalles">
+                      <Link href="/reservar/" aria-label="ver detalles" title="ver detalles">
                         <span className="text-md">Consultar</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -603,9 +604,9 @@ export default function HomePage() {
                       <div className="price">
                         <h3 className="fw-7">$20.000 <span className="text-md fw-4">/ sesión</span></h3>
                       </div>
-                      <a href="/reservar" className="btn--secondary">
+                      <Link href="/reservar/" className="btn--secondary">
                         <span className="btn-animated-text" data-text="Agendar">Agendar</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="pricing__single scale-up active">
@@ -617,9 +618,9 @@ export default function HomePage() {
                       <div className="price">
                         <h3 className="fw-7">$170.000 <span className="text-md fw-4">/ pack</span></h3>
                       </div>
-                      <a href="/reservar" className="btn--secondary">
+                      <Link href="/reservar/" className="btn--secondary">
                         <span className="btn-animated-text" data-text="Agendar">Agendar</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -647,13 +648,13 @@ export default function HomePage() {
                     </li>
                   </ul>
                   <div className="mt-40">
-                    <a href="/reservar" className="btn-primary">
+                    <Link href="/reservar/" className="btn-primary">
                       <span className="btn-animated-text" data-text="Consultar">Consultar</span>
                       <span className="btn-icon">
                         <i className="ph ph-arrow-up-right"></i>
                         <i className="ph ph-arrow-up-right"></i>
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -771,13 +772,13 @@ export default function HomePage() {
                       <div>
                         <p className="primary-text">Cursos de autocuidado, ejercicio terapéutico y educación en salud para pacientes y profesionales.</p>
                         <div className="mt-30">
-                          <a href="/academia" className="btn-primary">
+                          <Link href="/academia/" className="btn-primary">
                             <span className="btn-animated-text" data-text="Ver Cursos">Ver Cursos</span>
                             <span className="btn-icon">
                               <i className="ph ph-arrow-up-right"></i>
                               <i className="ph ph-arrow-up-right"></i>
                             </span>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -794,14 +795,14 @@ export default function HomePage() {
                       <img src="/assets/images/blog/seven.png" alt="Ejercicio Terapéutico" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/academia" className="fw-6 neutral-top title-animation">Ejercicio Terapéutico en Casa</a></h5>
+                      <h5><Link href="/academia/" className="fw-6 neutral-top title-animation">Ejercicio Terapéutico en Casa</Link></h5>
                       <p className="primary-text text-md mt-12">Rutinas guiadas para mantener tu rehabilitación desde la comodidad de tu hogar.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/academia" aria-label="ver curso" title="ver curso">
+                      <Link href="/academia/" aria-label="ver curso" title="ver curso">
                         <span className="text-md">Ver Curso</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -814,14 +815,14 @@ export default function HomePage() {
                       <img src="/assets/images/blog/eight.png" alt="Prevención de Lesiones" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/academia" className="fw-6 neutral-top title-animation">Prevención de Lesiones Deportivas</a></h5>
+                      <h5><Link href="/academia/" className="fw-6 neutral-top title-animation">Prevención de Lesiones Deportivas</Link></h5>
                       <p className="primary-text text-md mt-12">Aprende a calentar, elongar y proteger tu cuerpo antes y después del deporte.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/academia" aria-label="ver curso" title="ver curso">
+                      <Link href="/academia/" aria-label="ver curso" title="ver curso">
                         <span className="text-md">Ver Curso</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -834,14 +835,14 @@ export default function HomePage() {
                       <img src="/assets/images/blog/nine.png" alt="Ergonomía Laboral" />
                     </div>
                     <div className="content mt-40">
-                      <h5><a href="/academia" className="fw-6 neutral-top title-animation">Ergonomía y Salud Laboral</a></h5>
+                      <h5><Link href="/academia/" className="fw-6 neutral-top title-animation">Ergonomía y Salud Laboral</Link></h5>
                       <p className="primary-text text-md mt-12">Guía completa para cuidar tu postura y evitar dolores en el trabajo de oficina.</p>
                     </div>
                     <div className="service-three__single-cta mt-40">
-                      <a href="/academia" aria-label="ver curso" title="ver curso">
+                      <Link href="/academia/" aria-label="ver curso" title="ver curso">
                         <span className="text-md">Ver Curso</span>
                         <i className="ph ph-arrow-up-right"></i>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -888,9 +889,9 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="pricing__single-cta mt-auto pt-40">
-                    <a href="/login" className="btn--secondary w-100 text-center">
+                    <Link href="/login/" className="btn--secondary w-100 text-center">
                       <span className="btn-animated-text" data-text="Reservar Cupo">Reservar Cupo</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -910,9 +911,9 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="pricing__single-cta mt-auto pt-40">
-                    <a href="/login" className="btn--secondary w-100 text-center">
+                    <Link href="/login/" className="btn--secondary w-100 text-center">
                       <span className="btn-animated-text" data-text="Reservar Cupo">Reservar Cupo</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -953,9 +954,9 @@ export default function HomePage() {
                       <div className="price">
                         <h3 className="fw-7">$350.000 <span className="text-md fw-4">/ mes</span></h3>
                       </div>
-                      <a href="/corporativo" className="btn--secondary">
+                      <Link href="/corporativo/" className="btn--secondary">
                         <span className="btn-animated-text" data-text="Solicitar">Solicitar</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="pricing__single scale-up active">
@@ -967,9 +968,9 @@ export default function HomePage() {
                       <div className="price">
                         <h3 className="fw-7">$900.000 <span className="text-md fw-4">/ mes</span></h3>
                       </div>
-                      <a href="/corporativo" className="btn--secondary">
+                      <Link href="/corporativo/" className="btn--secondary">
                         <span className="btn-animated-text" data-text="Solicitar">Solicitar</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="pricing__single scale-up">
@@ -981,9 +982,9 @@ export default function HomePage() {
                       <div className="price">
                         <h3 className="fw-7">A medida</h3>
                       </div>
-                      <a href="/corporativo" className="btn--secondary">
+                      <Link href="/corporativo/" className="btn--secondary">
                         <span className="btn-animated-text" data-text="Contactar">Contactar</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -1011,13 +1012,13 @@ export default function HomePage() {
                     </li>
                   </ul>
                   <div className="mt-40">
-                    <a href="/corporativo" className="btn-primary">
+                    <Link href="/corporativo/" className="btn-primary">
                       <span className="btn-animated-text" data-text="Más Info">Más Info</span>
                       <span className="btn-icon">
                         <i className="ph ph-arrow-up-right"></i>
                         <i className="ph ph-arrow-up-right"></i>
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -1033,9 +1034,9 @@ export default function HomePage() {
               <div className="col-12 col-lg-5 col-xl-4">
                 <div className="footer-two__intro fade-right">
                   <div className="logo">
-                    <a href="#inicio">
+                    <Link href="#inicio">
                       <img src="/assets/images/logo.png" alt="Duck Kinesiología" className="logo-ch" />
-                    </a>
+                    </Link>
                   </div>
                   <div className="mt-20">
                     <p className="neutral-text text-md">Clínica de kinesiología integral en Santiago de Chile. Rehabilitación, deporte y prevención con seguimiento personalizado.</p>
@@ -1045,13 +1046,13 @@ export default function HomePage() {
               <div className="col-12 col-lg-2 col-xl-3">
                 <div className="footer-two__nav fade-right" data-delay="200">
                   <ul>
-                    <li><a href="#sobre-mi">Sobre Mí</a></li>
-                    <li><a href="#servicios" className="footer-nav-active">Servicios</a></li>
-                    <li><a href="#entrenamientos">Entrenamientos</a></li>
-                    <li><a href="#academia">Academia</a></li>
-                    <li><a href="#empresas">Empresas</a></li>
-                    <li><a href="/reservar">Reservar Hora</a></li>
-                    <li><a href="/login">Iniciar sesión</a></li>
+                    <li><Link href="#sobre-mi">Sobre Mí</Link></li>
+                    <li><Link href="#servicios" className="footer-nav-active">Servicios</Link></li>
+                    <li><Link href="#entrenamientos">Entrenamientos</Link></li>
+                    <li><Link href="#academia">Academia</Link></li>
+                    <li><Link href="#empresas">Empresas</Link></li>
+                    <li><Link href="/reservar/">Reservar Hora</Link></li>
+                    <li><Link href="/login/">Iniciar sesión</Link></li>
                   </ul>
                 </div>
               </div>
@@ -1068,18 +1069,18 @@ export default function HomePage() {
                 <div className="col-12 col-lg-4">
                   <div className="footer__copyright-left">
                     <p>
-                      <i className="ph ph-copyright"></i> <span id="copyrightYear"></span> <a href="#inicio">Duck Kinesiología</a>. Todos los derechos reservados.
+                      <i className="ph ph-copyright"></i> <span id="copyrightYear"></span> <Link href="#inicio">Duck Kinesiología</Link>. Todos los derechos reservados.
                     </p>
                   </div>
                 </div>
                 <div className="col-12 col-lg-4">
                   <div className="social justify-content-center">
-                    <a href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
+                    <Link href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
                       <i className="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+                    </Link>
+                    <Link href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
                       <i className="fa-brands fa-whatsapp"></i>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-12 col-lg-4">
