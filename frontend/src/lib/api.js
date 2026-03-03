@@ -1,5 +1,10 @@
-// Use localhost API only in local dev; production + Capacitor → api.duckkine.cl
+// Detect Capacitor native → always use production API
+const _isCapacitor = typeof window !== 'undefined'
+    && (window.Capacitor?.isNativePlatform?.() || window.location.protocol === 'capacitor:');
+
+// Only use localhost API in actual browser dev (not Capacitor)
 const _isLocal = typeof window !== 'undefined'
+    && !_isCapacitor
     && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
 const API_URL = _isLocal
