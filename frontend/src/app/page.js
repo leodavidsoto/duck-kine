@@ -112,7 +112,7 @@ export default function HomePage() {
               <Link href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
                 <i className="fa-brands fa-instagram"></i>
               </Link>
-              <Link href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+              <Link href="https://wa.me/56986625344" target="_blank" aria-label="WhatsApp" title="WhatsApp">
                 <i className="fa-brands fa-whatsapp"></i>
               </Link>
             </div>
@@ -196,7 +196,7 @@ export default function HomePage() {
               <Link href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram">
                 <i className="fa-brands fa-instagram"></i>
               </Link>
-              <Link href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp">
+              <Link href="https://wa.me/56986625344" target="_blank" aria-label="WhatsApp">
                 <i className="fa-brands fa-whatsapp"></i>
               </Link>
             </div>
@@ -1078,7 +1078,7 @@ export default function HomePage() {
                     <Link href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
                       <i className="fa-brands fa-instagram"></i>
                     </Link>
-                    <Link href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+                    <Link href="https://wa.me/56986625344" target="_blank" aria-label="WhatsApp" title="WhatsApp">
                       <i className="fa-brands fa-whatsapp"></i>
                     </Link>
                   </div>

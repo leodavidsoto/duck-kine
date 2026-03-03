@@ -28,17 +28,7 @@ async function apiFetch(endpoint, options = {}) {
         ...options,
     };
 
-    let response;
-    try {
-        response = await fetch(url, config);
-    } catch (err) {
-        // This catches strict network failures (CORS, offline, blocked by OS)
-        if (typeof window !== 'undefined') {
-            alert(`Network Error!\nURL: ${url}\nMessage: ${err.message}`);
-        }
-        throw err;
-    }
-
+    const response = await fetch(url, config);
     const data = await response.json();
 
     if (!response.ok) {
