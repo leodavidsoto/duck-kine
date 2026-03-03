@@ -4,7 +4,7 @@ const _isLocal = typeof window !== 'undefined'
 
 const API_URL = _isLocal
     ? (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api')
-    : 'https://api.duckkine.cl/api';
+    : 'https://backend-production-1a1b7.up.railway.app/api';
 
 /**
  * Fetch wrapper for Duck Kinesiología API

@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
   },
   server: {
     androidScheme: 'https',
-    allowNavigation: ['api.duckkine.cl', '*.duckkine.cl'],
+    allowNavigation: ['api.duckkine.cl', '*.duckkine.cl', 'backend-production-1a1b7.up.railway.app'],
   },
 };
 
