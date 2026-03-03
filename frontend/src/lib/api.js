@@ -1,12 +1,10 @@
-// Detect Capacitor (Android/iOS) — use production backend
-const _isMobile = typeof window !== 'undefined'
-    && !window.location.hostname.includes('localhost')
-    && !window.location.hostname.includes('127.0.0.1')
-    && !window.location.hostname.includes('duckkine');
+// Use localhost API only in local dev; production + Capacitor → api.duckkine.cl
+const _isLocal = typeof window !== 'undefined'
+    && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-const API_URL = _isMobile
-    ? 'https://api.duckkine.cl/api'
-    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api');
+const API_URL = _isLocal
+    ? (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api')
+    : 'https://api.duckkine.cl/api';
 
 /**
  * Fetch wrapper for Duck Kinesiología API
