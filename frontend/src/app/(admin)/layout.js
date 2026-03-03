@@ -1,27 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import styles from './admin.module.css';
 
 const navItems = [
     {
         section: 'Gestión', items: [
-            { icon: '📊', label: 'Dashboard', href: '/admin' },
-            { icon: '📅', label: 'Agenda', href: '/agenda-pro' },
-            { icon: '👥', label: 'Pacientes', href: '/pacientes' },
+            { icon: '📊', label: 'Dashboard', href: '/admin/' },
+            { icon: '📅', label: 'Agenda', href: '/agenda-pro/' },
+            { icon: '👥', label: 'Pacientes', href: '/pacientes/' },
         ]
     },
     {
         section: 'Clínica', items: [
-            { icon: '📝', label: 'Sesiones', href: '/sesiones' },
-            { icon: '💰', label: 'Finanzas', href: '/finanzas' },
+            { icon: '📝', label: 'Sesiones', href: '/sesiones/' },
+            { icon: '💰', label: 'Finanzas', href: '/finanzas/' },
         ]
     },
     {
         section: 'Contenido', items: [
-            { icon: '🏃', label: 'Programas', href: '/admin-programas' },
+            { icon: '🏃', label: 'Programas', href: '/admin-programas/' },
         ]
     },
 ];
@@ -29,6 +29,7 @@ const navItems = [
 export default function AdminLayout({ children }) {
     const [user, setUser] = useState(null);
     const pathname = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         const stored = localStorage.getItem('dk_user');
@@ -36,12 +37,12 @@ export default function AdminLayout({ children }) {
             const u = JSON.parse(stored);
             const adminRoles = ['PROFESSIONAL', 'ADMIN', 'SUPER_ADMIN', 'ORG_ADMIN', 'CLINIC_DIRECTOR'];
             if (!adminRoles.includes(u.role)) {
-                window.location.href = '/dashboard';
+                router.push('/dashboard/');
                 return;
             }
             setUser(u);
         } else {
-            window.location.href = '/login';
+            router.push('/login/');
         }
     }, []);
 
@@ -75,7 +76,7 @@ export default function AdminLayout({ children }) {
                         Kine. {user.firstName} {user.lastName}
                     </div>
                     <button className={styles.logoutBtn}
-                        onClick={() => { localStorage.removeItem('dk_token'); localStorage.removeItem('dk_user'); window.location.href = '/'; }}>
+                        onClick={() => { localStorage.removeItem('dk_token'); localStorage.removeItem('dk_user'); router.push('/'); }}>
                         🚪 Cerrar sesión
                     </button>
                 </div>

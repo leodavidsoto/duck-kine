@@ -132,17 +132,18 @@ export default function ForgotPasswordPage() {
                             <h1 className={styles.authTitle}>¡Contraseña actualizada!</h1>
                             <p className={styles.authSubtitle}>Ya puedes ingresar con tu nueva contraseña</p>
                         </div>
-
-                        <Link href="/login" className={styles.submitBtn}
-                            style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>
-                            Ir al login
-                        </Link>
+                        <div style={{ marginTop: '20px' }}>
+                            <Link href="/login/" className={styles.submitBtn}
+                                style={{ display: 'inline-block', textDecoration: 'none', background: 'transparent', border: '1px solid rgba(255,255,255,0.2)' }}>
+                                Ir a iniciar sesión
+                            </Link>
+                        </div>
                     </>
                 )}
 
                 {step !== 3 && (
                     <p className={styles.authLink}>
-                        <Link href="/login">← Volver al login</Link>
+                        <Link href="/login/">← Volver al login</Link>
                     </p>
                 )}
             </div>

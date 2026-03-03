@@ -30,7 +30,7 @@ export default function RegisterPage() {
             localStorage.setItem('dk_token', token);
             localStorage.setItem('dk_user', JSON.stringify(user));
             // SPA navigation instead of window.location.href
-            router.push('/dashboard');
+            router.push('/dashboard/');
         } catch (err) {
             setError(err.message);
         } finally {
@@ -105,7 +105,7 @@ export default function RegisterPage() {
                 </form>
 
                 <p className={styles.authLink}>
-                    ¿Ya tienes cuenta? <Link href="/login">Inicia sesión</Link>
+                    ¿Ya tienes cuenta? <Link href="/login/">Inicia sesión</Link>
                 </p>
             </div>
         </div>

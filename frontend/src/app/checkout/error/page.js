@@ -36,8 +36,8 @@ function CheckoutErrorContent() {
                         </div>
 
                         <div className={s.actionRow}>
-                            <Link href="/reservar" className="btn btn-primary btn-lg">
-                                Volver a Reservar
+                            <Link href="/reservar/" className="btn btn-primary btn-lg">
+                                Intentar Nuevamente
                             </Link>
                         </div>
                     </div>

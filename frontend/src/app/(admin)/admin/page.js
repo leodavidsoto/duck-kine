@@ -90,7 +90,7 @@ export default function AdminDashboard() {
             <div className={s.card}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                     <h3 className={s.cardTitle} style={{ marginBottom: 0 }}>Agenda de hoy</h3>
-                    <Link href="/agenda-pro" style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#2ECC9A' }}>Ver completa →</Link>
+                    <Link href="/agenda-pro/" style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#2ECC9A' }}>Ver completa →</Link>
                 </div>
 
                 {appointments.length === 0 ? (

@@ -77,24 +77,24 @@ const icons = {
 const navItems = [
     {
         section: 'Principal', items: [
-            { icon: icons.dashboard, label: 'Dashboard', href: '/dashboard' },
-            { icon: icons.calendar, label: 'Agenda', href: '/agenda' },
-            { icon: icons.clipboard, label: 'Mi Ficha', href: '/historial' },
+            { icon: icons.dashboard, label: 'Dashboard', href: '/dashboard/' },
+            { icon: icons.calendar, label: 'Agenda', href: '/agenda/' },
+            { icon: icons.clipboard, label: 'Mi Ficha', href: '/historial/' },
         ]
     },
     {
         section: 'Salud', items: [
-            { icon: icons.trendingUp, label: 'Mi Progreso', href: '/progreso' },
-            { icon: icons.dumbbell, label: 'Ejercicios', href: '/ejercicios' },
-            { icon: icons.users, label: 'Clases', href: '/clases' },
-            { icon: icons.target, label: 'Registro Dolor', href: '/dolor' },
+            { icon: icons.trendingUp, label: 'Mi Progreso', href: '/progreso/' },
+            { icon: icons.dumbbell, label: 'Ejercicios', href: '/ejercicios/' },
+            { icon: icons.users, label: 'Clases', href: '/clases/' },
+            { icon: icons.target, label: 'Registro Dolor', href: '/dolor/' },
         ]
     },
     {
         section: 'Más', items: [
-            { icon: icons.creditCard, label: 'Pagos', href: '/pagos' },
-            { icon: icons.zap, label: 'Programas', href: '/programas' },
-            { icon: icons.bookOpen, label: 'Academia', href: '/academia' },
+            { icon: icons.creditCard, label: 'Pagos', href: '/pagos/' },
+            { icon: icons.zap, label: 'Programas', href: '/programas/' },
+            { icon: icons.bookOpen, label: 'Academia', href: '/academia/' },
         ]
     },
 ];
@@ -107,7 +107,7 @@ export default function PatientLayout({ children }) {
     useEffect(() => {
         const stored = localStorage.getItem('dk_user');
         if (stored) setUser(JSON.parse(stored));
-        else window.location.href = '/login';
+        else window.location.href = '/login/';
     }, []);
 
     // Close sidebar on route change (mobile)

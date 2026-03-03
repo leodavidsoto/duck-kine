@@ -133,7 +133,7 @@ export default function PatientDashboard() {
                 <div className={styles.panel}>
                     <div className={styles.panelHeader}>
                         <h2 className={styles.panelTitle}>Próximas citas</h2>
-                        <Link href="/agenda" className={styles.panelLink}>Ver todas →</Link>
+                        <Link href="/agenda/" className={styles.panelLink}>Ver todas →</Link>
                     </div>
                     <div className={styles.aptList}>
                         {loading ? (
@@ -142,8 +142,8 @@ export default function PatientDashboard() {
                             <div style={{ textAlign: 'center', padding: 'var(--space-6)' }}>
                                 <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-3)', opacity: 0.3 }}>📅</div>
                                 <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 'var(--space-4)' }}>No tienes citas agendadas</p>
-                                <Link href="/agenda" className="btn btn-primary" style={{ display: 'inline-block' }}>
-                                    Agendar hora
+                                <Link href="/agenda/" className="btn btn-primary" style={{ display: 'inline-block' }}>
+                                    Agendar nueva sesión
                                 </Link>
                             </div>
                         ) : appointments.map((apt, i) => {

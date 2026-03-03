@@ -69,7 +69,7 @@ export default function LoginPage() {
                 </form>
 
                 <p className={styles.authLink}>
-                    ¿Primera vez? <Link href="/register">Crea tu cuenta</Link>
+                    ¿Primera vez? <Link href="/register/">Crea tu cuenta</Link>
                 </p>
             </div>
         </div>

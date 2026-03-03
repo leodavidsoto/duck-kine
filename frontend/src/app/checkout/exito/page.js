@@ -59,8 +59,8 @@ function CheckoutSuccessContent() {
                                 </div>
                             </div>
 
-                            <div className={s.actionRow}>
-                                <Link href="/dashboard" className="btn btn-primary btn-lg">
+                            <div style={{ marginTop: '2rem' }}>
+                                <Link href="/dashboard/" className="btn btn-primary btn-lg">
                                     Ir a mi Dashboard
                                 </Link>
                             </div>
@@ -74,9 +74,9 @@ function CheckoutSuccessContent() {
                             <p className={s.descText}>
                                 El pago fue cancelado. Si deseas intentar nuevamente, puedes volver a agendar.
                             </p>
-                            <div className={s.actionRow}>
-                                <Link href="/reservar" className="btn btn-primary btn-lg">
-                                    Volver a intentar
+                            <div style={{ marginTop: '2rem' }}>
+                                <Link href="/reservar/" className="btn btn-primary btn-lg">
+                                    Reservar ahora
                                 </Link>
                             </div>
                         </div>
@@ -89,12 +89,12 @@ function CheckoutSuccessContent() {
                             <p className={s.descText}>
                                 Hubo un problema al procesar tu pago. Por favor, intenta de nuevo o contacta con tu banco.
                             </p>
-                            <div className={s.actionRow}>
-                                <Link href="/reservar" className="btn btn-secondary btn-lg">
+                            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
+                                <Link href="/reservar/" className="btn btn-secondary btn-lg">
                                     Volver a intentar
                                 </Link>
-                                <Link href="/contacto" className="btn btn-outline-primary btn-lg">
-                                    Soporte
+                                <Link href="/contacto/" className="btn btn-outline-primary btn-lg">
+                                    Contactar soporte
                                 </Link>
                             </div>
                         </div>
