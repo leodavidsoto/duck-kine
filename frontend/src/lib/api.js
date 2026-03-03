@@ -1,4 +1,12 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+// Detect Capacitor (Android/iOS) — use production backend
+const _isMobile = typeof window !== 'undefined'
+    && !window.location.hostname.includes('localhost')
+    && !window.location.hostname.includes('127.0.0.1')
+    && !window.location.hostname.includes('duckkine');
+
+const API_URL = _isMobile
+    ? 'https://api.duckkine.cl/api'
+    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api');
 
 /**
  * Fetch wrapper for Duck Kinesiología API
@@ -117,6 +125,14 @@ export const adminAPI = {
     getSessions: (params) => apiFetch(`/admin/sessions?${new URLSearchParams(params)}`),
     createSession: (data) => apiFetch('/admin/sessions', { method: 'POST', body: JSON.stringify(data) }),
     getRevenue: () => apiFetch('/admin/revenue'),
+};
+
+// ─── Training Classes ────────────────────────────
+export const trainingClassesAPI = {
+    getUpcoming: () => apiFetch('/training-classes'),
+    getMyClasses: () => apiFetch('/training-classes/my-classes'),
+    bookClass: (id) => apiFetch(`/training-classes/${id}/book`, { method: 'POST' }),
+    confirmAttendance: (id) => apiFetch(`/training-classes/${id}/confirm`, { method: 'PUT' }),
 };
 
 export default apiFetch;

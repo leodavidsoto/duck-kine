@@ -106,6 +106,13 @@ enum EnrollmentStatus {
   EXPIRED
 }
 
+enum ClassBookingStatus {
+  BOOKED
+  CONFIRMED
+  CANCELLED
+  ATTENDED
+}
+
 enum SubscriptionPlan {
   BASIC
   STANDARD
@@ -281,6 +288,7 @@ model Patient {
   functionalTests    FunctionalTest[]
   painRecords        PainRecord[]
   treatmentGoals     TreatmentGoal[]
+  classBookings      ClassBooking[]
 
   @@index([userId])
 }
@@ -309,6 +317,7 @@ model Professional {
   schedules       Schedule[]
   physicalAssessments PhysicalAssessment[]
   clinics         ClinicProfessional[]      // Multi-sede
+  trainingClasses TrainingClass[]           // Boxmagic-style training classes
 
   @@index([userId])
 }
@@ -677,6 +686,45 @@ model SportsProgramEnrollment {
 
   @@index([patientId])
   @@index([programId])
+  @@index([status])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  11.5 TRAINING CLASSES (Boxmagic/Crosshero style)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model TrainingClass {
+  id              String   @id @default(uuid())
+  title           String   // e.g. "Entrenamiento Funcional"
+  description     String?  @db.Text // WOD or routine
+  startTime       DateTime
+  endTime         DateTime
+  capacity        Int      @default(15) // Maximum number of attendees
+  trainerId       String?  // Relation to Professional
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  trainer         Professional?  @relation(fields: [trainerId], references: [id])
+  bookings        ClassBooking[]
+
+  @@index([startTime])
+  @@index([trainerId])
+}
+
+model ClassBooking {
+  id              String             @id @default(uuid())
+  classId         String
+  patientId       String
+  status          ClassBookingStatus @default(BOOKED)
+
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  trainingClass   TrainingClass      @relation(fields: [classId], references: [id], onDelete: Cascade)
+  patient         Patient            @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@unique([classId, patientId])
+  @@index([patientId])
   @@index([status])
 }
 

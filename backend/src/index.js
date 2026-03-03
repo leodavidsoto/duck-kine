@@ -24,6 +24,7 @@ const franchiseRoutes = require('./routes/franchise.routes');
 const professionalsRoutes = require('./routes/professionals.routes');
 const servicesRoutes = require('./routes/services.routes');
 const adminRoutes = require('./routes/admin.routes');
+const trainingClassesRoutes = require('./routes/trainingClasses.routes');
 
 // ─── Express App ────────────────────────────────────────
 const app = express();
@@ -68,6 +69,7 @@ app.use('/api/franchise', franchiseRoutes);
 app.use('/api/professionals', professionalsRoutes);
 app.use('/api/services', servicesRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/training-classes', trainingClassesRoutes);
 
 // ─── 404 Handler ────────────────────────────────────────
 app.use((req, res) => {
@@ -96,7 +98,7 @@ io.use((socket, next) => {
 io.on('connection', (socket) => {
     socket.join(`user:${socket.userId}`);
 
-    socket.on('disconnect', () => {});
+    socket.on('disconnect', () => { });
 });
 
 // Make io accessible to routes

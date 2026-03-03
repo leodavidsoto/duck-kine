@@ -25,7 +25,19 @@ const update = async (req, res, next) => {
 const getByPatient = async (req, res, next) => {
     try {
         const { page, limit } = req.query;
-        const result = await clinicalRecordsService.getByPatient(req.params.patientId, { page: Number(page), limit: Number(limit) });
+        let { patientId } = req.params;
+
+        // Resolve 'me' to the actual patient ID
+        if (patientId === 'me') {
+            const prisma = require('../config/database');
+            const patient = await prisma.patient.findUnique({ where: { userId: req.user.id } });
+            if (!patient) return res.status(404).json({ error: 'Perfil de paciente no encontrado' });
+            patientId = patient.id;
+        }
+
+        const safePage = parseInt(page) || 1;
+        const safeLimit = parseInt(limit) || 10;
+        const result = await clinicalRecordsService.getByPatient(patientId, { page: safePage, limit: safeLimit });
         res.json(result);
     } catch (error) { next(error); }
 };

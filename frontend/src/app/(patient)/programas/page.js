@@ -43,7 +43,6 @@ export default function ProgramasPage() {
         CHRONIC_PAIN: 'Dolor crónico', RETURN_TO_SPORT: 'Retorno deportivo',
     };
 
-    const fmtMoney = (v) => `$${Number(v || 0).toLocaleString('es-CL')}`;
 
     return (
         <>
@@ -102,12 +101,9 @@ export default function ProgramasPage() {
                         </div>
 
                         <div style={{
-                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                             borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-4)',
+                            textAlign: 'right',
                         }}>
-                            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.125rem', color: 'var(--primary-600)' }}>
-                                {fmtMoney(prog.price)}
-                            </span>
                             <button className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}>
                                 Inscribirme
                             </button>

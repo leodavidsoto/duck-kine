@@ -27,12 +27,14 @@ class ClinicalRecordsService {
     }
 
     async getByPatient(patientId, { page = 1, limit = 10 }) {
-        const skip = (page - 1) * limit;
+        const safePage = parseInt(page) || 1;
+        const safeLimit = parseInt(limit) || 10;
+        const skip = (safePage - 1) * safeLimit;
         const [records, total] = await Promise.all([
             prisma.clinicalRecord.findMany({
                 where: { patientId },
                 skip,
-                take: limit,
+                take: safeLimit,
                 orderBy: { createdAt: 'desc' },
                 include: {
                     professional: { include: { user: { select: { firstName: true, lastName: true } } } },
@@ -40,7 +42,7 @@ class ClinicalRecordsService {
             }),
             prisma.clinicalRecord.count({ where: { patientId } }),
         ]);
-        return { records, total, page, totalPages: Math.ceil(total / limit) };
+        return { records, total, page: safePage, totalPages: Math.ceil(total / safeLimit) };
     }
 }
 

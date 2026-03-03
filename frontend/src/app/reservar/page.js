@@ -105,17 +105,32 @@ export default function ReservarPage() {
                 startTime: selectedSlot.startTime,
             });
 
-            // 2. Initiate Payment (Simulated for this flow)
-            const payment = await paymentsAPI.init({
+            // 2. Initiate Payment via Webpay Plus
+            const response = await paymentsAPI.init({
                 appointmentId: apt.id,
                 amount: selectedService.price,
-                returnUrl: `${window.location.origin}/checkout/exito`,
+                method: 'WEBPAY'
             });
 
-            if (payment.url) {
-                window.location.href = payment.url;
+            if (response.webpay && response.webpay.url) {
+                // Create a hidden form to auto-submit POST request to Webpay
+                const form = document.createElement('form');
+                form.action = response.webpay.url;
+                form.method = 'POST';
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'token_ws';
+                input.value = response.webpay.token;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            } else if (response.payment) {
+                // Fallback direct success (e.g. 100% discount or other methods)
+                router.push(`/checkout/exito?payment_id=${response.payment.id}&status=success`);
             } else {
-                router.push(`/checkout/exito?payment_id=${payment.id}`);
+                throw new Error('Error al inicializar el pago');
             }
 
         } catch (err) {

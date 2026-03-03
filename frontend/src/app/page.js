@@ -42,19 +42,20 @@ export default function HomePage() {
                   <nav className="navbar p-0">
                     <div className="navbar-logo">
                       <a href="#inicio">
-                        <img src="/assets/images/logo.png" alt="Duck Kinesiología" className="logo-ch" />
+                        <img src="/assets/images/logo.png" alt="Duck Kinesiología" className="logo-ch" style={{ width: '90px', height: 'auto' }} />
                       </a>
                     </div>
                     <div className="navbar__menu-wrapper">
                       <div className="navbar__menu d-none d-xl-block">
-                        <ul className="navbar__list">
-                          <li className="navbar__item nav-fade"><a href="#inicio">Inicio</a></li>
-                          <li className="navbar__item nav-fade"><a href="#sobre-mi">Sobre Mí</a></li>
-                          <li className="navbar__item nav-fade"><a href="#servicios">Servicios</a></li>
-                          <li className="navbar__item nav-fade"><a href="#academia">Academia</a></li>
-                          <li className="navbar__item nav-fade"><a href="#empresas">Empresas</a></li>
-                          <li className="navbar__item nav-fade"><a href="#precios">Precios</a></li>
-                          <li className="navbar__item nav-fade"><a href="#contacto">Contacto</a></li>
+                        <ul className="navbar__list" style={{ gap: '0' }}>
+                          <li className="navbar__item nav-fade"><a href="#inicio" style={{ padding: '20px 10px', fontSize: '13px' }}>Inicio</a></li>
+                          <li className="navbar__item nav-fade"><a href="#sobre-mi" style={{ padding: '20px 10px', fontSize: '13px' }}>Sobre Mí</a></li>
+                          <li className="navbar__item nav-fade"><a href="#servicios" style={{ padding: '20px 10px', fontSize: '13px' }}>Servicios</a></li>
+                          <li className="navbar__item nav-fade"><a href="#entrenamientos" style={{ padding: '20px 10px', fontSize: '13px' }}>Entrenamientos</a></li>
+                          <li className="navbar__item nav-fade"><a href="#academia" style={{ padding: '20px 10px', fontSize: '13px' }}>Academia</a></li>
+                          <li className="navbar__item nav-fade"><a href="#empresas" style={{ padding: '20px 10px', fontSize: '13px' }}>Empresas</a></li>
+                          <li className="navbar__item nav-fade"><a href="#precios" style={{ padding: '20px 10px', fontSize: '13px' }}>Precios</a></li>
+                          <li className="navbar__item nav-fade"><a href="#contacto" style={{ padding: '20px 10px', fontSize: '13px' }}>Contacto</a></li>
                         </ul>
                       </div>
                     </div>
@@ -107,14 +108,11 @@ export default function HomePage() {
               </a>
             </div>
             <div className="mobile-menu__social social nav-fade">
-              <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram" title="Instagram">
+              <a href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
                 <i className="fa-brands fa-instagram"></i>
               </a>
-              <a href="https://wa.me/56912345678" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+              <a href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
                 <i className="fa-brands fa-whatsapp"></i>
-              </a>
-              <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn" title="LinkedIn">
-                <i className="fa-brands fa-linkedin"></i>
               </a>
             </div>
           </nav>
@@ -194,13 +192,10 @@ export default function HomePage() {
           {/* Social sidebar */}
           <div className="hero-three__social fade-left d-none d-xxl-block">
             <div className="social justify-content-center">
-              <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
+              <a href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram">
                 <i className="fa-brands fa-instagram"></i>
               </a>
-              <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn">
-                <i className="fa-brands fa-linkedin"></i>
-              </a>
-              <a href="https://wa.me/56912345678" target="_blank" aria-label="WhatsApp">
+              <a href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp">
                 <i className="fa-brands fa-whatsapp"></i>
               </a>
             </div>
@@ -606,7 +601,7 @@ export default function HomePage() {
                     </div>
                     <div className="pricing__single-cta">
                       <div className="price">
-                        <h3 className="fw-7">$XX.000 <span className="text-md fw-4">/ sesión</span></h3>
+                        <h3 className="fw-7">$20.000 <span className="text-md fw-4">/ sesión</span></h3>
                       </div>
                       <a href="/reservar" className="btn--secondary">
                         <span className="btn-animated-text" data-text="Agendar">Agendar</span>
@@ -620,7 +615,7 @@ export default function HomePage() {
                     </div>
                     <div className="pricing__single-cta">
                       <div className="price">
-                        <h3 className="fw-7">$XXX.000 <span className="text-md fw-4">/ pack</span></h3>
+                        <h3 className="fw-7">$170.000 <span className="text-md fw-4">/ pack</span></h3>
                       </div>
                       <a href="/reservar" className="btn--secondary">
                         <span className="btn-animated-text" data-text="Agendar">Agendar</span>
@@ -856,6 +851,84 @@ export default function HomePage() {
         </section>
         {/* ==== / academia section end ==== */}
 
+        {/* ==== group training section start ==== */}
+        <section className="pricing pt-160 pb-160" id="entrenamientos" style={{ background: 'var(--bg-secondary)' }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="section__header-wrapper mb-60 fade-up text-center">
+                  <span className="sub-title secondary-text text-uppercase neutral-top fw-6">ENTRENAMIENTOS GRUPALES</span>
+                  <h2 className="title-animation fw-6 mt-16">Ponte en forma con nosotros</h2>
+                  <p className="primary-text mt-16" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                    Súmate a nuestros entrenamientos presenciales. Tenemos cupos limitados por clase para asegurar atención personalizada.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="row gutter-24 justify-content-center">
+              {/* Lunes, Miercoles, Viernes */}
+              <div className="col-12 col-md-6 col-lg-5">
+                <div className="pricing__single scale-up" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div className="content">
+                    <h5 className="fw-6" style={{ color: 'var(--secondary-color)' }}>Lunes, Miércoles y Viernes</h5>
+                    <div style={{ marginTop: '24px' }}>
+                      <div style={{ marginBottom: '16px', padding: '16px', background: 'rgba(56, 189, 248, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
+                        <h6 className="fw-6 mb-2">⚡ Físico</h6>
+                        <p className="text-md primary-text m-0">
+                          <strong>Horarios:</strong> 09:00, 19:00 y 21:00 hrs.
+                        </p>
+                      </div>
+                      <div style={{ padding: '16px', background: 'rgba(56, 189, 248, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
+                        <h6 className="fw-6 mb-2">⚽ Fútbol</h6>
+                        <p className="text-md primary-text m-0">
+                          <strong>Horarios:</strong> 20:00 hrs.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pricing__single-cta mt-auto pt-40">
+                    <a href="/login" className="btn--secondary w-100 text-center">
+                      <span className="btn-animated-text" data-text="Reservar Cupo">Reservar Cupo</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Martes y Jueves */}
+              <div className="col-12 col-md-6 col-lg-5">
+                <div className="pricing__single scale-up" data-delay="200" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div className="content">
+                    <h5 className="fw-6" style={{ color: 'var(--secondary-color)' }}>Martes y Jueves</h5>
+                    <div style={{ marginTop: '24px' }}>
+                      <div style={{ padding: '16px', background: 'rgba(56, 189, 248, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
+                        <h6 className="fw-6 mb-2">🥊 Boxeo</h6>
+                        <p className="text-md primary-text m-0">
+                          <strong>Horarios:</strong> 21:00 hrs.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pricing__single-cta mt-auto pt-40">
+                    <a href="/login" className="btn--secondary w-100 text-center">
+                      <span className="btn-animated-text" data-text="Reservar Cupo">Reservar Cupo</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row mt-60 text-center fade-up">
+              <div className="col-12">
+                <p className="text-md primary-text" style={{ fontStyle: 'italic' }}>
+                  * Inicia sesión o regístrate en la plataforma para asegurar tu lugar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* ==== / group training section end ==== */}
+
         {/* ==== empresas section start ==== */}
         <section className="pricing pricing-three pt-160 scale-wrapper" id="empresas">
           <div className="container">
@@ -974,6 +1047,7 @@ export default function HomePage() {
                   <ul>
                     <li><a href="#sobre-mi">Sobre Mí</a></li>
                     <li><a href="#servicios" className="footer-nav-active">Servicios</a></li>
+                    <li><a href="#entrenamientos">Entrenamientos</a></li>
                     <li><a href="#academia">Academia</a></li>
                     <li><a href="#empresas">Empresas</a></li>
                     <li><a href="/reservar">Reservar Hora</a></li>
@@ -983,7 +1057,7 @@ export default function HomePage() {
               </div>
               <div className="col-12 col-lg-5 col-xl-5">
                 <div className="footer-two__text fade-right" data-delay="400">
-                  <h3 className="pulse-text title-xxl">CONTÁCTANOS</h3>
+                  <h3 className="pulse-text" style={{ fontSize: '1.5rem', lineHeight: '1.3' }}>CONTÁCTANOS</h3>
                 </div>
               </div>
             </div>
@@ -1000,14 +1074,11 @@ export default function HomePage() {
                 </div>
                 <div className="col-12 col-lg-4">
                   <div className="social justify-content-center">
-                    <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram" title="Instagram">
+                    <a href="https://www.instagram.com/duckkinesiologia?igsh=MXF6YXh3cHFlenc1aQ==" target="_blank" aria-label="Instagram" title="Instagram">
                       <i className="fa-brands fa-instagram"></i>
                     </a>
-                    <a href="https://wa.me/56912345678" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+                    <a href="https://wa.me/56966307642" target="_blank" aria-label="WhatsApp" title="WhatsApp">
                       <i className="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn" title="LinkedIn">
-                      <i className="fa-brands fa-linkedin"></i>
                     </a>
                   </div>
                 </div>

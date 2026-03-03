@@ -102,7 +102,7 @@ export default function AgendaPage() {
 
     const fmt = (d) => new Date(d).toLocaleDateString('es-CL', { weekday: 'short', day: 'numeric', month: 'short' });
     const fmtTime = (d) => new Date(d).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
-    const fmtMoney = (v) => `$${Number(v || 0).toLocaleString('es-CL')}`;
+
 
     const today = new Date().toISOString().split('T')[0];
     const profName = (id) => {
@@ -187,9 +187,6 @@ export default function AgendaPage() {
                                                                 {svc.description ? ` · ${svc.description}` : ''}
                                                             </div>
                                                         </div>
-                                                        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, color: 'var(--primary-600)', whiteSpace: 'nowrap' }}>
-                                                            {svc.basePrice ? fmtMoney(svc.basePrice) : '—'}
-                                                        </span>
                                                     </div>
                                                 </button>
                                             ))}

@@ -9,19 +9,22 @@ import s from '../checkout.module.css';
 function CheckoutSuccessContent() {
     const searchParams = useSearchParams();
     const paymentId = searchParams.get('payment_id');
+    const paymentStatus = searchParams.get('status');
     const [status, setStatus] = useState('loading');
 
-    // In a real scenario, this would poll or check the payment status against the backend
-    // using the paymentId. For this MVP, we simulate a successful confirmation.
     useEffect(() => {
-        if (paymentId) {
-            setTimeout(() => {
-                setStatus('success');
-            }, 1500);
+        if (paymentStatus === 'success' && paymentId) {
+            setStatus('success');
+        } else if (paymentStatus === 'aborted') {
+            setStatus('aborted');
+        } else if (paymentStatus === 'error' || paymentStatus === 'rejected') {
+            setStatus('error');
+        } else if (paymentId) {
+            setStatus('success'); // Fallback for old mock code
         } else {
             setStatus('error');
         }
-    }, [paymentId]);
+    }, [paymentId, paymentStatus]);
 
     return (
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-subtle)' }}>
@@ -64,12 +67,27 @@ function CheckoutSuccessContent() {
                         </div>
                     )}
 
+                    {status === 'aborted' && (
+                        <div className={s.stateError}>
+                            <div className={s.iconError}>⚠</div>
+                            <h1 className={s.titleError}>Pago Anulado</h1>
+                            <p className={s.descText}>
+                                El pago fue cancelado. Si deseas intentar nuevamente, puedes volver a agendar.
+                            </p>
+                            <div className={s.actionRow}>
+                                <Link href="/reservar" className="btn btn-primary btn-lg">
+                                    Volver a intentar
+                                </Link>
+                            </div>
+                        </div>
+                    )}
+
                     {status === 'error' && (
                         <div className={s.stateError}>
                             <div className={s.iconError}>✗</div>
-                            <h1 className={s.titleError}>Error en la confirmación</h1>
+                            <h1 className={s.titleError}>Pago Rechazado</h1>
                             <p className={s.descText}>
-                                No pudimos validar tu código de transacción. Si realizaste el pago y crees que esto es un error, por favor contáctanos con tu comprobante.
+                                Hubo un problema al procesar tu pago. Por favor, intenta de nuevo o contacta con tu banco.
                             </p>
                             <div className={s.actionRow}>
                                 <Link href="/reservar" className="btn btn-secondary btn-lg">

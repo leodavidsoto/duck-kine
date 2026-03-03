@@ -1,4 +1,6 @@
 const prisma = require('../config/database');
+const { WebpayPlus } = require('transbank-sdk');
+const env = require('../config/env');
 
 class PaymentsService {
     async initPayment({ patientId, appointmentId, amount, method }) {
@@ -7,13 +9,22 @@ class PaymentsService {
         });
 
         if (method === 'WEBPAY') {
-            // TODO: Integrate Transbank SDK
-            // const response = await transbank.createTransaction(...)
+            const buyOrder = `order-${payment.id}`;
+            const sessionId = `session-${patientId}`;
+            const returnUrl = `${env.BACKEND_URL}/payments/confirm`;
+
+            const createResponse = await WebpayPlus.Transaction.create(
+                buyOrder,
+                sessionId,
+                Math.round(amount),
+                returnUrl
+            );
+
             return {
                 payment,
                 webpay: {
-                    url: 'https://webpay3gint.transbank.cl/webpayserver/initTransaction',
-                    token: `mock-token-${payment.id}`,
+                    url: createResponse.url,
+                    token: createResponse.token,
                 },
             };
         }
@@ -21,13 +32,25 @@ class PaymentsService {
         return { payment };
     }
 
-    async confirmPayment(paymentId, transactionData) {
+    async confirmPayment(tokenWs) {
+        if (!tokenWs) throw new Error('Token is required');
+
+        const commitResponse = await WebpayPlus.Transaction.commit(tokenWs);
+
+        let status = 'REJECTED';
+        if (commitResponse.status === 'AUTHORIZED' && commitResponse.response_code === 0) {
+            status = 'APPROVED';
+        }
+
+        const buyOrder = commitResponse.buy_order;
+        const paymentId = buyOrder.replace('order-', '');
+
         return prisma.payment.update({
             where: { id: paymentId },
             data: {
-                status: 'APPROVED',
-                transactionId: transactionData.transactionId || null,
-                metadata: transactionData,
+                status,
+                transactionId: commitResponse.authorization_code || null,
+                metadata: commitResponse,
             },
         });
     }
