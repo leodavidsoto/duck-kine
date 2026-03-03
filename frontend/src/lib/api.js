@@ -1,7 +1,11 @@
 // In production builds (Vercel + Capacitor APK), NODE_ENV is 'production' (baked at build time)
 // Only use localhost API during local dev (npm run dev → NODE_ENV='development')
+const isBrowser = typeof window !== 'undefined';
+const isCapacitor = isBrowser && window.Capacitor !== undefined;
+
 const _isDev = process.env.NODE_ENV !== 'production'
-    && typeof window !== 'undefined'
+    && isBrowser
+    && !isCapacitor
     && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
 const API_URL = _isDev
