@@ -56,20 +56,30 @@ async function seed() {
         if (!existingSchedule) {
             const days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY'];
             for (const day of days) {
+                // Morning block: 8:30 - 13:30
                 await prisma.schedule.create({
                     data: {
                         professionalId: professional.id,
                         dayOfWeek: day,
-                        startTime: '09:00',
-                        endTime: '18:00',
-                        breakStart: '13:00',
-                        breakEnd: '14:00',
-                        slotDuration: 30,
+                        startTime: '08:30',
+                        endTime: '13:30',
+                        slotDuration: 50,
+                        isActive: true,
+                    },
+                });
+                // Afternoon block: 17:10 - 23:00
+                await prisma.schedule.create({
+                    data: {
+                        professionalId: professional.id,
+                        dayOfWeek: day,
+                        startTime: '17:10',
+                        endTime: '23:00',
+                        slotDuration: 50,
                         isActive: true,
                     },
                 });
             }
-            console.log('✅ Created schedule (Mon-Fri 09:00-18:00)');
+            console.log('✅ Created schedule (Mon-Fri 08:30-13:30 / 17:10-23:00, bloques de 50 min)');
         } else {
             console.log('✅ Schedule already exists');
         }
@@ -77,12 +87,12 @@ async function seed() {
 
     // ─── 3. Services catalog ─────────────────────────────
     const servicesData = [
-        { name: 'Evaluación Kinésica', description: 'Evaluación física completa con diagnóstico kinésico', durationMinutes: 60, price: 45000, category: 'Evaluación', isActive: true },
-        { name: 'Sesión de Kinesiología', description: 'Sesión de tratamiento kinesiológico', durationMinutes: 45, price: 35000, category: 'Kinesiología', isActive: true },
-        { name: 'Kinesiología Deportiva', description: 'Rehabilitación y rendimiento deportivo', durationMinutes: 60, price: 50000, category: 'Deportiva', isActive: true },
-        { name: 'Terapia Manual', description: 'Técnicas manuales de movilización articular y tejido blando', durationMinutes: 45, price: 40000, category: 'Terapia Manual', isActive: true },
-        { name: 'Reeducación Postural', description: 'Corrección postural y ejercicio terapéutico', durationMinutes: 45, price: 38000, category: 'Postural', isActive: true },
-        { name: 'Control de Seguimiento', description: 'Control breve post-tratamiento', durationMinutes: 30, price: 25000, category: 'Control', isActive: true },
+        { name: 'Sesion de Kinesiologia', description: 'Rehabilitacion deportiva, terapia manual, educacion postural y fisioterapia', durationMinutes: 50, price: 20000, category: 'Kinesiología', isActive: true },
+        { name: 'Pack 10 Sesiones Kinesiologia', description: 'Pack de 10 sesiones de kinesiologia con evaluacion incluida', durationMinutes: 50, price: 200000, category: 'Kinesiología', isActive: true, maxSessionsPackage: 10 },
+        { name: 'Sesion Preventiva', description: 'Masoterapia, crioterapia, presoterapia y electroterapia preventiva', durationMinutes: 50, price: 24000, category: 'Preventiva', isActive: true },
+        { name: 'Masoterapia', description: 'Masaje de relajacion, descontracturante y drenaje linfatico', durationMinutes: 50, price: 24000, category: 'Masoterapia', isActive: true },
+        { name: 'Entrenamiento Fisico', description: 'Fuerza, funcional, HIIT y GAP', durationMinutes: 50, price: 33600, category: 'Entrenamiento', isActive: true },
+        { name: 'Entrenamiento de Futbol', description: 'Fuerza, agilidad y reaccion para futbolistas', durationMinutes: 50, price: 33600, category: 'Entrenamiento', isActive: true },
     ];
 
     for (const svc of servicesData) {

@@ -25,6 +25,7 @@ const professionalsRoutes = require('./routes/professionals.routes');
 const servicesRoutes = require('./routes/services.routes');
 const adminRoutes = require('./routes/admin.routes');
 const trainingClassesRoutes = require('./routes/trainingClasses.routes');
+const whatsappRoutes = require('./routes/whatsapp.routes');
 
 // ─── Express App ────────────────────────────────────────
 const app = express();
@@ -70,6 +71,7 @@ app.use('/api/professionals', professionalsRoutes);
 app.use('/api/services', servicesRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/training-classes', trainingClassesRoutes);
+app.use('/api/whatsapp', whatsappRoutes);
 
 // ─── 404 Handler ────────────────────────────────────────
 app.use((req, res) => {

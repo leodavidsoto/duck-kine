@@ -61,6 +61,12 @@ class PatientJourneyService {
             },
         });
 
+        // WhatsApp confirmation
+        await this.sendWhatsAppNotification(
+            appointment.patient.user.phone,
+            `✅ ¡Hola ${appointment.patient.user.firstName}! Tu hora de ${appointment.service.name} con ${appointment.professional.user.firstName} ${appointment.professional.user.lastName} el ${formatDate(appointment.startTime)} a las ${formatTime(appointment.startTime)} está confirmada.\n\n📍 Duck Kinesiología\n❌ Para cancelar o reagendar, responde a este mensaje o ingresa a duckkine.cl`,
+        );
+
         return { success: true, step: 'confirmation' };
     }
 
@@ -111,6 +117,12 @@ class PatientJourneyService {
                     preparations: this.getPreparations(apt.service.category),
                 },
             });
+
+            // WhatsApp reminder
+            await this.sendWhatsAppNotification(
+                apt.patient.user.phone,
+                `🔔 ¡Hola ${apt.patient.user.firstName}! Te recordamos tu hora de ${apt.service.name} mañana a las ${formatTime(apt.startTime)} con ${apt.professional.user.firstName}.\n\n${this.getPreparations(apt.service.category)}\n\n¿Necesitas reagendar? Responde a este mensaje.`,
+            );
 
             // Mark as reminded
             await prisma.appointment.update({
@@ -348,6 +360,22 @@ class PatientJourneyService {
             activeGoals: appointment.patient.treatmentGoals,
             latestMetrics: appointment.patient.bodyMetrics[0] || null,
         };
+    }
+
+    // ─── WhatsApp Notification Helpers ─────────────────────
+    static async sendWhatsAppNotification(phone, message) {
+        if (!phone) return null;
+        try {
+            const WhatsAppService = require('./whatsapp.service');
+            // Normalize Chilean phone: +56912345678 → 56912345678
+            const waId = phone.replace(/[^0-9]/g, '');
+            if (!waId) return null;
+            await WhatsAppService.sendMessage(waId, message);
+            return { sent: true, to: waId };
+        } catch (error) {
+            console.error(`WhatsApp notification failed for ${phone}:`, error.message);
+            return { sent: false, error: error.message };
+        }
     }
 
     // ─── Helpers ───────────────────────────────────────────

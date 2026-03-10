@@ -289,6 +289,7 @@ model Patient {
   painRecords        PainRecord[]
   treatmentGoals     TreatmentGoal[]
   classBookings      ClassBooking[]
+  whatsappConversations WhatsAppConversation[]
 
   @@index([userId])
 }
@@ -1178,6 +1179,59 @@ model FranchisePayment {
 
   @@unique([licenseId, period])
   @@index([licenseId])
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  18. WHATSAPP CONVERSATIONS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+enum WhatsAppConversationStatus {
+  ACTIVE
+  CLOSED
+  BLOCKED
+}
+
+model WhatsAppConversation {
+  id              String                      @id @default(uuid())
+  waId            String                      @unique // WhatsApp phone number (e.g. "56986625344")
+  patientId       String?                     // Linked patient (null if unknown caller)
+  contactName     String?                     // Profile name from WhatsApp
+  status          WhatsAppConversationStatus  @default(ACTIVE)
+  lastMessageAt   DateTime                    @default(now())
+  context         Json?                       // AI conversation context summary
+  createdAt       DateTime                    @default(now())
+  updatedAt       DateTime                    @updatedAt
+
+  patient  Patient?            @relation(fields: [patientId], references: [id])
+  messages WhatsAppMessage[]
+
+  @@index([waId])
+  @@index([patientId])
+  @@index([lastMessageAt])
+}
+
+enum WhatsAppMessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+model WhatsAppMessage {
+  id              String                      @id @default(uuid())
+  conversationId  String
+  waMessageId     String?                     @unique // Meta's message ID
+  direction       WhatsAppMessageDirection
+  body            String                      @db.Text
+  mediaUrl        String?
+  mediaType       String?                     // image, audio, document, video
+  status          String?                     // sent, delivered, read, failed
+  aiGenerated     Boolean                     @default(false)
+  metadata        Json?
+  createdAt       DateTime                    @default(now())
+
+  conversation WhatsAppConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([createdAt])
 }
 
 /// Snapshot mensual de métricas por clínica (para dashboards y revenue share)

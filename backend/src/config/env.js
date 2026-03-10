@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 
 const env = {
     PORT: process.env.PORT || 4000,
@@ -14,6 +14,13 @@ const env = {
     EMAIL_API_KEY: process.env.EMAIL_API_KEY,
     EMAIL_FROM: process.env.EMAIL_FROM || 'no-reply@duckkinesiologia.cl',
     EXTRA_CORS_ORIGINS: process.env.EXTRA_CORS_ORIGINS || '',
+    // WhatsApp
+    WHATSAPP_PHONE_NUMBER_ID: process.env.WHATSAPP_PHONE_NUMBER_ID,
+    WHATSAPP_ACCESS_TOKEN: process.env.WHATSAPP_ACCESS_TOKEN,
+    WHATSAPP_VERIFY_TOKEN: process.env.WHATSAPP_VERIFY_TOKEN || 'duckkine-verify',
+    WHATSAPP_APP_SECRET: process.env.WHATSAPP_APP_SECRET,
+    // Claude AI
+    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
 };
 
 module.exports = env;
