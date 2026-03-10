@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import s from '../admin.module.css';
 import { adminAPI } from '@/lib/api';
+import { useMissionControl } from '@/store/copilotStore';
 
 export default function PacientesPage() {
     const [patients, setPatients] = useState([]);
@@ -67,6 +68,14 @@ export default function PacientesPage() {
 
     // ─── Detail view ────────────────────────────
     if (selectedPatient) {
+        const { setChatPanelOpen, setActiveConversation, setChatInput } = useMissionControl();
+
+        const handleAIAnalysis = () => {
+            setChatPanelOpen(true);
+            setActiveConversation('agent_aegis'); // Default clinical agent or generic DuckBot
+            setChatInput(`Dame un resumen clínico del paciente ${selectedPatient.user.firstName} ${selectedPatient.user.lastName} (RUT: ${selectedPatient.user.rut}).`);
+        };
+
         const p = selectedPatient;
         const u = p.user;
         const initials = `${(u.firstName || '')[0] || ''}${(u.lastName || '')[0] || ''}`.toUpperCase();
@@ -86,11 +95,17 @@ export default function PacientesPage() {
 
                 <div className={s.detailHeader}>
                     <div className={s.detailAvatar}>{initials}</div>
-                    <div>
+                    <div style={{ flex: 1 }}>
                         <div className={s.detailName}>{u.firstName} {u.lastName}</div>
                         <div className={s.detailSub}>{u.rut} · {u.email} · {u.phone || 'Sin teléfono'}</div>
                         <div className={s.detailSub}>Paciente desde {fmtDate(u.createdAt)}</div>
                     </div>
+                    <button
+                        onClick={handleAIAnalysis}
+                        style={{ background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, fontSize: '0.8rem', boxShadow: '0 4px 12px rgba(16,185,129,0.3)' }}
+                    >
+                        🤖 Análizar con IA
+                    </button>
                 </div>
 
                 <div className={s.tabs}>

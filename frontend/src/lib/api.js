@@ -32,6 +32,11 @@ async function apiFetch(endpoint, options = {}) {
     const data = await response.json();
 
     if (!response.ok) {
+        // Show validation details if available
+        if (data.details && data.details.length > 0) {
+            const msgs = data.details.map(d => d.message).join('. ');
+            throw new Error(msgs);
+        }
         throw new Error(data.error || 'Error en la solicitud');
     }
 

@@ -159,28 +159,31 @@ export default function HomePage() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-12 col-md-6 col-lg-4 col-xl-3">
-                      <div className="hero-two__right fade-up" data-delay="200">
-                        <div className="hero-two__group-thumb">
-                          <div className="users">
-                            <div className="single-user">
-                              <img src="/assets/images/avatar/seven.png" alt="Paciente" />
-                            </div>
-                            <div className="single-user">
-                              <img src="/assets/images/avatar/nine.png" alt="Paciente" />
-                            </div>
-                            <div className="single-user">
-                              <img src="/assets/images/avatar/ten.png" alt="Paciente" />
-                            </div>
-                            <div className="single-user user-count">
-                              <h3 className="fw-7">
-                                <span className="odometer" data-odometer-final="500">0</span>
-                                <span className="prefix">+</span>
-                              </h3>
-                            </div>
-                          </div>
-                          <p className="primary-text text-md mt-20">Más de 500 pacientes rehabilitados.</p>
-                        </div>
+                    <div className="col-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-center justify-content-center">
+                      <div className="fade-up" data-delay="200">
+                        <Link href="/login/" className="btn-login-hero">
+                          Iniciar Sesion
+                        </Link>
+                        <style>{`
+                          .btn-login-hero {
+                            display: inline-block;
+                            padding: 18px 48px;
+                            background-color: #28a745;
+                            color: #fff !important;
+                            font-size: 18px;
+                            font-weight: 700;
+                            text-decoration: none !important;
+                            border-radius: 8px;
+                            text-align: center;
+                            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+                            cursor: pointer;
+                          }
+                          .btn-login-hero:hover {
+                            background-color: #f5c518 !important;
+                            color: #1a1a1a !important;
+                            transform: scale(1.05);
+                          }
+                        `}</style>
                       </div>
                     </div>
                   </div>
@@ -582,82 +585,125 @@ export default function HomePage() {
 
         {/* ==== pricing section start ==== */}
         <section className="pricing pricing-three pt-160 scale-wrapper" id="precios">
+          <style>{`
+            .price-old { text-decoration: line-through; color: rgba(255,255,255,0.4); font-size: 0.9rem; font-weight: 400; }
+            .price-new { color: var(--secondary-color); }
+            .price-anticipo { color: #28a745; font-size: 0.85rem; margin-top: 4px; }
+            .therapy-tag { display: inline-block; position: relative; cursor: pointer; padding: 4px 12px; margin: 4px; border-radius: 20px; font-size: 0.8rem; background: rgba(56,189,248,0.1); color: var(--secondary-color); border: 1px solid rgba(56,189,248,0.2); transition: all 0.3s ease; }
+            .therapy-tag:hover { background: var(--secondary-color); color: #fff; }
+            .therapy-tag .therapy-tooltip { visibility: hidden; opacity: 0; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 0.75rem; line-height: 1.4; width: 220px; text-align: center; z-index: 10; transition: opacity 0.3s; pointer-events: none; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+            .therapy-tag:hover .therapy-tooltip { visibility: visible; opacity: 1; }
+            .discount-badge { display: inline-block; background: #28a745; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; margin-left: 8px; }
+          `}</style>
           <div className="container">
             <div className="row">
               <div className="col-12">
                 <div className="section__header text-center mb-60 fade-up">
                   <span className="sub-title secondary-text text-uppercase neutral-top fw-6">PLANES</span>
                   <h2 className="title-animation fw-6 mt-16">Tarifas Transparentes</h2>
-                  <p className="primary-text mt-16">Planes diseñados para tu rehabilitación y bienestar, con la mejor relación calidad-precio.</p>
+                  <p className="primary-text mt-16">Todos nuestros servicios tienen <strong>20% de descuento</strong>. Con pago anticipado, <strong>10% adicional</strong>.</p>
                 </div>
               </div>
             </div>
-            <div className="row gutter-40 justify-content-center">
-              <div className="col-12 col-xl-7">
-                <div className="pricing__inner">
-                  <div className="pricing__single scale-up">
-                    <div className="content">
-                      <h5 className="fw-6">Sesión Individual</h5>
-                      <p className="primary-text text-md mt-10">Evaluación inicial incluida, 45-60 minutos de sesión con informe de evolución.</p>
-                    </div>
-                    <div className="pricing__single-cta">
-                      <div className="price">
-                        <h3 className="fw-7">$20.000 <span className="text-md fw-4">/ sesión</span></h3>
-                      </div>
-                      <Link href="/reservar/" className="btn--secondary">
-                        <span className="btn-animated-text" data-text="Agendar">Agendar</span>
-                      </Link>
+            <div className="row gutter-24 justify-content-center">
+
+              {/* 1. Sesion de Kinesiologia */}
+              <div className="col-12 col-md-6 col-lg-3">
+                <div className="pricing__single scale-up" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div className="content">
+                    <h5 className="fw-6">Sesion de Kinesiologia</h5>
+                    <p className="primary-text text-md mt-10">Rehabilitacion deportiva, terapia manual, educacion postural y fisioterapia.</p>
+                    <div className="mt-12">
+                      <span className="therapy-tag">Rehabilitacion Deportiva<span className="therapy-tooltip">Recuperacion de lesiones deportivas con tecnicas especializadas y ejercicio terapeutico.</span></span>
+                      <span className="therapy-tag">Terapia Manual<span className="therapy-tooltip">Tecnicas de movilizacion articular, masaje terapeutico y liberacion miofascial.</span></span>
+                      <span className="therapy-tag">Educacion Postural<span className="therapy-tooltip">Correccion de habitos posturales, ergonomia y ejercicios de reeducacion.</span></span>
+                      <span className="therapy-tag">Fisioterapia<span className="therapy-tooltip">Ultrasonido, electroterapia, laser y agentes fisicos para acelerar la recuperacion.</span></span>
                     </div>
                   </div>
-                  <div className="pricing__single scale-up active">
-                    <div className="content">
-                      <h5 className="fw-6">Pack 10 Sesiones <span className="badge secondary-bg text-white ms-2" style={{ fontSize: '0.75rem', padding: '4px 10px', borderRadius: '20px' }}>Más Popular</span></h5>
-                      <p className="primary-text text-md mt-10">Evaluación + Reevaluación, ahorro del 15%, informe de evolución y seguimiento por WhatsApp.</p>
+                  <div className="pricing__single-cta mt-auto pt-30">
+                    <div className="price">
+                      <span className="price-old">$25.000</span><span className="discount-badge">-20%</span>
+                      <h3 className="fw-7 price-new">$20.000 <span className="text-md fw-4">/ sesion</span></h3>
+                      <p className="price-anticipo">Pago anticipado: $18.000</p>
                     </div>
-                    <div className="pricing__single-cta">
-                      <div className="price">
-                        <h3 className="fw-7">$170.000 <span className="text-md fw-4">/ pack</span></h3>
-                      </div>
-                      <Link href="/reservar/" className="btn--secondary">
-                        <span className="btn-animated-text" data-text="Agendar">Agendar</span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-12 col-xl-5">
-                <div className="pricing__content fade-up">
-                  <div className="section__header">
-                    <h4 className="title-animation fw-6 neutral-top">¿Qué incluye cada sesión?</h4>
-                  </div>
-                  <ul className="pricing__list mt-30">
-                    <li>
-                      <span className="text-md primary-text"><i className="ph ph-check-circle"></i> Evaluación kinésica completa</span>
-                    </li>
-                    <li>
-                      <span className="text-md primary-text"><i className="ph ph-check-circle"></i> Plan de tratamiento personalizado</span>
-                    </li>
-                    <li>
-                      <span className="text-md primary-text"><i className="ph ph-check-circle"></i> Técnicas manuales especializadas</span>
-                    </li>
-                    <li>
-                      <span className="text-md primary-text"><i className="ph ph-check-circle"></i> Ejercicios terapéuticos para casa</span>
-                    </li>
-                    <li>
-                      <span className="text-md primary-text"><i className="ph ph-check-circle"></i> Informe de evolución</span>
-                    </li>
-                  </ul>
-                  <div className="mt-40">
-                    <Link href="/reservar/" className="btn-primary">
-                      <span className="btn-animated-text" data-text="Consultar">Consultar</span>
-                      <span className="btn-icon">
-                        <i className="ph ph-arrow-up-right"></i>
-                        <i className="ph ph-arrow-up-right"></i>
-                      </span>
+                    <Link href="/reservar/" className="btn--secondary mt-16">
+                      <span className="btn-animated-text" data-text="Agendar">Agendar</span>
                     </Link>
                   </div>
                 </div>
               </div>
+
+              {/* 2. Pack 10 sesiones */}
+              <div className="col-12 col-md-6 col-lg-3">
+                <div className="pricing__single scale-up active" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div className="content">
+                    <h5 className="fw-6">Pack 10 Sesiones <span className="badge secondary-bg text-white ms-2" style={{ fontSize: '0.7rem', padding: '3px 8px', borderRadius: '20px' }}>Popular</span></h5>
+                    <p className="primary-text text-md mt-10">Al pagar el pack, se agenda automaticamente tu primera sesion. Recomendamos 2 a 3 veces por semana, sin dias consecutivos.</p>
+                  </div>
+                  <div className="pricing__single-cta mt-auto pt-30">
+                    <div className="price">
+                      <span className="price-old">$250.000</span><span className="discount-badge">-20%</span>
+                      <h3 className="fw-7 price-new">$200.000 <span className="text-md fw-4">/ pack</span></h3>
+                      <p className="price-anticipo">Pago anticipado: $180.000</p>
+                    </div>
+                    <Link href="/reservar/" className="btn--secondary mt-16">
+                      <span className="btn-animated-text" data-text="Agendar">Agendar</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. Sesion Preventiva */}
+              <div className="col-12 col-md-6 col-lg-3">
+                <div className="pricing__single scale-up" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div className="content">
+                    <h5 className="fw-6">Sesion Preventiva</h5>
+                    <p className="primary-text text-md mt-10">Sesion enfocada en prevencion y bienestar con terapias complementarias.</p>
+                    <div className="mt-12">
+                      <span className="therapy-tag">Masoterapia<span className="therapy-tooltip">Masaje terapeutico para aliviar tensiones musculares y mejorar la circulacion.</span></span>
+                      <span className="therapy-tag">Crioterapia<span className="therapy-tooltip">Aplicacion de frio controlado para reducir inflamacion y dolor.</span></span>
+                      <span className="therapy-tag">Presoterapia<span className="therapy-tooltip">Compresion neumatica secuencial para mejorar circulacion y drenaje linfatico.</span></span>
+                      <span className="therapy-tag">Electroterapia<span className="therapy-tooltip">Corrientes electricas terapeuticas para alivio del dolor y estimulacion muscular.</span></span>
+                    </div>
+                  </div>
+                  <div className="pricing__single-cta mt-auto pt-30">
+                    <div className="price">
+                      <span className="price-old">$30.000</span><span className="discount-badge">-20%</span>
+                      <h3 className="fw-7 price-new">$24.000 <span className="text-md fw-4">/ sesion</span></h3>
+                      <p className="price-anticipo">Pago anticipado: $21.600</p>
+                    </div>
+                    <Link href="/reservar/" className="btn--secondary mt-16">
+                      <span className="btn-animated-text" data-text="Agendar">Agendar</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. Masoterapia */}
+              <div className="col-12 col-md-6 col-lg-3">
+                <div className="pricing__single scale-up" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div className="content">
+                    <h5 className="fw-6">Masoterapia</h5>
+                    <p className="primary-text text-md mt-10">Sesiones especializadas de masaje para relajacion y recuperacion.</p>
+                    <div className="mt-12">
+                      <span className="therapy-tag">Relajacion<span className="therapy-tooltip">Masaje suave de relajacion para reducir estres y tension acumulada.</span></span>
+                      <span className="therapy-tag">Descontracturante<span className="therapy-tooltip">Masaje profundo para liberar contracturas y nudos musculares.</span></span>
+                      <span className="therapy-tag">Drenaje Linfatico<span className="therapy-tooltip">Tecnica suave que estimula el sistema linfatico para eliminar toxinas y reducir retencion de liquidos.</span></span>
+                    </div>
+                  </div>
+                  <div className="pricing__single-cta mt-auto pt-30">
+                    <div className="price">
+                      <span className="price-old">$30.000</span><span className="discount-badge">-20%</span>
+                      <h3 className="fw-7 price-new">$24.000 <span className="text-md fw-4">/ sesion</span></h3>
+                      <p className="price-anticipo">Pago anticipado: $21.600</p>
+                    </div>
+                    <Link href="/reservar/" className="btn--secondary mt-16">
+                      <span className="btn-animated-text" data-text="Agendar">Agendar</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
@@ -868,50 +914,62 @@ export default function HomePage() {
             </div>
 
             <div className="row gutter-24 justify-content-center">
-              {/* Lunes, Miercoles, Viernes */}
+              {/* Entrenamiento Fisico */}
               <div className="col-12 col-md-6 col-lg-5">
                 <div className="pricing__single scale-up" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <div className="content">
-                    <h5 className="fw-6" style={{ color: 'var(--secondary-color)' }}>Lunes, Miércoles y Viernes</h5>
-                    <div style={{ marginTop: '24px' }}>
-                      <div style={{ marginBottom: '16px', padding: '16px', background: 'rgba(56, 189, 248, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
-                        <h6 className="fw-6 mb-2">⚡ Físico</h6>
-                        <p className="text-md primary-text m-0">
-                          <strong>Horarios:</strong> 09:00, 19:00 y 21:00 hrs.
-                        </p>
-                      </div>
-                      <div style={{ padding: '16px', background: 'rgba(56, 189, 248, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
-                        <h6 className="fw-6 mb-2">⚽ Fútbol</h6>
-                        <p className="text-md primary-text m-0">
-                          <strong>Horarios:</strong> 20:00 hrs.
-                        </p>
+                    <h5 className="fw-6" style={{ color: 'var(--secondary-color)' }}>Entrenamiento Fisico</h5>
+                    <div className="mt-12">
+                      <span className="therapy-tag">Fuerza<span className="therapy-tooltip">Entrenamiento de fuerza con pesos libres y maquinas para desarrollo muscular.</span></span>
+                      <span className="therapy-tag">Funcional<span className="therapy-tooltip">Movimientos compuestos que mejoran la coordinacion, equilibrio y rendimiento diario.</span></span>
+                      <span className="therapy-tag">HIIT<span className="therapy-tooltip">Intervalos de alta intensidad para quemar grasa y mejorar la capacidad cardiovascular.</span></span>
+                      <span className="therapy-tag">GAP<span className="therapy-tooltip">Gluteos, abdominales y piernas: trabajo focalizado en tren inferior y core.</span></span>
+                    </div>
+                    <div style={{ marginTop: '20px' }}>
+                      <div style={{ padding: '12px 16px', background: 'rgba(56,189,248,0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
+                        <p className="text-md primary-text m-0"><strong>Lun, Mie, Vie:</strong> 09:00, 19:00 y 21:00 hrs</p>
                       </div>
                     </div>
                   </div>
-                  <div className="pricing__single-cta mt-auto pt-40">
-                    <Link href="/login/" className="btn--secondary w-100 text-center">
+                  <div className="pricing__single-cta mt-auto pt-30">
+                    <div className="price">
+                      <span className="price-old">$42.000</span><span className="discount-badge">-20%</span>
+                      <h3 className="fw-7 price-new">$33.600 <span className="text-md fw-4">/ mes</span></h3>
+                      <p className="price-anticipo">Pago anticipado: $30.240</p>
+                    </div>
+                    <Link href="/login/" className="btn--secondary w-100 text-center mt-16">
                       <span className="btn-animated-text" data-text="Reservar Cupo">Reservar Cupo</span>
                     </Link>
                   </div>
                 </div>
               </div>
 
-              {/* Martes y Jueves */}
+              {/* Entrenamiento de Futbol */}
               <div className="col-12 col-md-6 col-lg-5">
                 <div className="pricing__single scale-up" data-delay="200" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <div className="content">
-                    <h5 className="fw-6" style={{ color: 'var(--secondary-color)' }}>Martes y Jueves</h5>
-                    <div style={{ marginTop: '24px' }}>
-                      <div style={{ padding: '16px', background: 'rgba(56, 189, 248, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
-                        <h6 className="fw-6 mb-2">🥊 Boxeo</h6>
-                        <p className="text-md primary-text m-0">
-                          <strong>Horarios:</strong> 21:00 hrs.
-                        </p>
+                    <h5 className="fw-6" style={{ color: 'var(--secondary-color)' }}>Entrenamiento de Futbol</h5>
+                    <div className="mt-12">
+                      <span className="therapy-tag">Fuerza<span className="therapy-tooltip">Trabajo de fuerza especifico para futbolistas: potencia de piernas y estabilidad.</span></span>
+                      <span className="therapy-tag">Agilidad<span className="therapy-tooltip">Ejercicios de cambio de direccion, coordinacion y velocidad lateral.</span></span>
+                      <span className="therapy-tag">Reaccion<span className="therapy-tooltip">Entrenamiento de reflejos y tiempo de reaccion para mejora en cancha.</span></span>
+                    </div>
+                    <div style={{ marginTop: '20px' }}>
+                      <div style={{ padding: '12px 16px', background: 'rgba(56,189,248,0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
+                        <p className="text-md primary-text m-0"><strong>Lun, Mie, Vie:</strong> 20:00 hrs</p>
+                      </div>
+                      <div style={{ padding: '12px 16px', marginTop: '8px', background: 'rgba(56,189,248,0.05)', borderRadius: '12px', borderLeft: '4px solid var(--secondary-color)' }}>
+                        <p className="text-md primary-text m-0"><strong>Mar, Jue:</strong> 21:00 hrs</p>
                       </div>
                     </div>
                   </div>
-                  <div className="pricing__single-cta mt-auto pt-40">
-                    <Link href="/login/" className="btn--secondary w-100 text-center">
+                  <div className="pricing__single-cta mt-auto pt-30">
+                    <div className="price">
+                      <span className="price-old">$42.000</span><span className="discount-badge">-20%</span>
+                      <h3 className="fw-7 price-new">$33.600 <span className="text-md fw-4">/ mes</span></h3>
+                      <p className="price-anticipo">Pago anticipado: $30.240</p>
+                    </div>
+                    <Link href="/login/" className="btn--secondary w-100 text-center mt-16">
                       <span className="btn-animated-text" data-text="Reservar Cupo">Reservar Cupo</span>
                     </Link>
                   </div>

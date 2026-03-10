@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import styles from './admin.module.css';
 import { ADMIN_ROLES } from '@/lib/constants';
+import { ChatPanel } from '@/components/copilot/chat-panel';
 
 const navItems = [
     {
@@ -17,12 +18,19 @@ const navItems = [
     {
         section: 'Clínica', items: [
             { icon: '📝', label: 'Sesiones', href: '/sesiones/' },
+            { icon: '🏋️', label: 'Entrenamientos', href: '/entrenamientos/' },
             { icon: '💰', label: 'Finanzas', href: '/finanzas/' },
+            { icon: '📹', label: 'Telekinesiología', href: '/telekinesiologia/' },
         ]
     },
     {
         section: 'Contenido', items: [
             { icon: '🏃', label: 'Programas', href: '/admin-programas/' },
+        ]
+    },
+    {
+        section: 'IA & Automatización', items: [
+            { icon: '🤖', label: 'Agentes IA', href: '/agentes/' },
         ]
     },
 ];
@@ -90,6 +98,8 @@ export default function AdminLayout({ children }) {
             <main className={styles.main}>
                 {children}
             </main>
+
+            <ChatPanel />
         </div>
     );
 }
