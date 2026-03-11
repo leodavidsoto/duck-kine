@@ -12,3 +12,6 @@ out/
 .DS_Store
 *.log
 .env.local
+.env
+.vercel/
+mission-control-kine/
