@@ -1,5 +1,5 @@
 export const APP_NAME = 'Duck Kinesiología';
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-production-1a1b7.up.railway.app/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://duckkine-backend.onrender.com/api';
 
 export const ROLES = {
     PATIENT: 'PATIENT',
