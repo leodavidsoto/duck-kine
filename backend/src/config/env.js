@@ -1,4 +1,6 @@
-require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
+// In production (Render, etc.) env vars come from the platform; locally from .env
+const dotenvPath = require('path').resolve(__dirname, '../../.env');
+try { require('dotenv').config({ path: dotenvPath }); } catch { /* no .env in production */ }
 
 const env = {
     PORT: process.env.PORT || 4000,
